@@ -1,0 +1,19 @@
+.topbar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.ps-12 {
+    padding-left: 12rem !important;
+}
+
+.rounded-6-cs {
+    border-radius: 1rem;
+}
+
+@media screen and (min-width: 992px) {
+    .wrapper {
+        padding-left: 300px;
+    }
+}
