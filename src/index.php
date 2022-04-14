@@ -1,3 +1,10 @@
+<?php 
+
+include './script/conn.php';
+$jmlhTeknik = mysqli_query($conn ,'SELECT * FROM mahasiswa WHERE fakultas = "teknik";');
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,65 +13,230 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
+    <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="./modules/Chart.min.js"></script>
 </head>
 <body>
     <header>
 
     </header>
     <main>
-        <div class="wrapper d-flex" style="width:100%; height: 100vh">
-            <div class="d-flex">
-                <div class="header-brand side-wrapper">
-                    <h1>Hello </h1>
-                    <h1>O</h1>
+        <div class="wrapper d-flex flex-column" style="width:100%;">
+            <div class="header">     
+                <div class="header-brand bg-side-wrapper">
+                    <div class="logo">
+                        <img src="./media/logo/logo.png" width="50px">
+                        <h5>Chart Converse</h1>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+                        <span class="navbar-toggler-icon">[ ]</span>
+                    </button> 
+                </div>
+
+                <div style="width: 100%">
+                    <div class="topbar">
+                        <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
+                            <div class="page-title d-flex flex-column me-5">
+                                <h1 class="fs-5 mb-0 text-dark my-3">Hello</h1>
+                                <ul class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                </ul>
+                            </div>
+                            <div class="d-flex align-items-center overflow-auto me-5">
+                                <form action="" class="mx-3">
+                                    <span class="position-absolute ms-2 mt-1">
+                                        <img src="./media/icon/search.svg" alt="" srcset="">
+                                    </span>
+                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
+                                </form>
+                                
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
+                                    <a href="">
+                                        <img src="./media/icon/square.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
+                                    <a href="">
+                                        <img src="./media/icon/message.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
+                                    <a href="" class="text-decoration-none light fw-bold" style="color: white;">
+                                        2
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="d-flex flex-column header" style="width: 100%">
-                <div class="topbar">
-                <div class="container-fluid h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
-                    <div class="page-title d-flex flex-column me-5">
-                        <h1 class="fs-5 mb-0 text-dark my-3">Hello</h1>
-                        <ul class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Library</li>
-                        </ul>
+            <div class="container-fluid content mt-5">
+                <div class="row align-items-center justify-content-between">
+                    <div class="col-xl-5 d-flex flex-column">
+                        <h5>Grafik 1</h5>
+                        <canvas id="myChart"></canvas>
                     </div>
-                    <div class="d-flex align-items-center overflow-auto me-5">
-                        <form action="" class="mx-3">
-                            <span class="position-absolute ms-2 mt-1">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mh-50px"><path d="M21.7 18.9L18.6 15.8C17.9 16.9 16.9 17.9 15.8 18.6L18.9 21.7C19.3 22.1 19.9 22.1 20.3 21.7L21.7 20.3C22.1 19.9 22.1 19.3 21.7 18.9Z" fill="black"></path><path opacity="0.3" d="M11 20C6 20 2 16 2 11C2 6 6 2 11 2C16 2 20 6 20 11C20 16 16 20 11 20ZM11 4C7.1 4 4 7.1 4 11C4 14.9 7.1 18 11 18C14.9 18 18 14.9 18 11C18 7.1 14.9 4 11 4ZM8 11C8 9.3 9.3 8 11 8C11.6 8 12 7.6 12 7C12 6.4 11.6 6 11 6C8.2 6 6 8.2 6 11C6 11.6 6.4 12 7 12C7.6 12 8 11.6 8 11Z" fill="black"></path></svg>
-                            </span>
-                            <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
-                        </form>
-                        
-                        <div class="d-flex align-center btn btn-outline-light rounded-6-cs me-2">
-                            <a href="">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mh-50px"><rect x="2" y="2" width="9" height="9" rx="2" fill="black"></rect><rect opacity="0.3" x="13" y="2" width="9" height="9" rx="2" fill="black"></rect><rect opacity="0.3" x="13" y="13" width="9" height="9" rx="2" fill="black"></rect><rect opacity="0.3" x="2" y="13" width="9" height="9" rx="2" fill="black"></rect></svg>
-                            </a>
-                        </div>
-                        <div class="d-flex align-center btn btn-outline-light rounded-6-cs me-2" id="button">
-                            <a href="">
-                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mh-50px"><path opacity="0.3" d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z" fill="black"></path><rect x="6" y="12" width="7" height="2" rx="1" fill="black"></rect><rect x="6" y="7" width="12" height="2" rx="1" fill="black"></rect></svg>
-                            </a>
-                        </div>
-                        <div class="d-flex align-center btn btn-outline-light rounded-6-cs me-2 bg-info">
-                            <a href="" class="text-decoration-none light fw-bold" style="color: white;">
-                                2
-                            </a>
-                        </div>
+                    <div class="col-xl-5">
+                        <h5>Grafik 2</h5>
+                        <canvas id="myChart"></canvas>
                     </div>
-                </div>
+                    <div class="col-xl-5">
+                        <h5>Grafik 2</h5>
+                        <canvas id="myChart"></canvas>
+                    </div>
+                    <div class="col-xl-5">
+                        <h5>Grafik 2</h5>
+                        <canvas id="myChart"></canvas>
+                    </div>
                 </div>
             </div>
         </div>
+        
+        <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
+            <div class="aside-menu">
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link active-menu" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <p>Dashboard</p>
+                        <p>></p>
+                    </div>
+
+                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
+                        <a href="default.html" class="text-decoration-none">
+                            <div class="menu-item">
+                                Default
+                            </div>
+                        </a>
+                        <a href="default.html" class="text-decoration-none">
+                            <div class="menu-item">
+                                E-Comernce
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+                <div class="my-2 py-2 px-2" id="item-side">
+                    <div class="menu-link">
+                        <p>Chart</p>
+                        <p>></p>
+                    </div>
+                </div>
+            </div>
+            <div class="aside-footer ">
+                <div class="d-flex align-items-sm-center justify-content-center">
+                    <div class="img-user me-3">
+                        <img src="./media/logo/android.svg" alt="" width="40px" height="40px">
+                    </div>
+                    <div class="d-flex flex-column" id="user">
+                        <h5 class="m-0">Asep Wijaya</h5>
+                        <p class="m-0 fs-6">Software Engineer</h5>
+                    </div>
+                    <div class="logout">
+                        <button class="btn btn-icon btn-active-color-primary me-n4">
+                            <span class="svg-icon svg-icon-2 svg-icon-gray-400">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="mh-50px"><rect opacity="0.3" width="12" height="2" rx="1" transform="matrix(-1 0 0 1 15.5 11)" fill="black"></rect><path d="M13.6313 11.6927L11.8756 10.2297C11.4054 9.83785 11.3732 9.12683 11.806 8.69401C12.1957 8.3043 12.8216 8.28591 13.2336 8.65206L16.1592 11.2526C16.6067 11.6504 16.6067 12.3496 16.1592 12.7474L13.2336 15.3479C12.8216 15.7141 12.1957 15.6957 11.806 15.306C11.3732 14.8732 11.4054 14.1621 11.8756 13.7703L13.6313 12.3073C13.8232 12.1474 13.8232 11.8526 13.6313 11.6927Z" fill="black"></path><path d="M8 5V6C8 6.55228 8.44772 7 9 7C9.55228 7 10 6.55228 10 6C10 5.44772 10.4477 5 11 5H18C18.5523 5 19 5.44772 19 6V18C19 18.5523 18.5523 19 18 19H11C10.4477 19 10 18.5523 10 18C10 17.4477 9.55228 17 9 17C8.44772 17 8 17.4477 8 18V19C8 20.1046 8.89543 21 10 21H19C20.1046 21 21 20.1046 21 19V5C21 3.89543 20.1046 3 19 3H10C8.89543 3 8 3.89543 8 5Z" fill="#C4C4C4"></path></svg>
+                            </span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>  
     </main>
     <footer>
 
-    </footer>
+    </footer> 
+    <script src="./script/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+	<script>
+		let myCharts = document.querySelectorAll("#myChart");
+        myCharts.forEach(element => {
+            let ctx = element.getContext('2d');
+            let myChart = new Chart(ctx, {
+			type: 'bar',
+			data: {
+				labels: ["Teknik", "Fisip", "Ekonomi", "Pertanian"],
+				datasets: [{
+					label: 'Data Mahasiswa',
+					data: [
+                        <?php 
+                            $jumlah_teknik = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='teknik'");
+                            echo mysqli_num_rows($jumlah_teknik);
+                        ?>, 
+                        <?php 
+                            $jumlah_ekonomi = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='ekonomi'");
+                            echo mysqli_num_rows($jumlah_ekonomi);
+                        ?>, 
+                        <?php 
+                            $jumlah_fisip = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='fisip'");
+                            echo mysqli_num_rows($jumlah_fisip);
+                        ?>, 
+                        <?php 
+                            $jumlah_pertanian = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='pertanian'");
+                            echo mysqli_num_rows($jumlah_pertanian);
+                        ?>
+					],
+					backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+					],
+					borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+					],
+					borderWidth: 1
+				}]
+			},
+			options: {
+				scales: {
+					yAxes: [{
+						ticks: {
+							beginAtZero:true
+						}
+					}]
+				}
+			}
+		    });    
+        });
+		
+	</script>
 </body>
 </html>
