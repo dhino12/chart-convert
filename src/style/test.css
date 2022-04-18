@@ -1,0 +1,29 @@
+/* content */
+
+.content {
+    padding-left: 6vh !important;
+    padding-right: 6vh !important;
+}
+
+#wrapper-canvas #header-canvas {
+    text-align: center;
+    background-color: #4fcada65;
+    padding: 10px;
+}
+
+#wrapper-canvas {
+    margin-bottom: 5vh;
+    transition: 0.5s ease;
+}
+
+#header-canvas {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    margin-bottom: 2vh;
+}
+
+#header-canvas .icon {
+    display: flex;
+}
+
+/* end content */
