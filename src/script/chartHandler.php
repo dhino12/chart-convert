@@ -1,20 +1,48 @@
 <?php 
 
-include 'queryHandler.php';
+include 'functions.php';
 
-$jumlah_teknik = mysqli_query($conn,'SELECT * FROM mahasiswa WHERE fakultas="teknik"');
-$jumlah_ekonomi = mysqli_query($conn,"SELECT * FROM mahasiswa WHERE fakultas='ekonomi'");
-$jumlah_fisip = mysqli_query($conn,"SELECT * FROM mahasiswa WHERE fakultas='fisip'");
-$jumlah_pertanian = mysqli_query($conn,"SELECT * FROM mahasiswa WHERE fakultas='pertanian'");
+$jumlah_teknik = query('SELECT * FROM mahasiswa WHERE fakultas="teknik"');
+$jumlah_ekonomi = query("SELECT * FROM mahasiswa WHERE fakultas='ekonomi'");
+$jumlah_fisip = query("SELECT * FROM mahasiswa WHERE fakultas='fisip'");
+$jumlah_pertanian = query("SELECT * FROM mahasiswa WHERE fakultas='pertanian'");
 
-$data = query('SHOW TABLES;');
-var_dump($data);
+$tables = query('SHOW TABLES;');
+
 ?>
 
 <script>
-    var ctx = document.getElementById('myChart1').getContext('2d');
-    console.log(ctx);
-    var myChart = new Chart(ctx, {
+     
+    const grafikCanvas = document.querySelector('#canvas-grafik');
+    let wrapperCanvas, canvas, title;
+    
+    /** 
+     * menulis canvas berdasarkan data table dynamic dari database 
+     * */
+    /** 
+    <?php foreach ($tables as $key => $table) : ?>
+        
+        wrapperCanvas = document.createElement('div');
+        canvas = document.createElement('canvas');
+        title = document.createElement('h5'); 
+        wrapperCanvas.setAttribute('class', 'col-xl-5 d-flex flex-column');
+
+        title.innerText = "Grafik <?= $key+1 ?>";
+        canvas.setAttribute('id', 'myChart<?= $key+1 ?>');
+        wrapperCanvas.appendChild(title);
+        wrapperCanvas.appendChild(canvas);
+        grafikCanvas.appendChild(wrapperCanvas);
+
+        console.log(`data <?= $key ?>`);
+
+    <?php endforeach; ?>
+    */
+
+    /** 
+     * Chart
+     */
+    const ctx = document.getElementById('myChart1').getContext('2d');
+    const myChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: ['Teknik', 'Fisip', 'Ekonomi', 'Pertanian'],
@@ -22,10 +50,10 @@ var_dump($data);
                 label: 'Data Mahasiswa',
                 borderRadius: [11,11,11,11],
                 data: [ 
-                        <?= mysqli_num_rows($jumlah_teknik); ?>,
-                        <?= mysqli_num_rows($jumlah_ekonomi); ?>,
-                        <?= mysqli_num_rows($jumlah_fisip); ?>,
-                        <?= mysqli_num_rows($jumlah_pertanian); ?>,
+                        <?= count($jumlah_teknik); ?>,
+                        <?= count($jumlah_ekonomi); ?>,
+                        <?= count($jumlah_fisip); ?>,
+                        <?= count($jumlah_pertanian); ?>,
                 ],
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
