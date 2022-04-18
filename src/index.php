@@ -1,10 +1,3 @@
-<?php 
-
-include './script/conn.php';
-$jmlhTeknik = mysqli_query($conn ,'SELECT * FROM mahasiswa WHERE fakultas = "teknik";');
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,7 +11,8 @@ $jmlhTeknik = mysqli_query($conn ,'SELECT * FROM mahasiswa WHERE fakultas = "tek
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-    <script src="./modules/Chart.min.js"></script>
+    <script src="./modules/Chart-3.7.1.min.js"></script>
+    <script src="./modules/chartjs-plugin-datalabels.min.js"></script>
 </head>
 <body>
     <header>
@@ -80,19 +74,19 @@ $jmlhTeknik = mysqli_query($conn ,'SELECT * FROM mahasiswa WHERE fakultas = "tek
                 <div class="row align-items-center justify-content-between">
                     <div class="col-xl-5 d-flex flex-column">
                         <h5>Grafik 1</h5>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart1"></canvas>
                     </div>
                     <div class="col-xl-5">
                         <h5>Grafik 2</h5>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart2"></canvas>
                     </div>
                     <div class="col-xl-5">
                         <h5>Grafik 2</h5>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart3"></canvas>
                     </div>
                     <div class="col-xl-5">
                         <h5>Grafik 2</h5>
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart4"></canvas>
                     </div>
                 </div>
             </div>
@@ -179,64 +173,14 @@ $jmlhTeknik = mysqli_query($conn ,'SELECT * FROM mahasiswa WHERE fakultas = "tek
     <footer>
 
     </footer> 
-    <script src="./script/index.js"></script>
+    <script src="./modules/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
-	<script>
-		let myCharts = document.querySelectorAll("#myChart");
-        myCharts.forEach(element => {
-            let ctx = element.getContext('2d');
-            let myChart = new Chart(ctx, {
-			type: 'bar',
-			data: {
-				labels: ["Teknik", "Fisip", "Ekonomi", "Pertanian"],
-				datasets: [{
-					label: 'Data Mahasiswa',
-					data: [
-                        <?php 
-                            $jumlah_teknik = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='teknik'");
-                            echo mysqli_num_rows($jumlah_teknik);
-                        ?>, 
-                        <?php 
-                            $jumlah_ekonomi = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='ekonomi'");
-                            echo mysqli_num_rows($jumlah_ekonomi);
-                        ?>, 
-                        <?php 
-                            $jumlah_fisip = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='fisip'");
-                            echo mysqli_num_rows($jumlah_fisip);
-                        ?>, 
-                        <?php 
-                            $jumlah_pertanian = mysqli_query($conn, "SELECT * FROM mahasiswa WHERE fakultas='pertanian'");
-                            echo mysqli_num_rows($jumlah_pertanian);
-                        ?>
-					],
-					backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
-					],
-					borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
-					],
-					borderWidth: 1
-				}]
-			},
-			options: {
-				scales: {
-					yAxes: [{
-						ticks: {
-							beginAtZero:true
-						}
-					}]
-				}
-			}
-		    });    
-        });
-		
-	</script>
+    <?php 
+    
+    include('./script/chartHandler.php');
+    
+    ?>
+	
 </body>
 </html>
