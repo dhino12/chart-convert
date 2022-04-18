@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/test.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -35,10 +36,10 @@
                     <div class="topbar">
                         <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
                             <div class="page-title d-flex flex-column me-5">
-                                <h1 class="fs-5 mb-0 text-dark my-3">Hello</h1>
+                                <h1 class="fs-5 mb-0 text-dark my-3">Dashboard</h1>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Library</li>
+                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Dashboard</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Default</li>
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
@@ -71,23 +72,80 @@
             </div>
 
             <div class="container-fluid content mt-5">
-                <div class="row align-items-center justify-content-between">
-                    <div class="col-xl-5 d-flex flex-column">
-                        <h5>Grafik 1</h5>
+                <div class="d-flex mb-3">
+                    <button type="button" class="btn btn-outline-primary">Import Excel</button>
+                </div>
+                <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
+                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
+                        <div class="d-flex justify-content-between" id="header-canvas">
+                            <h5 class="w-100 pt-1 text-center">Grafik 1</h5>
+                            <div class="icon">
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
+                                    <a href="">
+                                        <img src="./media/icon/edit.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch"> 
+                                    <img src="./media/icon/stratch.svg" alt="" srcset=""> 
+                                </div>
+                            </div>
+                        </div>
                         <canvas id="myChart1"></canvas>
-                    </div>
-                    <div class="col-xl-5">
-                        <h5>Grafik 2</h5>
+                    </div> 
+                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
+                        <div class="d-flex justify-content-between" id="header-canvas">
+                            <h5 class="w-100 pt-1 text-center">Grafik 2</h5>
+                            <div class="icon">
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-edit">
+                                    <a href="">
+                                        <img src="./media/icon/edit.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
+                                    <a href="">
+                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <canvas id="myChart2"></canvas>
                     </div>
-                    <div class="col-xl-5">
-                        <h5>Grafik 2</h5>
+                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
+                        <div class="d-flex justify-content-between" id="header-canvas">
+                            <h5 class="w-100 pt-1 text-center">Grafik 3</h5>
+                            <div class="icon">
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
+                                    <a href="">
+                                        <img src="./media/icon/edit.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
+                                    <a href="">
+                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <canvas id="myChart3"></canvas>
-                    </div>
-                    <div class="col-xl-5">
-                        <h5>Grafik 2</h5>
+                    </div> 
+                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
+                        <div class="d-flex justify-content-between" id="header-canvas">
+                            <h5 class="w-100 pt-1 text-center">Grafik 4</h5>
+                            <div class="icon">
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
+                                    <a href="">
+                                        <img src="./media/icon/edit.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
+                                    <a href="">
+                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
                         <canvas id="myChart4"></canvas>
-                    </div>
+                    </div> 
                 </div>
             </div>
         </div>
@@ -176,11 +234,6 @@
     <script src="./modules/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
-    <?php 
-    
-    include('./script/chartHandler.php');
-    
-    ?>
-	
+	<?php include './script/chartHandler.php' ?>
 </body>
 </html>
