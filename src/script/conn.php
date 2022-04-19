@@ -1,3 +1,4 @@
 <?php
 
-    $conn = mysqli_connect('localhost', 'root', '', 'grafik_mahasiswa');
+    $conn = mysqli_connect('localhost', 'root', '', 'chart_convert');
+    
