@@ -4,6 +4,7 @@ const formInput = document.querySelector('#form-input');
 function crTable(idForm) {
     const createTable = document.createElement('table');
     const createThead = document.createElement('thead');
+    const createTbody = document.createElement('tbody');
     const createTr = document.createElement('tr'); 
     const createTr2 = document.createElement('tr'); 
     const createTr3 = document.createElement('tr'); 
@@ -19,7 +20,7 @@ function crTable(idForm) {
     const createInput3 = document.createElement('input');
     const createInput4 = document.createElement('input');
     
-    createTable.className = 'table table-bordered table-striped table-hover';
+    createTable.className = 'table table-bordered table-striped table-hover mt-2';
     createInput1.className = 'form-control border-0';
     createInput1.placeholder = 'Masukan Data';
     createInput1.type = 'text';
@@ -52,7 +53,8 @@ function crTable(idForm) {
     createTd2.appendChild(createInput4)
     createTr2.appendChild(createTd1)
     createTr2.appendChild(createTd2)
-    createTable.appendChild(createTr2) 
+    createTbody.appendChild(createTr2)
+    createTable.appendChild(createTbody) 
     formInput.appendChild(createTable)
 }
 
