@@ -16,9 +16,7 @@
     <script src="./modules/chartjs-plugin-datalabels.min.js"></script>
 </head>
 <body>
-    <header>
-
-    </header>
+    <header></header>
     <main>
         <div class="wrapper d-flex flex-column" style="width:100%;">
             <div class="header">     
