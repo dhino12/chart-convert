@@ -47,6 +47,9 @@ $tables = query('SHOW TABLES;', true);
                     'rgba(255, 206, 86, 1)',
                     'rgba(75, 192, 192, 1)'
                 ],
+                pointStyle: 'circle',
+                pointRadius: 7,
+                pointHoverRadius: 5,
                 borderWidth: 1,
                 borderSkipped: false,
             }]
