@@ -1,60 +1,40 @@
 <?php 
-
 include 'functions.php';
 
-$jumlah_teknik = query('SELECT * FROM mahasiswa WHERE fakultas="teknik"');
-$jumlah_ekonomi = query("SELECT * FROM mahasiswa WHERE fakultas='ekonomi'");
-$jumlah_fisip = query("SELECT * FROM mahasiswa WHERE fakultas='fisip'");
-$jumlah_pertanian = query("SELECT * FROM mahasiswa WHERE fakultas='pertanian'");
+$dataPertEkonomi = query("SELECT `Pertumbuhan Ekonomi (%)` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
+$dataEkoNas = query("SELECT `Ekonomi Nasional` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
 
-$tables = query('SHOW TABLES;');
+var_dump($dataEkoNas);
 
+$tables = query('SHOW TABLES;', true);
 ?>
 
 <script>
-     
+    const ctx = document.querySelector('#myChart1').getContext('2d');
     const grafikCanvas = document.querySelector('#canvas-grafik');
     let wrapperCanvas, canvas, title;
     
-    /** 
-     * menulis canvas berdasarkan data table dynamic dari database 
-     * */
-    /** 
-    <?php foreach ($tables as $key => $table) : ?>
-        
-        wrapperCanvas = document.createElement('div');
-        canvas = document.createElement('canvas');
-        title = document.createElement('h5'); 
-        wrapperCanvas.setAttribute('class', 'col-xl-5 d-flex flex-column');
+    const datasPertEkoNas = [];
+    const datasEkoNas = [];
+    <?php foreach($dataPertEkonomi as $key => $value) : ?>
+        datasPertEkoNas.push(<?= round($value, 2) ?>)
+    <?php endforeach ; ?>
 
-        title.innerText = "Grafik <?= $key+1 ?>";
-        canvas.setAttribute('id', 'myChart<?= $key+1 ?>');
-        wrapperCanvas.appendChild(title);
-        wrapperCanvas.appendChild(canvas);
-        grafikCanvas.appendChild(wrapperCanvas);
-
-        console.log(`data <?= $key ?>`);
-
-    <?php endforeach; ?>
-    */
-
+    <?php foreach($dataEkoNas as $key => $value) : ?>
+        datasEkoNas.push("<?= $value ?>")
+    <?php endforeach ; ?>
+    
     /** 
      * Chart
      */
-    const ctx = document.getElementById('myChart1').getContext('2d');
     const myChart = new Chart(ctx, {
-        type: 'bar',
+        type: 'line',
         data: {
-            labels: ['Teknik', 'Fisip', 'Ekonomi', 'Pertanian'],
+            labels: datasEkoNas,
             datasets: [{
-                label: 'Data Mahasiswa',
+                label: 'Pertumbuhan Ekonomi (%)',
                 borderRadius: [11,11,11,11],
-                data: [ 
-                        <?= count($jumlah_teknik); ?>,
-                        <?= count($jumlah_ekonomi); ?>,
-                        <?= count($jumlah_fisip); ?>,
-                        <?= count($jumlah_pertanian); ?>,
-                ],
+                data: datasPertEkoNas,
                 backgroundColor: [
                     'rgba(255, 99, 132, 0.2)',
                     'rgba(54, 162, 235, 0.2)',
