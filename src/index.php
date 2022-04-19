@@ -71,8 +71,10 @@
 
             <div class="container-fluid content mt-5">
                 <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-outline-primary">Import Excel</button>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Import Excel</button>
+                    <?php include 'modal.php' ?>
                 </div>
+                
                 <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
                     <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
                         <div class="d-flex justify-content-between" id="header-canvas">
@@ -169,12 +171,13 @@
                         </a>
                     </div>
                 </div>
-                <div class="my-2 py-2 px-2" id="item-side">
-                    <div class="menu-link">
-                        <p>Chart</p>
-                        <p>></p>
+                <a href="tambah.php">
+                    <div class="my-2 py-2 px-2" id="item-side">
+                        <div class="menu-link">
+                            <p>Insert Data</p>
+                        </div>
                     </div>
-                </div>
+                </a>
                 <div class="my-2 py-2 px-2" id="item-side">
                     <div class="menu-link">
                         <p>Chart</p>
