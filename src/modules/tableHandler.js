@@ -23,10 +23,18 @@ function crTable(){
     createTable.className = 'table table-bordered table-striped table-hover';
     const createThead = document.createElement('thead');
     const createTbody = document.createElement('tbody');
-    const crInputTitle = document.createElement('input');        
+    const crInputTitle = document.createElement('input');
+    const crButtonSubmit = document.createElement('button');
+    crButtonSubmit.type = 'submit'
+    crButtonSubmit.name = 'submit'
+    crButtonSubmit.innerText = 'Submit'
+    crButtonSubmit.className = 'btn btn-outline-primary';
 
     for (let row = 1; row <= valRowTotal; row++) {
         const createTr = document.createElement('tr'); 
+        const createTd = document.createElement('td');
+        createTd.innerText = row;
+        createTr.appendChild(createTd);
         console.log(`row ======= : ${row}`);
         
         for (let col = 1; col <= valColumnTotal; col++) {
@@ -47,15 +55,17 @@ function crTable(){
         else createTbody.appendChild(createTr);
     }
     crInputTitle.className = 'form-control border-0 my-2';
-    crInputTitle.placeholder = 'Masukan Data';
+    crInputTitle.placeholder = 'Masukan Judul Table';
     crInputTitle.type = 'text';
     crInputTitle.name = `titleTable`;
     crInputTitle.value = valTitle
+    crInputTitle.required
  
     createTable.appendChild(createThead);
     createTable.appendChild(createTbody);
     formInput.appendChild(crInputTitle);
     formInput.appendChild(createTable);
+    formInput.appendChild(crButtonSubmit);
 }
 
 // btnCreateTable.addEventListener("click", () => {
