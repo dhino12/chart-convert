@@ -71,8 +71,8 @@
 
             <div class="container-fluid content mt-5">
                 <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">Import Excel</button>
-                    <?php include 'modal.php' ?>
+                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
+                    <?php include 'modalChart.php' ?>
                 </div>
                 
                 <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
