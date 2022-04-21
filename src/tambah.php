@@ -1,3 +1,22 @@
+<?php 
+
+include 'script/functions.php';
+
+if (isset($_POST['submit'])) {
+    $data = crTableDb($_POST);
+    
+    if (is_string($data)) {
+        echo "<script>alert('Data gagal ditambahkan')</script>";
+        
+    } else if (is_array($data)){
+        addValue($data, $_POST['titleTable']);
+        echo "<script>alert('Data berhasil ditambahkan')</script>";
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -20,7 +39,7 @@
     <main>
         <div class="wrapper d-flex flex-column" style="width:100%;">
             <div class="header">     
-                <div class="header-brand bg-side-wrapper">
+                <div class="header-brand bg-side-wrapper d-none">
                     <div class="logo">
                         <img src="./media/logo/logo.png" width="50px">
                         <h5>Chart Converse</h1>
@@ -68,31 +87,15 @@
                 </div>
             </div>
 
-            <div class="container-fluid content mt-5">
-                <button type="button" class="btn btn-outline-primary" id="btnCreateTable">Buat Table</button>
-                <button type="button" class="btn btn-outline-primary">Tambah Baris</button>
-                <button type="button" class="btn btn-outline-primary">Tambah Kolom</button>
-                <form action="" id="form-input">
-                    <table class="table table-bordered table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th>
-                                    <input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Judul">
-                                </th>
-                                <th>
-                                    <input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Judul">
-                                </th>
-                            </tr>
-                        </thead>
-                        <tr>
-                            <td><input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Title"></td>
-                            <td><input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Title"></td>
-                        </tr>
-                        <tr>
-                            <td><input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Title"></td>
-                            <td><input type="email" class="form-control border-0" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Masukan Title"></td>
-                        </tr>
-                    </table>
+            <div class="container-fluid content mt-5">            
+                <button type="button" class="btn btn-outline-primary" id="btnCreateTable" data-bs-toggle="modal" data-bs-target="#modalTable">Buat Table</button>
+                <button type="button" class="btn btn-outline-primary" id="addRow" disabled>Tambah Baris</button>
+                <button type="button" class="btn btn-outline-primary" id="addColumn" disabled>Tambah Kolom</button>
+                <?php include './modalTable.php' ?>
+                <form action="" id="form-input" class="mt-5" method="POST">
+                    
+                </form>                
+
                 </form>
             </div>
         </div>
@@ -169,6 +172,5 @@
     <script src="./modules/tableHandler.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     
-	<?php include './script/chartHandler.php' ?>
 </body>
 </html>
