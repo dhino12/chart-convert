@@ -4,12 +4,12 @@ include 'script/functions.php';
 
 if (isset($_POST['submit'])) {
     $data = crTableDb($_POST);
-    
+
     if (is_string($data)) {
         echo "<script>alert('Data gagal ditambahkan')</script>";
         
     } else if (is_array($data)){
-        addValue($data, $_POST['titleTable']);
+        addValue($data[1], $_POST['titleTable'], $data[0]);
         echo "<script>alert('Data berhasil ditambahkan')</script>";
     }
 
