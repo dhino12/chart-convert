@@ -61,7 +61,7 @@ function crTableDb($datas)
     $strThead = '';
 
     foreach($tHead[0] as $key => $value) {
-        if(count($tHead) == $key) {
+        if((count($tHead[0]) - 1) == $key) {
             $strThead .= "`$value` VARCHAR(180)";
 
         } else {
@@ -96,7 +96,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
             
         } else if ($i % count($tHead) == 0) {
             echo 'masuk else if 2 <br>';
-            $strTBody .= "),(";
+            $strTBody .= "),('". $tBodyDatas[$i] ."',";
             
         } else {
             echo 'masuk else <br>';
@@ -105,7 +105,10 @@ function addValue($tBodyDatas, $tTitle, $tHead)
         }
     }
 
-    $query = "INSERT INTO `$tTitle` VALUES $strTBody;";
+    $fixString = str_replace(',)', ')', $strTBody);
+    $query = "INSERT INTO `$tTitle` VALUES $fixString;";
+    var_dump($query);
+
     $data = query($query, '');
     var_dump($data);
 
