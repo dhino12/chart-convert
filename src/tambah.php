@@ -12,7 +12,6 @@ if (isset($_POST['submit'])) {
         addValue($data[1], $_POST['titleTable'], $data[0]);
         echo "<script>alert('Data berhasil ditambahkan')</script>";
     }
-
 }
 
 ?>
