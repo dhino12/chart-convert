@@ -52,7 +52,7 @@ function query(String $query, $assoc)
     return $datas;
 }
 
-function crTableDb($datas)
+function crTableDb($datas, $tTable)
 {
     $tTitle = $datas['titleTable'];
     $tCollaction = splitArray($datas);
@@ -80,26 +80,20 @@ function crTableDb($datas)
 }
 
 function addValue($tBodyDatas, $tTitle, $tHead)
-{
-    
+{ 
     $strTBody = '';
-    var_dump(count($tBodyDatas));
 
     for ($i = 0; $i <= count($tBodyDatas) - 1 ; $i++) {
-        if($i === 0) {
-            echo 'masuk if <br>';
+        if($i === 0) { 
             $strTBody .= "('". $tBodyDatas[$i] ."',";
             
-        } else if ((count($tBodyDatas) - 1) === $i) {
-            echo 'masuk else if 1 <br>';
+        } else if ((count($tBodyDatas) - 1) === $i) { 
             $strTBody .= "'". $tBodyDatas[$i] ."')";
             
-        } else if ($i % count($tHead) == 0) {
-            echo 'masuk else if 2 <br>';
+        } else if ($i % count($tHead) == 0) { 
             $strTBody .= "),('". $tBodyDatas[$i] ."',";
             
-        } else {
-            echo 'masuk else <br>';
+        } else { 
             $strTBody .= "'". $tBodyDatas[$i] ."',";
 
         }
@@ -107,10 +101,8 @@ function addValue($tBodyDatas, $tTitle, $tHead)
 
     $fixString = str_replace(',)', ')', $strTBody);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
-    var_dump($query);
 
     $data = query($query, '');
-    var_dump($data);
 
     return $data;
 }
