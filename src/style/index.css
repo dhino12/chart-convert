@@ -1,3 +1,7 @@
+a {
+    text-decoration: none;
+}
+
 /* Topbar */
 .topbar {
     display: flex;
