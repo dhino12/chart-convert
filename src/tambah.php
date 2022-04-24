@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
     <main>
         <div class="wrapper d-flex flex-column" style="width:100%;">
             <div class="header">     
-                <div class="header-brand bg-side-wrapper d-none">
+                <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo.png" width="50px">
                         <h5>Chart Converse</h1>
@@ -93,9 +93,7 @@ if (isset($_POST['submit'])) {
                 <?php include './modalTable.php' ?>
                 <form action="" id="form-input" class="mt-5" method="POST">
                     
-                </form>                
-
-                </form>
+                </form> 
             </div>
         </div>
         
