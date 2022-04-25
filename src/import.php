@@ -3,10 +3,6 @@
 include 'script/conn.php';
 include 'script/functions.php';
 require '../vendor/autoload.php';
-
-use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Reader\Csv;
-use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
  
 $file_mimes = array('application/octet-stream', 
     'application/vnd.ms-excel', 'application/x-csv', 
@@ -14,6 +10,7 @@ $file_mimes = array('application/octet-stream',
     'application/excel', 'application/vnd.msexcel', 
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 );
+
 if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'], $file_mimes)) {
 
     $arr_file = explode('.', $_FILES['excel_file']['name']);
@@ -28,18 +25,19 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
     $spreadsheet = $reader->load($_FILES['excel_file']['tmp_name']);
      
     $sheetData = $spreadsheet->getActiveSheet()->toArray(); 
+    $sheetData[0][] = 'chart_type';
     $colName = [];
     $rowValue = [];
     $tTitle = $_POST['title_table'];
+    $chartType = $_POST['type'];
     $strThead = '';
     
     // getColumn
-    for ($i = 0; $i < count($sheetData[0]) ; $i++) { 
+    for ($i = 0; $i < count($sheetData[0]) ; $i++) {
         if ($sheetData[0][$i] === NULL) {
             $colName[] = '-';
         } else {
             $colName[] = $sheetData[0][$i];
-            
         }
     }
 
@@ -60,6 +58,11 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
 	{
         for ($j = 0; $j < count($sheetData[$i]); $j++) { 
             $rowValue[] = $sheetData[$i][$j];
+
+            if ((count($sheetData[$j]) - 1 === $j)) {
+                // tambah chart pada index terakhir
+                $rowValue[] = $chartType;
+            }
         }
     }
     
@@ -69,6 +72,13 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
     var_dump($strThead);
 
     // header("Location: form_upload.html"); 
+    if ($result === true) {
+        echo "
+            <script>
+
+            </script>
+        ";
+    }
 }
 
 ?>
