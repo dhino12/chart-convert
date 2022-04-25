@@ -76,76 +76,7 @@
                 </div>
                 
                 <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
-                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
-                        <div class="d-flex justify-content-between" id="header-canvas">
-                            <h5 class="w-100 pt-1 text-center">Grafik 1</h5>
-                            <div class="icon">
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/edit.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch"> 
-                                    <img src="./media/icon/stratch.svg" alt="" srcset=""> 
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="myChart1"></canvas>
-                    </div> 
-                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
-                        <div class="d-flex justify-content-between" id="header-canvas">
-                            <h5 class="w-100 pt-1 text-center">Grafik 2</h5>
-                            <div class="icon">
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-edit">
-                                    <a href="">
-                                        <img src="./media/icon/edit.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
-                                    <a href="">
-                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="myChart2"></canvas>
-                    </div>
-                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
-                        <div class="d-flex justify-content-between" id="header-canvas">
-                            <h5 class="w-100 pt-1 text-center">Grafik 3</h5>
-                            <div class="icon">
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/edit.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
-                                    <a href="">
-                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="myChart3"></canvas>
-                    </div> 
-                    <div class="col-xl-6 d-flex flex-column" id="wrapper-canvas">
-                        <div class="d-flex justify-content-between" id="header-canvas">
-                            <h5 class="w-100 pt-1 text-center">Grafik 4</h5>
-                            <div class="icon">
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/edit.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stratch">
-                                    <a href="">
-                                        <img src="./media/icon/stratch.svg" alt="" srcset="">
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                        <canvas id="myChart4"></canvas>
-                    </div> 
+                    
                 </div>
             </div>
         </div>
@@ -232,9 +163,9 @@
     <footer>
 
     </footer> 
-    <script src="./modules/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    
+    <script src="./modules/createChart.js"></script>
 	<?php include './script/chartHandler.php' ?>
+    <script src="./modules/index.js"></script>
 </body>
 </html>
