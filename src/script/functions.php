@@ -52,7 +52,7 @@ function query(String $query, $assoc)
     return $datas;
 }
 
-function crTableDb($datas, $tTable)
+function crTableDb($datas)
 {
     $tTitle = $datas['titleTable'];
     $tCollaction = splitArray($datas);
