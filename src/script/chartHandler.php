@@ -1,17 +1,24 @@
 <?php 
 include 'functions.php';
 
+$tables = query("SHOW TABLES;", true);
 $dataPertEkonomi = query("SELECT `Pertumbuhan Ekonomi (%)` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
 $dataEkoNas = query("SELECT `Ekonomi Nasional` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
-
-var_dump($dataEkoNas);
 
 $tables = query('SHOW TABLES;', true);
 ?>
 
 <script>
-    const ctx = document.querySelector('#myChart1').getContext('2d');
     const grafikCanvas = document.querySelector('#canvas-grafik');
+    const wraperCanvas = document.querySelector("#wrapper-canvas");
+    let canvasContainer;
+
+    <?php for ($i = 0; $i < count($tables) - 1 ; $i++) : ?>
+        canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
+        grafikCanvas.appendChild(canvasContainer);        
+    <?php endfor; ?>
+    
+    const ctx = document.querySelector('#myChart1').getContext('2d');
     let wrapperCanvas, canvas, title;
     
     const datasPertEkoNas = [];
