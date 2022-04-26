@@ -57,7 +57,11 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
 	for($i = 1;$i < count($sheetData); $i++)
 	{
         for ($j = 0; $j < count($sheetData[$i]); $j++) { 
-            $rowValue[] = $sheetData[$i][$j];
+            if (str_contains($sheetData[$i][$j], "-")) {
+                $rowValue[] = '0';
+            } else {
+                $rowValue[] = $sheetData[$i][$j];
+            }
 
             if ((count($sheetData[$j]) - 1 === $j)) {
                 // tambah chart pada index terakhir
