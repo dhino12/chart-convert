@@ -11,78 +11,96 @@ $column = dbToArray($tables);
 // $dataDb = [];
 
 // var_dump($column['Laju Pertumbuhan Ekonomi Nasional']['column'][1]);
-var_dump($column);
+// var_dump($column['Laju Pertumbuhan Ekonomi Nasional']);
+print_r($column);
 ?>
 
 <script>
     const grafikCanvas = document.querySelector('#canvas-grafik');
-    const wraperCanvas = document.querySelector("#wrapper-canvas");
-    let canvasContainer;
+    // const wraperCanvas = document.querySelector("#wrapper-canvas");
+    let wrapperCanvas, canvas, title, ctx, canvasContainer, myChart, searchEscapeString, tmp;
+    let chartIndex = 1;
+    let index = 0
+    let dataLabels = [];
+    let dataValue = [];
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
         canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
-    
-    const ctx = document.querySelector('#myChart1').getContext('2d');
-    let wrapperCanvas, canvas, title;
-    
-    const datasPertEkoNas = [];
-    const datasEkoNas = [];
-    <?php foreach($dataPertEkonomi as $key => $value) : ?>
-        datasPertEkoNas.push(<?= round($value, 2) ?>)
-    <?php endforeach ; ?>
+        
+    <?php foreach($column as $keyTable => $valTable) : ?> 
+        ctx = document.querySelector(`#myChart${chartIndex}`).getContext('2d');
+        index = 0;
+        dataLabels = []
+        dataValue = []
 
-    <?php foreach($dataEkoNas as $key => $value) : ?>
-        datasEkoNas.push("<?= $value ?>")
-    <?php endforeach ; ?>
-    
-    /** 
-     * Chart
-     */
-    const myChart = new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: datasEkoNas,
-            datasets: [{
-                label: 'Pertumbuhan Ekonomi (%)',
-                borderRadius: [11,11,11,11],
-                data: datasPertEkoNas,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)'
-                ],
-                pointStyle: 'circle',
-                pointRadius: 7,
-                pointHoverRadius: 5,
-                borderWidth: 1,
-                borderSkipped: false,
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    ticks: {
-                        beginAtZero:true
+        <?php foreach($valTable as $key => $value) : ?>
+
+            if (index === 1) {
+                <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
+                    dataLabels.push("<?= $valCol ?>");
+                    // console.log("<?= $valCol ?>");
+                    <?php endforeach?>
+                    
+                } else if (index > 1) {
+                    <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
+                        if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
+                        else dataValue.push(parseFloat("<?= trim($valCol)?>").toFixed(2));
+                        console.log("<?= trim($valCol) ?>");
+                        
+                <?php endforeach?>
+            }
+            
+            index++;
+        <?php endforeach ?>
+        chartIndex++;
+        console.log(dataValue);
+        // chartnya taruh disini
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dataLabels,
+                datasets: [{
+                    label: ['Pertumbuhan Ekonomi (%)'],
+                    borderRadius: [11,11,11,11],
+                    data: dataValue,
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)'
+                    ],
+                    borderColor: [
+                        'rgba(255,99,132,1)',
+                        'rgba(54, 162, 235, 1)',
+                        'rgba(255, 206, 86, 1)',
+                        'rgba(75, 192, 192, 1)'
+                    ],
+                    pointStyle: 'circle',
+                    pointRadius: 7,
+                    pointHoverRadius: 5,
+                    borderWidth: 1,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        ticks: {
+                            beginAtZero:true
+                        }
+                    }
+                },
+                plugins: {
+                    datalabels: {
+                        color: '#00',
+                        anchor: 'end',
+                        align: 'end',
                     }
                 }
             },
-            plugins: {
-                datalabels: {
-                    color: '#00',
-                    anchor: 'end',
-                    align: 'end',
-                }
-            }
-        },
-        plugins: [ChartDataLabels]
-    });
+            plugins: [ChartDataLabels]
+        });
+    <?php endforeach ?>
 </script>
