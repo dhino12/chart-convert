@@ -35,6 +35,7 @@ function crElement(titleTable) {
     crInputTitle.name = `titleTable`;
     crInputTitle.value = titleTable
     crInputTitle.required
+    crInputTitle.autocomplete = 'off'
 
     return {
         createTable, createThead, createTbody, crInputTitle, 

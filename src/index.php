@@ -19,11 +19,11 @@
     <header></header>
     <main>
         <div class="wrapper d-flex flex-column" style="width:100%;">
-            <div class="header">     
+            <div class="header">
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo.png" width="50px">
-                        <h5>Chart Converse</h1>
+                        <h5>e - Database</h1>
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span class="navbar-toggler-icon">[ ]</span>
@@ -37,7 +37,7 @@
                                 <h1 class="fs-5 mb-0 text-dark my-3">Dashboard</h1>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Default</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
@@ -81,7 +81,7 @@
             </div>
         </div>
         
-        <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
+        <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start d-none" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
                     <div class="menu-link active-menu" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -105,7 +105,7 @@
                 <a href="tambah.php">
                     <div class="my-2 py-2 px-2" id="item-side">
                         <div class="menu-link">
-                            <p>Insert Data</p>
+                            <p>Tambah Data</p>
                         </div>
                     </div>
                 </a>

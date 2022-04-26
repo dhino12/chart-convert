@@ -41,7 +41,7 @@ if (isset($_POST['submit'])) {
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo.png" width="50px">
-                        <h5>Chart Converse</h1>
+                        <h5>e - Database</h1>
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span class="navbar-toggler-icon">[ ]</span>
@@ -108,7 +108,7 @@ if (isset($_POST['submit'])) {
                 </a>
                 <div class="my-2 py-2 px-2" id="item-side">
                     <div class="menu-link active-menu">
-                        <p>Insert Data</p>
+                        <p>Tambah Data</p>
                     </div>
                 </div>
                 <div class="my-2 py-2 px-2" id="item-side">
