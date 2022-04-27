@@ -23,6 +23,7 @@ $index = 0;
     let chartIndex = 1;
     let dataLabels = [];
     let dataValue = []; 
+    let dataCharts = [];
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
         canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
@@ -34,37 +35,26 @@ $index = 0;
         <?php $index = 0 ?>;
         dataLabels = []
         dataValue = []
+        dataCharts = []
 
         <?php foreach($valTable as $key => $value) : ?>
-            <?php if(trim(strtolower("$key")) === "no." || trim(strtolower("$key")) === "no") :?>
+            <?php if(trim(strtolower("$key")) === "no." || trim(strtolower("$key")) === "no" || "$key" === "chart_type" ) :?>
                 <?php continue?>
 
             <?php elseif($index == 1): ?>
-                <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
+                <?php foreach($value as $keyCol => $valCol) : ?>
                     dataLabels.push("<?= $valCol ?>");
                 <?php endforeach?>
 
             <?php elseif($index > 1): ?>
-                <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
+                <?php foreach($value as $keyCol => $valCol) : ?>
                     if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
                     else dataValue.push(parseFloat("<?= trim($valCol)?>").toLocaleString());
                 <?php endforeach?>
+                console.log("<?= $key ?>");
 
-            <?php endif; ?>
-
-            console.log("<?= $key ?> <?= $index ?>");
-            <?php $index++ ?>
-        <?php endforeach ?>
-        chartIndex++;
-        console.log(dataValue);
-
-        // chartnya taruh disini
-        myChart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: dataLabels,
-                datasets: [{
-                    label: ['Pertumbuhan Ekonomi (%)'],
+                dataCharts.push({
+                    label: '<?= $key ?>',
                     borderRadius: [11,11,11,11],
                     data: dataValue,
                     backgroundColor: [
@@ -84,7 +74,19 @@ $index = 0;
                     pointHoverRadius: 5,
                     borderWidth: 1,
                     borderSkipped: false,
-                }]
+                })
+            <?php endif; ?>
+
+            <?php $index++ ?>
+        <?php endforeach ?>
+        chartIndex++;
+
+        // chartnya taruh disini
+        myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dataLabels,
+                datasets: dataCharts
             },
             options: {
                 scales: {
@@ -104,5 +106,5 @@ $index = 0;
             },
             plugins: [ChartDataLabels]
         });
-    <?php endforeach ?>
+    <?php endforeach ?> 
 </script>
