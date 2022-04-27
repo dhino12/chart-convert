@@ -13,6 +13,7 @@ $column = dbToArray($tables);
 // var_dump($column['Laju Pertumbuhan Ekonomi Nasional']['column'][1]);
 // var_dump($column['Laju Pertumbuhan Ekonomi Nasional']);
 print_r($column);
+$index = 0;
 ?>
 
 <script>
@@ -20,42 +21,43 @@ print_r($column);
     // const wraperCanvas = document.querySelector("#wrapper-canvas");
     let wrapperCanvas, canvas, title, ctx, canvasContainer, myChart, searchEscapeString, tmp;
     let chartIndex = 1;
-    let index = 0
     let dataLabels = [];
-    let dataValue = [];
+    let dataValue = []; 
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
         canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         
-    <?php foreach($column as $keyTable => $valTable) : ?> 
+    <?php foreach($column as $keyTable => $valTable) : ?>
         ctx = document.querySelector(`#myChart${chartIndex}`).getContext('2d');
-        index = 0;
+        <?php $index = 0 ?>;
         dataLabels = []
         dataValue = []
 
         <?php foreach($valTable as $key => $value) : ?>
+            <?php if(trim(strtolower("$key")) === "no." || trim(strtolower("$key")) === "no") :?>
+                <?php continue?>
 
-            if (index === 1) {
+            <?php elseif($index == 1): ?>
                 <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
                     dataLabels.push("<?= $valCol ?>");
-                    // console.log("<?= $valCol ?>");
-                    <?php endforeach?>
-                    
-                } else if (index > 1) {
-                    <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
-                        if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
-                        else dataValue.push(parseFloat("<?= trim($valCol)?>").toFixed(2));
-                        console.log("<?= trim($valCol) ?>");
-                        
                 <?php endforeach?>
-            }
-            
-            index++;
+
+            <?php elseif($index > 1): ?>
+                <?php foreach($valTable[$key] as $keyCol => $valCol) : ?>
+                    if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
+                    else dataValue.push(parseFloat("<?= trim($valCol)?>").toLocaleString());
+                <?php endforeach?>
+
+            <?php endif; ?>
+
+            console.log("<?= $key ?> <?= $index ?>");
+            <?php $index++ ?>
         <?php endforeach ?>
         chartIndex++;
         console.log(dataValue);
+
         // chartnya taruh disini
         myChart = new Chart(ctx, {
             type: 'line',
