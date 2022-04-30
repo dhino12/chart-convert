@@ -2,7 +2,8 @@
 
 include 'script/conn.php';
 include 'script/functions.php';
-require '../vendor/autoload.php';
+include '../vendor/autoload.php';
+include 'script/excelHandler.php';
  
 $file_mimes = array('application/octet-stream', 
     'application/vnd.ms-excel', 'application/x-csv', 
@@ -13,18 +14,11 @@ $file_mimes = array('application/octet-stream',
 
 if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'], $file_mimes)) {
 
-    $arr_file = explode('.', $_FILES['excel_file']['name']);
-    $extension = end($arr_file);
- 
-    if('csv' == $extension) {
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
-    } else {
-        $reader = new \PhpOffice\PhpSpreadsheet\Reader\Xlsx();
-    }
- 
-    $spreadsheet = $reader->load($_FILES['excel_file']['tmp_name']);
-     
-    $sheetData = $spreadsheet->getActiveSheet()->toArray(); 
+    $spreadsheet = getExcelFile($_FILES);
+    getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
+    // var_dump($sheetData);
+    die;
+    
     $sheetData[0][] = 'chart_type';
     $colName = [];
     $rowValue = [];
@@ -51,7 +45,7 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
         }
     }
     $result = query("CREATE TABLE `$tTitle` ($strThead);", '');
-    var_dump($result);
+    var_dump($tmp);
 
     // getRows
 	for($i = 1;$i < count($sheetData); $i++)
@@ -71,18 +65,15 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
     }
     
     $result = addValue($rowValue, $tTitle, $colName);
-    var_dump($colName);
-    var_dump($rowValue);
-    var_dump($strThead);
 
     // header("Location: form_upload.html"); 
-    if ($result === true) {
-        echo "
-            <script>
+    // if ($result === true) {
+    //     echo "
+    //         <script>
 
-            </script>
-        ";
-    }
+    //         </script>
+    //     ";
+    // }
 }
 
 ?>
