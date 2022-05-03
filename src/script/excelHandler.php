@@ -22,7 +22,9 @@ function fixArray(array $datas): array
 {
     // remove NULL data
     $fixArr = [];
-
+    $fixArr2 = [];
+    $tmpArr2 = [];
+    
     foreach($datas as $data) {
         $tmpArr = [];
         foreach($data as $value) {
@@ -35,6 +37,17 @@ function fixArray(array $datas): array
         $fixArr[] = $tmpArr;
     }
     
+    foreach($fixArr as $key => $datas){
+        foreach($datas as $keyV => $value) {
+            $tmpArr2[$key][] = $value;
+        }
+        if (count($datas) === 0 || count($fixArr) === $key) {
+            $fixArr2[] = $tmpArr2;
+            $tmpArr2 = [];
+        }
+    }
+    var_dump($fixArr2);
+    // var_dump($fixArr2);
     return $fixArr;
 }
 
