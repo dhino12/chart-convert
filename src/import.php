@@ -1,22 +1,23 @@
-<?php 
+<?php
 
 include 'script/conn.php';
 include 'script/functions.php';
 include '../vendor/autoload.php';
 include 'script/excelHandler.php';
- 
-$file_mimes = array('application/octet-stream', 
-    'application/vnd.ms-excel', 'application/x-csv', 
-    'text/x-csv', 'text/csv', 'application/csv', 
-    'application/excel', 'application/vnd.msexcel', 
+
+$file_mimes = array('application/octet-stream',
+    'application/vnd.ms-excel', 'application/x-csv',
+    'text/x-csv', 'text/csv', 'application/csv',
+    'application/excel', 'application/vnd.msexcel',
     'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
 );
 
 if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'], $file_mimes)) {
 
     $spreadsheet = getExcelFile($_FILES);
-    getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
-    // var_dump($sheetData);
+    $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
+    crTableSheet($excelDatas);
+    var_dump($excelDatas);
     die;
     
     $sheetData[0][] = 'chart_type';
