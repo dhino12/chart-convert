@@ -2,10 +2,6 @@
 include 'functions.php';
 include 'dbToArray.php';
 
-$tables = query("SHOW TABLES;", true);
-$dataPertEkonomi = query("SELECT `Pertumbuhan Ekonomi (%)` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
-$dataEkoNas = query("SELECT `Ekonomi Nasional` FROM `Laju Pertumbuhan Ekonomi Nasional`", false);
-
 $tables = query('SHOW TABLES;', true);
 $column = dbToArray($tables);
 // $dataDb = [];
