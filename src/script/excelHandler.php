@@ -68,9 +68,12 @@ function crTableSheet(array $sheetDatas)
     $tmpTitle = [];
     $tableName = '';
     $strField = '';
-    // var_dump($sheetDatas);
-    foreach($sheetDatas as $sheet) {
-        foreach($sheet as $table){
+    $counter = 0;
+    $rowValue = [];
+    $colValue = [];
+
+    foreach($sheetDatas as $sheet) { // sheet
+        foreach($sheet as $keyTable => $table){ // table
             $strField = '';
             $tableName = '';
 
@@ -78,7 +81,7 @@ function crTableSheet(array $sheetDatas)
                 // dengan judul table
                 $tableName = $table[0][0];
 
-                foreach($table[1] as $key => $data) {
+                foreach($table[1] as $key => $data) { // column
                     if((count($table[1]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -86,9 +89,22 @@ function crTableSheet(array $sheetDatas)
                         $strField .= "`$data` VARCHAR(180),";
 
                     }
+
+                    $colValue[] = $data;
                 }
-            } else {
-                $tableName = 'Unknown';
+
+                foreach($table as $key => $data) { // row
+                    // var_dump($data);
+                    if ($key > 1) {
+                        foreach($data as $dataRecord) {
+                            $rowValue[] = $dataRecord;
+                        }
+                    }
+                }
+
+                // query("CREATE TABLE `$tableName` ($strField);", '');
+            } else if (count($table) !== 0) {
+                $tableName = 'untitled'. $counter;
 
                 foreach($table[0] as $key => $data) {
                     if((count($table[0]) - 1) == $key) {
@@ -98,13 +114,20 @@ function crTableSheet(array $sheetDatas)
                         $strField .= "`$data` VARCHAR(180),";
 
                     }
+
+                    $colValue[] = $data;
                 }
+
+                // query("CREATE TABLE `$tableName` ($strField);", '');
             }
 
-            var_dump($strField);
+            // $result = addValue($rowValue, $tableName, $colValue);
+            // var_dump($strField);
+            $counter++;
         }
     }
 
+    var_dump($rowValue);
     // var_dump($strField);
     // foreach($sheetDatas as $currSheetDatas) {
     //     foreach($currSheetDatas as $key => $data) {
