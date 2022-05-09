@@ -17,7 +17,8 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
     $spreadsheet = getExcelFile($_FILES);
     $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
     crTableSheet($excelDatas);
-    var_dump($excelDatas);
+    // var_dump($spreadsheet->getSheetByName("Ekonomi")->toArray());
+    // var_dump($excelDatas);
     die;
     
     $sheetData[0][] = 'chart_type';
@@ -45,13 +46,14 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
 
         }
     }
+    
     $result = query("CREATE TABLE `$tTitle` ($strThead);", '');
     var_dump($tmp);
 
     // getRows
 	for($i = 1;$i < count($sheetData); $i++)
 	{
-        for ($j = 0; $j < count($sheetData[$i]); $j++) { 
+        for ($j = 0; $j < count($sheetData[$i]); $j++) {
             if (str_contains($sheetData[$i][$j], "-")) {
                 $rowValue[] = '0';
             } else {
