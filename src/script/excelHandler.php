@@ -24,6 +24,7 @@ function fixArray(array $datas): array
     $fixArr = [];
     $fixArr2 = [];
     $tmpArr2 = [];
+    $counter = 0;
     
     foreach($datas as $data) {
         $tmpArr = [];
@@ -38,17 +39,17 @@ function fixArray(array $datas): array
     }
     
     foreach($fixArr as $key => $datas){
-        foreach($datas as $keyV => $value) {
-            $tmpArr2[$key][] = $value;
+        foreach($datas as $value) {
+            $tmpArr2[$counter][] = $value;
         }
-        if (count($datas) === 0 || count($fixArr) === $key) {
+        if (count($datas) === 0 || count($fixArr) - 1 === $key) {
             $fixArr2[] = $tmpArr2;
             $tmpArr2 = [];
+            $counter = -1;
         }
+        $counter++;
     }
-    var_dump($fixArr2);
-    // var_dump($fixArr2);
-    return $fixArr;
+    return $fixArr2;
 }
 
 function getDataCurrentSheet($sheetNames, $spreadsheet)
@@ -62,17 +63,57 @@ function getDataCurrentSheet($sheetNames, $spreadsheet)
     return $dataSheet;
 }
 
-function  crTableSheet(array $sheetDatas)
+function crTableSheet(array $sheetDatas)
 {
     $tmpTitle = [];
-    foreach($sheetDatas as $currSheetDatas) {
-        foreach($currSheetDatas as $key => $data) {
-            if (count($data) === 1 ) {
-                $tmpTitle[] = ($data[0] === NULL)? "untitled" : $data[0] ;
+    $tableName = '';
+    $strField = '';
+    // var_dump($sheetDatas);
+    foreach($sheetDatas as $sheet) {
+        foreach($sheet as $table){
+            $strField = '';
+            $tableName = '';
+
+            if ($table[0] !== NULL && count($table[0]) === 1) {
+                // dengan judul table
+                $tableName = $table[0][0];
+
+                foreach($table[1] as $key => $data) {
+                    if((count($table[1]) - 1) == $key) {
+                        $strField .= "`$data` VARCHAR(180)";
+
+                    } else {
+                        $strField .= "`$data` VARCHAR(180),";
+
+                    }
+                }
+            } else {
+                $tableName = 'Unknown';
+
+                foreach($table[0] as $key => $data) {
+                    if((count($table[0]) - 1) == $key) {
+                        $strField .= "`$data` VARCHAR(180)";
+
+                    } else {
+                        $strField .= "`$data` VARCHAR(180),";
+
+                    }
+                }
             }
 
+            var_dump($strField);
         }
     }
+
+    // var_dump($strField);
+    // foreach($sheetDatas as $currSheetDatas) {
+    //     foreach($currSheetDatas as $key => $data) {
+    //         if (count($data) === 1 ) {
+    //             $tmpTitle[] = ($data[0] === NULL)? "untitled" : $data[0] ;
+    //         }
+
+    //     }
+    // }
     // var_dump($tmpTitle);
 }
 
