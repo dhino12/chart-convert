@@ -44,10 +44,11 @@ $index = 0;
 
             <?php elseif($index > 1): ?>
                 <?php foreach($value as $keyCol => $valCol) : ?>
+                    if (<?= $keyCol ?> === 0) dataValue = [];
                     if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
                     else dataValue.push(parseFloat("<?= trim($valCol)?>").toLocaleString());
                 <?php endforeach?>
-                console.log("<?= $key ?>");
+                console.log(dataValue);
 
                 dataCharts.push({
                     label: '<?= $key ?>',
