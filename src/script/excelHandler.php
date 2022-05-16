@@ -103,12 +103,11 @@ function crTableSheet(array $sheetDatas)
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
-                        var_dump($colValue);
+                        // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         $rowValue = [];
                         $colValue = [];
-                        // var_dump("CLEAR DATA ". $key);
                     }
                 }
             } else if (count($table) !== 0) {
@@ -123,10 +122,27 @@ function crTableSheet(array $sheetDatas)
 
                     }
 
-                    // $colValue[] = $data;
+                    $colValue[] = $data;
                 }
 
-                // query("CREATE TABLE `$tableName` ($strField);", '');
+                query("CREATE TABLE `$tableName` ($strField);", '');
+
+                foreach($table as $key => $data) { // row
+                    if ($key > 0) {
+                        foreach($data as $dataRecord) {
+                            $rowValue[] = $dataRecord;
+                        }
+                    }
+
+                    if (count($table) - 1 === $key) {
+                        // var_dump($rowValue);
+                        var_dump($colValue);
+                        $result = addValue($rowValue, $tableName, $colValue);
+                        var_dump($result);
+                        $rowValue = [];
+                        $colValue = [];
+                    }
+                }
             }
 
             // $result = addValue($rowValue, $tableName, $colValue);
