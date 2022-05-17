@@ -26,12 +26,15 @@ function crCanvas (tTitle, counter) {
     stracthBtn.id = "btn-stratch";
 
     const link = document.createElement("a")
+    link.style.margin = "auto"
 
     const imgIcon =  document.createElement("img")
     imgIcon.src = "./media/icon/edit.svg";
+    imgIcon.width = 25;
 
     const imgIconStracth =  document.createElement("img")
     imgIconStracth.src = "./media/icon/stratch.svg";
+    imgIconStracth.width = 25;
     
     link.appendChild(imgIcon);
     editBtn.appendChild(link);
