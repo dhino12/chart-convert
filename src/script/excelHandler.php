@@ -63,7 +63,7 @@ function getDataCurrentSheet($sheetNames, $spreadsheet)
     return $dataSheet;
 }
 
-function crTableSheet(array $sheetDatas)
+function crTableSheet(array $sheetDatas, $chartType)
 {
     $tableName = '';
     $strField = '';
@@ -79,6 +79,7 @@ function crTableSheet(array $sheetDatas)
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
                 $tableName = $table[0][0];
+                $table[1][count($table[1])] = "chart_type";
 
                 foreach($table[1] as $key => $data) { // column
                     if((count($table[1]) - 1) == $key) {
@@ -91,7 +92,6 @@ function crTableSheet(array $sheetDatas)
 
                     $colValue[] = $data;
                 }
-
                 query("CREATE TABLE `$tableName` ($strField);", '');
                 
                 foreach($table as $key => $data) { // row
@@ -99,21 +99,25 @@ function crTableSheet(array $sheetDatas)
                         foreach($data as $dataRecord) {
                             $rowValue[] = $dataRecord;
                         }
+                        $rowValue[] = $chartType;
                     }
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
-                        // var_dump($colValue);
+                        var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        // var_dump($result);
+                        var_dump($result);
                         $rowValue = [];
                         $colValue = [];
                     }
                 }
             } else if (count($table) !== 0) {
+                // tanpa judul table
                 $tableName = 'untitled'. $counter;
+                $table[0][count($table[0])] = "chart_type";
 
-                foreach($table[0] as $key => $data) {
+                foreach($table[0] as $key => $data) { // col
+                    $data = trim(preg_replace('/\s\s+/', ' ', $data));
                     if((count($table[0]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -132,13 +136,14 @@ function crTableSheet(array $sheetDatas)
                         foreach($data as $dataRecord) {
                             $rowValue[] = $dataRecord;
                         }
+                        $rowValue[] = $chartType;
                     }
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
                         var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         $rowValue = [];
                         $colValue = [];
                     }
@@ -150,7 +155,6 @@ function crTableSheet(array $sheetDatas)
             $counter++;
         }
     }
-
 }
 
 /*
