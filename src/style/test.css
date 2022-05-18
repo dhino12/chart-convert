@@ -5,9 +5,12 @@
     padding-right: 6vh !important;
 }
 
+.content #clear-data {
+    margin-left: 20px;
+}
+
 #wrapper-canvas #header-canvas {
     text-align: center;
-    background-color: #4fcada65;
     padding: 10px;
 }
 
@@ -17,13 +20,23 @@
 }
 
 #header-canvas {
-    border-top-left-radius: 20px;
-    border-top-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
     margin-bottom: 2vh;
+    box-shadow: 2px 4px 4px 2px #0000000f;
+}
+
+#header-canvas h5 {
+    color: #7666f4;
 }
 
 #header-canvas .icon {
     display: flex;
+}
+
+#btn-edit.btn:hover,
+#btn-stratch.btn:hover {
+    background-color: #e9e9e9!important;
 }
 
 /* end content */
