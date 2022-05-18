@@ -18,11 +18,11 @@ function crCanvas (tTitle, counter) {
     iconFeature.className = "icon";
 
     const editBtn = document.createElement("div");
-    editBtn.className = "d-flex align-center btn btn-outline-light round-cs-6 me-2";
+    editBtn.className = "d-flex align-center btn round-cs-6 me-2";
     editBtn.id = "btn-edit";
 
     const stracthBtn = document.createElement("div");
-    stracthBtn.className = "d-flex align-center btn btn-outline-light round-cs-6 me-2";
+    stracthBtn.className = "d-flex align-center btn round-cs-6 me-2";
     stracthBtn.id = "btn-stratch";
 
     const link = document.createElement("a")

@@ -3,6 +3,10 @@ const containerAside = document.querySelector(".aside-menu");
 const canvasGrafik = document.querySelector('#canvas-grafik')
 const btnStratchs = document.querySelectorAll('#btn-stratch');
 const wrapCanvas = document.querySelectorAll('#wrapper-canvas');
+const sideBar= document.querySelector('#offcanvasNavbar');
+const toggleSideBar= document.querySelector('#toggle');
+const headerBrand = document.querySelector('.header-brand');
+const contentWrapper = document.querySelector('#content-wrapper');
 
 containerAside.addEventListener("click", (e) => {
     if (e.target.className.includes('menu-link')) {
@@ -32,3 +36,9 @@ btnStratchs.forEach((e, i) => {
         toggleStracth(e, i);
     })
 })
+
+toggleSideBar.onclick = () => {
+    sideBar.classList.toggle("active");
+    headerBrand.classList.toggle("active");
+    contentWrapper.classList.toggle('active')
+}
