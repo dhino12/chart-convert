@@ -28,10 +28,16 @@ body {
     border-radius: 0.5rem !important;
 }
 
-.logo h5 {
-    display: inline;
+.logo h5, .logo p {
+    display: block;
     margin: 0 1.5vw;
     color: white;
+    text-align: center;
+}
+
+.logo img {
+    display: block;
+    margin: 0 auto;
 }
 
 #btn-header svg:hover {
@@ -56,10 +62,10 @@ body {
 
 .aside {
     position: fixed;
-    top: 98px;
+    top: 161px;
     left: 0;
     bottom: 0;
-    padding-top: 3vw; 
+    padding-top: 1vw; 
     color: white;
 }
 
@@ -109,7 +115,8 @@ body {
 }
 
 .logo img,
-.logo h5 {  
+.logo h5,
+.logo p {  
     transition: all .8s ease;
     opacity: 0;
 }
@@ -120,7 +127,8 @@ body {
 }
 
 .header-brand.active .logo img,
-.header-brand.active .logo h5  {
+.header-brand.active .logo h5,
+.header-brand.active .logo p  {
     opacity: 1;
 }
 

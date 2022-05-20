@@ -26,6 +26,8 @@
 
     .logo {
         display: inline;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .logo h5 {
@@ -49,8 +51,7 @@
 @media screen and (min-width: 992px) {
 
     .header {
-        display: flex;
-        height: 98px;
+        display: flex; 
         width: 100%;
     }
 
@@ -62,7 +63,7 @@
 
     .header-brand {
         width: 105px;
-        height: 98px;
+        /* height: 98px; */
         padding: 0 25px;
         margin-top: 10px;
         margin-left: 10px;
@@ -73,6 +74,8 @@
     
     .logo {
         width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
 
     .navbar-toggler {
