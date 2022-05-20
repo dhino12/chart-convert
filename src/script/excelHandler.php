@@ -79,7 +79,7 @@ function crTableSheet(array $sheetDatas, $chartType)
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
                 $tableName = $table[0][0];
-                $table[1][count($table[1])] = "chart_type";
+                $table[1][] = "chart_type";
 
                 foreach($table[1] as $key => $data) { // column
                     if((count($table[1]) - 1) == $key) {
@@ -114,7 +114,7 @@ function crTableSheet(array $sheetDatas, $chartType)
             } else if (count($table) !== 0) {
                 // tanpa judul table
                 $tableName = 'untitled'. $counter;
-                $table[0][count($table[0])] = "chart_type";
+                $table[0][] = "chart_type";
 
                 foreach($table[0] as $key => $data) { // col
                     $data = trim(preg_replace('/\s\s+/', ' ', $data));
