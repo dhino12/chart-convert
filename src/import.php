@@ -14,9 +14,10 @@ $file_mimes = array('application/octet-stream',
 
 if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'], $file_mimes)) {
 
+    $chartType = $_POST['chart_type'];
     $spreadsheet = getExcelFile($_FILES);
     $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
-    crTableSheet($excelDatas);
+    crTableSheet($excelDatas, $chartType);
     // var_dump($spreadsheet->getSheetByName("Ekonomi")->toArray());
     // var_dump($excelDatas);
     die;

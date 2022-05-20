@@ -20,6 +20,7 @@ $index = 0;
     let dataLabels = [];
     let dataValue = []; 
     let dataCharts = [];
+    const tmpCharts = [];
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
         canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
@@ -77,10 +78,11 @@ $index = 0;
             <?php $index++ ?>
         <?php endforeach ?>
         chartIndex++;
-
+        
+        console.log("<?= $valTable['chart_type'][0] ?>");
         // chartnya taruh disini
         myChart = new Chart(ctx, {
-            type: 'line',
+            type: "<?= (empty($valTable['chart_type'][0]))? 'line' : $valTable['chart_type'][0] ?>",
             data: {
                 labels: dataLabels,
                 datasets: dataCharts

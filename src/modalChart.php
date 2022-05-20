@@ -13,7 +13,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Pilih Tipe Grafik <b style="color: red">*</b></label>
-                        <select name="type" id="" class="form-control">
+                        <select name="chart_type" id="" class="form-control">
                             <option value="line">line</option>
                             <option value="pie">pie</option>
                             <option value="bar">bar</option>

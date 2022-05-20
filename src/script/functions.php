@@ -8,14 +8,14 @@ function splitArray(array $datas)
     $tBody = [];
     $tCollaction = [];
     foreach ($datas as $key => $value) {
-        if (explode('-', $key)[0] === '1') {
+        if (explode('-', $key)[0] === '0') {
             $tHead[] = $value;
         } else if(is_numeric(explode('-', $key)[0])) {
             $tBody[] = $value; 
         }
     } 
 
-    array_push($tCollaction, $tHead, $tBody); 
+    array_push($tCollaction, $tHead, $tBody);
 
     return $tCollaction;
 }
@@ -100,9 +100,34 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     }
 
     $fixString = str_replace(',)', ')', $strTBody);
+    var_dump($fixString);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
 
     $data = query($query, '');
 
     return $data;
+}   
+
+function updateValue($datas)
+{
+    $query = "";
+
+    $tmp = [];
+    // for ($i=0; $i < count($datas[1]); $i++) { // row
+    //     # code...
+    //     for ($i=0; $i < count($datas[0]); $i++) { // col
+    //         # code...
+    //     }
+    // }
+}
+
+function clearData() {
+    global $conn;
+    $query = "SHOW TABLES";
+    $tablesName = query($query, false); 
+    foreach ($tablesName as $value) {
+        mysqli_query($conn, "DROP TABLE `$value`");
+
+    }
+    return mysqli_affected_rows($conn);
 }

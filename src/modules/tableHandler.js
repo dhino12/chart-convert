@@ -12,7 +12,7 @@ const titleTable = document.querySelector('#titleTable');
 const columnTotal = document.querySelector('#columnTotal');
 const rowTotal = document.querySelector('#rowsTotal');
 
-function crElement(titleTable) {
+function crElement(titleTable) { 
     const createTable = document.createElement('table');
     const createThead = document.createElement('thead');
     const createTbody = document.createElement('tbody');
@@ -33,7 +33,7 @@ function crElement(titleTable) {
     crInputTitle.placeholder = 'Masukan Judul Table';
     crInputTitle.type = 'text';
     crInputTitle.name = `titleTable`;
-    crInputTitle.value = titleTable
+    crInputTitle.value = `${titleTable}`;
     crInputTitle.required
     crInputTitle.autocomplete = 'off'
 
@@ -43,27 +43,15 @@ function crElement(titleTable) {
     }
 }
 
-function crTable(){
-    const valColumnTotal = columnTotal.value;
-    const valRowTotal = rowTotal.value;
-    const valTitle = titleTable.value;
-    console.log(valColumnTotal);
-    console.log(valRowTotal);
+function addDataTable(createThead, createTbody, valTitle) {
 
-    const { createTable, 
-        createThead, 
-        createTbody, 
-        crInputTitle, 
-        crButtonSubmit 
-    } = crElement(valTitle);
-    
-    for (let row = 1; row <= valRowTotal; row++) {
+    for (let row = 1; row <= rowTotal.value; row++) {
         const { createTr, createTd } = crElement(valTitle); 
         createTd.innerText = row;
         createTr.appendChild(createTd);
         console.log(`row ======= : ${row}`);
         
-        for (let col = 1; col <= valColumnTotal; col++) {
+        for (let col = 1; col <= columnTotal.value; col++) {
             console.log(`col : ${col}`);
         
             const {createTh1, createInput1} = crElement(valTitle);
@@ -79,6 +67,80 @@ function crTable(){
         }
         if (row === 1) createThead.appendChild(createTr);
         else createTbody.appendChild(createTr);
+    }
+}
+
+function updateDataTable(createThead, createTbody, data, valTitle) {
+
+    const cols = data[0].length;
+    const rows = data[1].length;
+
+    for (let row = 0; row <= rows - 1; row++) {
+        const { createTr, createTd } = crElement(valTitle); 
+        createTd.innerText = (row === 0)? 'No': row;
+        createTr.appendChild(createTd);
+        // console.log(`row ======= : ${row}`);
+        
+        if (row === 0) {
+            data[0].forEach((element, key) => {
+                // col
+                // console.log(`col : ${col}`);
+                
+                const {createTh1, createInput1} = crElement(valTitle);
+                
+                createInput1.className = 'form-control border-0';
+                createInput1.placeholder = 'Masukan Data';
+                createInput1.type = 'text';
+                createInput1.name = `${row}-${key}`;
+                createInput1.autocomplete = 'off';
+                createInput1.value = element;
+                
+                createTh1.appendChild(createInput1);
+                createTr.appendChild(createTh1);
+    
+            })
+        } else {
+            console.log('============= TRY ===================');
+            console.log(row);
+            data[1][row].forEach((element, key) => {
+                // row
+    
+                const {createTh1, createInput1} = crElement(valTitle);
+                
+                createInput1.className = 'form-control border-0';
+                createInput1.placeholder = 'Masukan Data';
+                createInput1.type = 'text';
+                createInput1.name = `${row}-${key}`;
+                createInput1.autocomplete = 'off';
+                createInput1.value = element;
+                
+                createTh1.appendChild(createInput1);
+                createTr.appendChild(createTh1);
+            });
+        }
+
+        if (row === 0) createThead.appendChild(createTr);
+        else createTbody.appendChild(createTr);
+    }
+
+    
+}
+
+function crTable(updateData, tableName){
+    const valTitle = titleTable.value;
+
+    const { createTable, 
+        createThead, 
+        createTbody, 
+        crInputTitle, 
+        crButtonSubmit 
+    } = crElement((valTitle == '')? tableName : valTitle);
+    
+    if (updateData) {
+        updateDataTable(createThead, createTbody, updateData, tableName);
+
+    } else {
+        addDataTable(createThead, createTbody, valTitle);
     }
  
     createTable.appendChild(createThead);

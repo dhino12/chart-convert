@@ -17,6 +17,9 @@ function crCanvas (tTitle, counter) {
     const iconFeature = document.createElement('div');
     iconFeature.className = "icon";
 
+    const linkUpdate = document.createElement('a');
+    linkUpdate.href = `update.php?tableName=${tTitle}`;
+
     const editBtn = document.createElement("div");
     editBtn.className = "d-flex align-center btn round-cs-6 me-2";
     editBtn.id = "btn-edit";
@@ -38,8 +41,9 @@ function crCanvas (tTitle, counter) {
     
     link.appendChild(imgIcon);
     editBtn.appendChild(link);
+    linkUpdate.appendChild(editBtn);
     stracthBtn.appendChild(imgIconStracth);
-    iconFeature.appendChild(editBtn);
+    iconFeature.appendChild(linkUpdate);
     iconFeature.appendChild(stracthBtn);
     headerCanvas.appendChild(tCanvas);
     headerCanvas.appendChild(iconFeature);

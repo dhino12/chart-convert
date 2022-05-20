@@ -93,7 +93,7 @@ if (isset($_POST['submit'])) {
                 <?php include './modalTable.php' ?>
                 <form action="" id="form-input" class="mt-5" method="POST">
                     
-                </form> 
+                </form>
             </div>
         </div>
         

@@ -27,6 +27,7 @@ a {
 .logo h5 {
     display: inline;
     margin: 0 1.5vw;
+    color: white;
 }
 
 #btn-header svg:hover {
