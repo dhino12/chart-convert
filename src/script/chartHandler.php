@@ -8,7 +8,7 @@ $column = dbToArray($tables);
 
 // var_dump($column['Laju Pertumbuhan Ekonomi Nasional']['column'][1]);
 // var_dump($column['Laju Pertumbuhan Ekonomi Nasional']);
-print_r($column);
+// print_r($column);
 $index = 0;
 ?>
 
@@ -79,7 +79,6 @@ $index = 0;
         <?php endforeach ?>
         chartIndex++;
         
-        console.log("<?= $valTable['chart_type'][0] ?>");
         // chartnya taruh disini
         myChart = new Chart(ctx, {
             type: "<?= (empty($valTable['chart_type'][0]))? 'line' : $valTable['chart_type'][0] ?>",

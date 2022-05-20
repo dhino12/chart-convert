@@ -100,7 +100,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     }
 
     $fixString = str_replace(',)', ')', $strTBody);
-    var_dump($fixString);
+    // var_dump($fixString);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
 
     $data = query($query, '');

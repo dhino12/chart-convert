@@ -12,7 +12,7 @@ foreach($dataTables as $key => $data) {
     
     $dataField[] = query("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_SCHEMA = Database() AND TABLE_NAME = '$data';", false); // column
 }
-print_r($dataValue);
+// print_r($dataValue);
 ?>
 <script>
     // import { crTable } from "./table/createTable";

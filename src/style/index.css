@@ -2,6 +2,10 @@ a {
     text-decoration: none;
 }
 
+body {
+    background: #f7f7f7 !important;
+}
+
 #icon-side::before {
     color: white;
     font-weight: bold !important;

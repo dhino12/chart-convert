@@ -60,7 +60,7 @@
                     </div>
             </div>
         </div>  
-        <div class="wrapper d-flex flex-column" style="width:100%; background: #f7f7f7;" id="content-wrapper">
+        <div class="wrapper d-flex flex-column" style="width:100%;" id="content-wrapper">
             <div class="header">
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">

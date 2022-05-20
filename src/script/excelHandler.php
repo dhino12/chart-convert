@@ -104,9 +104,9 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
-                        var_dump($colValue);
+                        // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         $rowValue = [];
                         $colValue = [];
                     }
@@ -141,7 +141,7 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
-                        var_dump($colValue);
+                        // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
                         // var_dump($result);
                         $rowValue = [];
