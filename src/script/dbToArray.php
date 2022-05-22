@@ -7,7 +7,7 @@ function dbToArray($tables)
     // $dataDb = [];
 
     for ($i = 0; $i < count($tables) ; $i++) { 
-        $tableName = $tables[$i]['Tables_in_chart_convert'];
+        $tableName = $tables[$i]['Tables_in_chart_generator'];
         $table = query("DESC `$tableName`;", true);
         
         for ($j=0; $j < count($table); $j++) {

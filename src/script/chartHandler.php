@@ -23,7 +23,7 @@ $index = 0;
     const tmpCharts = [];
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
-        canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_convert'] ?>", <?= $i + 1 ?>);
+        canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_generator'] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         

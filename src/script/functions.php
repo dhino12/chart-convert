@@ -108,17 +108,30 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     return $data;
 }   
 
-function updateValue($datas)
+function updateValue($datas, $tablesName)
 {
+    $columns = $datas[0];
+    $rows = $datas[1];
     $query = "";
+    $counter = 0;
 
-    $tmp = [];
-    // for ($i=0; $i < count($datas[1]); $i++) { // row
-    //     # code...
-    //     for ($i=0; $i < count($datas[0]); $i++) { // col
-    //         # code...
-    //     }
-    // }
+    foreach($rows as $key => $row) {
+        $column = $columns[$counter];
+
+        if (count($columns) - 1 === $counter) {
+            $query .= "`$column`=`$row`";
+            $counter = -1;
+            query("UPDATE `$tablesName` SET $query", "");
+            var_dump($query);
+            $query = "";
+
+        } else {
+            $query .= "`$column`=`$row`,";
+        }
+
+        $counter++;
+    }
+
 }
 
 function clearData() {

@@ -6,7 +6,7 @@ function getExcelFile($dataFiles)
 {
     $arr_file = explode('.', $dataFiles['excel_file']['name']); // pecah kedalam array diantara . 
     $extension = end($arr_file); // mndapatkan extension .xlsx / .xls`
- 
+
     if('csv' == $extension) {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
     } else {

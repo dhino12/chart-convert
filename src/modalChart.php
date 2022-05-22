@@ -21,7 +21,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="UploadFiles" class="form-label">Upload Files</label>
-                        <input type="file" class="form-control" id="UploadFiles" name="excel_file" accept="xlsx">
+                        <input type="file" class="form-control" id="UploadFiles" name="excel_file">
                     </div> 
                 </div>
                 <div class="modal-footer">
