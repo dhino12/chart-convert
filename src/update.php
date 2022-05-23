@@ -6,10 +6,12 @@ $tableName = $_GET['tableName'];
 $result = query("SELECT * FROM `$tableName`", true);
 
 if (isset($_POST['submit'])) {
-    $data = splitArray($_POST);
-    $msgUpdate = updateValue($data, $tableName);
+    query("RENAME TABLE `$tableName` TO `". $_POST['titleTable'] ."`", '');
 
-    if ($result >= 0) {
+    $data = splitArray($_POST);
+    $msgUpdate = updateValue($data, $tableName, $result[0]);
+
+    if ($msgUpdate >= 0) {
         echo "
             <script>
                 alert('Data berhasil diubah');
