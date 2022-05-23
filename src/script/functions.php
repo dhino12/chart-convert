@@ -108,13 +108,15 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     return $data;
 }   
 
-function updateValue($datas, $tablesName)
+function updateValue($datas, $tTableNameUnChange, $tTableNameAfterChange)
 {
     global $conn;
     $columns = $datas[0];
     $rows = $datas[1];
     $query = "";
     $counter = 0;
+
+    query("RENAME TABLE `$tTableNameUnChange` TO `$tTableNameAfterChange`", '');
 
     foreach($rows as $row) {
         $column = htmlspecialchars($columns[$counter]);
@@ -123,7 +125,7 @@ function updateValue($datas, $tablesName)
         if (count($columns) - 1 === $counter) {
             $query .= "`$column`='$row'";
             $counter = -1;
-            query("UPDATE `$tablesName` SET $query WHERE id='$row'", "");
+            query("UPDATE `$tTableNameAfterChange` SET $query WHERE id='$row'", "");
             $query = "";
 
         } else {
