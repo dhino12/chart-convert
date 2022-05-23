@@ -20,7 +20,7 @@ if(isset($_FILES['excel_file']['name']) && in_array($_FILES['excel_file']['type'
     crTableSheet($excelDatas, $chartType);
     // var_dump($spreadsheet->getSheetByName("Ekonomi")->toArray());
     // var_dump($excelDatas);
-    header("Location: index.php");
+    // header("Location: index.php");
     die;
     
 } else {
