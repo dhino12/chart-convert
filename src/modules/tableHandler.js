@@ -22,6 +22,9 @@ function crElement(titleTable) {
     const createTd = document.createElement('td');
     const createTh1 = document.createElement('th');
     const createInput1 = document.createElement('input');
+    const selectChart = document.createElement('select');
+    const optionChart = document.createElement('option');
+    const labelText = document.createElement('label');
 
     createTable.className = 'table table-bordered table-striped table-hover';
     crButtonSubmit.type = 'submit'
@@ -37,9 +40,15 @@ function crElement(titleTable) {
     crInputTitle.required
     crInputTitle.autocomplete = 'off'
 
+    labelText.className = "input-group-text";
+    labelText.setAttribute('for', 'chart-select');
+    selectChart.className = 'form-select';
+    selectChart.id = 'chart-select';
+
     return {
         createTable, createThead, createTbody, crInputTitle, 
-        crButtonSubmit, createTr, createTd, createTh1, createInput1
+        crButtonSubmit, createTr, createTd, createTh1, createInput1, 
+        selectChart, optionChart
     }
 }
 
@@ -84,7 +93,7 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
         if (row === -1) {
             data[0].forEach((col, key) => {
                 // col  
-                const {createTh1, createInput1} = crElement(valTitle);
+                const { createTh1, createInput1} = crElement(valTitle);
 
                 createInput1.className = 'form-control border-0';
                 createInput1.placeholder = 'Masukan Data';
@@ -104,20 +113,39 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
         } else {
             data[1][row].forEach((rowData, key) => {
                 // row
-                const {createTh1, createInput1} = crElement(valTitle);
-                
-                createInput1.className = 'form-control border-0';
-                createInput1.placeholder = 'Masukan Data';
-                createInput1.type = 'text';
-                createInput1.name = `${row + 1}-${key}`;
-                createInput1.autocomplete = 'off';
-                createInput1.value = rowData;
+                const {createTh1, createInput1, selectChart} = crElement(valTitle);
+                selectChart.name = `${row + 1}-${key}`
                 
                 if (data[1][row].length - 1 === key) {
                     createInput1.hidden = true; // id inputText
                 }
 
-                createTh1.appendChild(createInput1);
+                if (data[0].length - 2 == key) {
+                    // chart handler
+                    const chart = ['line', 'pie', 'bar'];
+                    for (let totalChart = 0; totalChart < 3; totalChart++) {
+                        const { optionChart } = crElement(valTitle);
+                        optionChart.value = chart[totalChart];
+                        optionChart.innerText = chart[totalChart];
+
+                        if (rowData === chart[totalChart]) {
+                            optionChart.selected = true;
+                        }
+                        selectChart.appendChild(optionChart);
+                    }
+
+                    createTh1.appendChild(selectChart);
+                } else {
+                    createInput1.className = 'form-control border-0';
+                    createInput1.placeholder = 'Masukan Data';
+                    createInput1.type = 'text';
+                    createInput1.name = `${row + 1}-${key}`;
+                    createInput1.autocomplete = 'off';
+                    createInput1.value = rowData;
+                    
+                    createTh1.appendChild(createInput1);
+                }
+
                 createTr.appendChild(createTh1);
             });
         }
