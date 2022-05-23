@@ -100,7 +100,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     }
 
     $fixString = str_replace(',)', ')', $strTBody);
-    // var_dump($fixString);
+    var_dump($fixString);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
 
     $data = query($query, '');
@@ -110,28 +110,30 @@ function addValue($tBodyDatas, $tTitle, $tHead)
 
 function updateValue($datas, $tablesName)
 {
+    global $conn;
     $columns = $datas[0];
     $rows = $datas[1];
     $query = "";
     $counter = 0;
 
-    foreach($rows as $key => $row) {
-        $column = $columns[$counter];
+    foreach($rows as $row) {
+        $column = htmlspecialchars($columns[$counter]);
+        $row = htmlspecialchars($row);
 
         if (count($columns) - 1 === $counter) {
-            $query .= "`$column`=`$row`";
+            $query .= "`$column`='$row'";
             $counter = -1;
-            query("UPDATE `$tablesName` SET $query", "");
-            var_dump($query);
+            query("UPDATE `$tablesName` SET $query WHERE id='$row'", "");
             $query = "";
 
         } else {
-            $query .= "`$column`=`$row`,";
+            $query .= "`$column`='$row',";
         }
 
         $counter++;
     }
 
+    return mysqli_affected_rows($conn);
 }
 
 function clearData() {
