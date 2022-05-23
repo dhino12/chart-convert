@@ -1,5 +1,4 @@
-<?php 
-
+<?php
 include 'script/functions.php';
 
 $tableName = $_GET['tableName'];
@@ -8,8 +7,17 @@ $result = query("SELECT * FROM `$tableName`", true);
 
 if (isset($_POST['submit'])) {
     $data = splitArray($_POST);
-    updateValue($data, $tableName);
-    // var_dump($data);
+    $msgUpdate = updateValue($data, $tableName);
+
+    if ($result >= 0) {
+        echo "
+            <script>
+                alert('Data berhasil diubah');
+                document.location.href = 'index.php';
+            </script>";
+    } else {
+        echo "<script>alert('Data gagal diubah')</script>";
+    }
 }
 
 ?>
