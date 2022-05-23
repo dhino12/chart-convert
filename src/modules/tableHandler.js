@@ -75,51 +75,54 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
     const cols = data[0].length;
     const rows = data[1].length;
 
-    for (let row = 0; row <= rows - 1; row++) {
+    for (let row = -1; row <= rows - 1; row++) {
         const { createTr, createTd } = crElement(valTitle); 
-        createTd.innerText = (row === 0)? 'No': row;
+        createTd.innerText = (row === -1)? 'No': row + 1;
         createTr.appendChild(createTd);
         // console.log(`row ======= : ${row}`);
         
-        if (row === 0) {
-            data[0].forEach((element, key) => {
-                // col
-                // console.log(`col : ${col}`);
-                
+        if (row === -1) {
+            data[0].forEach((col, key) => {
+                // col  
                 const {createTh1, createInput1} = crElement(valTitle);
-                
+
                 createInput1.className = 'form-control border-0';
                 createInput1.placeholder = 'Masukan Data';
                 createInput1.type = 'text';
-                createInput1.name = `${row}-${key}`;
+                createInput1.name = `${row + 1}-${key}`;
                 createInput1.autocomplete = 'off';
-                createInput1.value = element;
+                createInput1.value = col;
                 
+                if (data[0].length - 1 === key) {
+                    createInput1.hidden = true; // id inputText
+                }
+
                 createTh1.appendChild(createInput1);
                 createTr.appendChild(createTh1);
     
             })
         } else {
-            console.log('============= TRY ===================');
-            console.log(row);
-            data[1][row].forEach((element, key) => {
+            data[1][row].forEach((rowData, key) => {
                 // row
-    
                 const {createTh1, createInput1} = crElement(valTitle);
                 
                 createInput1.className = 'form-control border-0';
                 createInput1.placeholder = 'Masukan Data';
                 createInput1.type = 'text';
-                createInput1.name = `${row}-${key}`;
+                createInput1.name = `${row + 1}-${key}`;
                 createInput1.autocomplete = 'off';
-                createInput1.value = element;
+                createInput1.value = rowData;
                 
+                if (data[1][row].length - 1 === key) {
+                    createInput1.hidden = true; // id inputText
+                }
+
                 createTh1.appendChild(createInput1);
                 createTr.appendChild(createTh1);
             });
         }
 
-        if (row === 0) createThead.appendChild(createTr);
+        if (row === -1) createThead.appendChild(createTr);
         else createTbody.appendChild(createTr);
     }
 
