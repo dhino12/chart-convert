@@ -65,7 +65,7 @@
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo-kemendagri.png" width="50px">
-                        <p><b> e - Database </b> Ẋ <b>SIPD Pusat</b></p> 
+                        <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p> 
                         <p>Kementrian Dalam Negeri</p>
                         <div id="toggle" class="sidebar-toggle">
                             <i class="bi bi-list" style="font-size: 20px;" id="icon-side"></i>
