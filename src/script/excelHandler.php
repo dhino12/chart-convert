@@ -80,8 +80,10 @@ function crTableSheet(array $sheetDatas, $chartType)
                 // dengan judul table
                 $tableName = $table[0][0];
                 $table[1][] = "chart_type";
+                $table[1][] = "id";
 
                 foreach($table[1] as $key => $data) { // column
+                    $data = trim(preg_replace('/\s\s+/', ' ', $data)); // remove line-break (enter)
                     if((count($table[1]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -100,13 +102,15 @@ function crTableSheet(array $sheetDatas, $chartType)
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
+                        $rowValue[] = uniqid();
                     }
 
                     if (count($table) - 1 === $key) {
-                        // var_dump($rowValue);
+                        var_dump($rowValue);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        // var_dump($result);
+                        var_dump($result);
+                        // var_dump($strField);
                         $rowValue = [];
                         $colValue = [];
                     }
@@ -115,9 +119,10 @@ function crTableSheet(array $sheetDatas, $chartType)
                 // tanpa judul table
                 $tableName = 'untitled'. $counter;
                 $table[0][] = "chart_type";
+                $table[0][] = "id";
 
                 foreach($table[0] as $key => $data) { // col
-                    $data = trim(preg_replace('/\s\s+/', ' ', $data));
+                    $data = trim(preg_replace('/\s\s+/', ' ', $data)); // remove line-break (enter)
                     if((count($table[0]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -137,21 +142,21 @@ function crTableSheet(array $sheetDatas, $chartType)
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
+                        $rowValue[] = uniqid();
                     }
 
                     if (count($table) - 1 === $key) {
-                        // var_dump($rowValue);
+                        var_dump($rowValue);
+                        // var_dump($strField);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        // var_dump($result);
+                        var_dump($result);
                         $rowValue = [];
                         $colValue = [];
                     }
                 }
             }
-
-            // $result = addValue($rowValue, $tableName, $colValue);
-            // var_dump($strField);
+            
             $counter++;
         }
     }
