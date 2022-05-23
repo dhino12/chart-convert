@@ -35,7 +35,11 @@ $index = 0;
         dataCharts = []
 
         <?php foreach($valTable as $key => $value) : ?>
-            <?php if(trim(strtolower("$key")) === "no." || trim(strtolower("$key")) === "no" || "$key" === "chart_type" ) :?>
+            <?php if(
+                trim(strtolower("$key")) === "no." || 
+                trim(strtolower("$key")) === "no" || 
+                "$key" === "chart_type" || 
+                "$key" === "id") :?>
                 <?php continue?>
 
             <?php elseif($index == 1): ?>
