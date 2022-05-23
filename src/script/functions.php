@@ -108,7 +108,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     return $data;
 }   
 
-function updateValue($datas, $tTableNameUnChange, $tTableNameAfterChange)
+function updateValue($datas, $tTable, $oldData)
 {
     global $conn;
     $columns = $datas[0];
@@ -116,7 +116,10 @@ function updateValue($datas, $tTableNameUnChange, $tTableNameAfterChange)
     $query = "";
     $counter = 0;
 
-    query("RENAME TABLE `$tTableNameUnChange` TO `$tTableNameAfterChange`", '');
+    foreach($columns as $key => $newCol) {
+        $oldCol = array_keys($oldData)[$key];
+        query("ALTER TABLE `$tTable` CHANGE `$oldCol` `$newCol` VARCHAR(180)", '');
+    }
 
     foreach($rows as $row) {
         $column = htmlspecialchars($columns[$counter]);
@@ -125,7 +128,7 @@ function updateValue($datas, $tTableNameUnChange, $tTableNameAfterChange)
         if (count($columns) - 1 === $counter) {
             $query .= "`$column`='$row'";
             $counter = -1;
-            query("UPDATE `$tTableNameAfterChange` SET $query WHERE id='$row'", "");
+            query("UPDATE `$tTable` SET $query WHERE id='$row'", "");
             $query = "";
 
         } else {
@@ -133,6 +136,22 @@ function updateValue($datas, $tTableNameUnChange, $tTableNameAfterChange)
         }
 
         $counter++;
+    }
+
+    return mysqli_affected_rows($conn);
+}
+
+function updateColumns($cols, $tTitle, $oldCols)
+{
+    global $conn;
+    $oldDataCols = [];
+    foreach($oldCols as $key => $value) {
+        $oldDataCols[] = $key;
+    }
+
+    foreach($cols as $key => $col) {
+        $oldCols = $oldDataCols[$key];
+        query("ALTER TABLE `$tTitle` COLUMN `$oldCols` TO `$col` VARCHAR(180)", '');
     }
 
     return mysqli_affected_rows($conn);
