@@ -224,3 +224,25 @@ body {
 #user h5 {
     font-size: 1rem;
 }
+
+/*  login */
+
+.login-container {
+    margin-top: 8%;
+    border-radius: 30px;
+    box-shadow: 1px 14px 15px 1px #dfdfdf;
+}
+
+.sd-login { 
+    border-top-right-radius: 4vh;
+    border-bottom-right-radius: 4vh;
+}
+
+.form-login {
+    margin: 3rem auto;
+}
+
+.sd-background { 
+    border-top-left-radius: 4vh;
+    border-bottom-left-radius: 4vh;
+}
