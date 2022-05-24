@@ -53,7 +53,7 @@ function fixArray(array $datas): array
 }
 
 function getDataCurrentSheet($sheetNames, $spreadsheet)
-{ 
+{
     $dataSheet = [];
     foreach($sheetNames as $name) {
         if($name === NULL) continue;
