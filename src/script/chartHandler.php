@@ -2,7 +2,7 @@
 include 'functions.php';
 include 'dbToArray.php';
 
-$tables = query('SHOW TABLES;', true);
+$tables = query('SHOW TABLES WHERE Tables_in_chart_generator NOT LIKE "users";', true);
 $column = dbToArray($tables);
 // $dataDb = [];
 
@@ -22,7 +22,7 @@ $index = 0;
     let dataCharts = [];
     const tmpCharts = [];
     
-    <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?>
+    <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
         canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_generator'] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
