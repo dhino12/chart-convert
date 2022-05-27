@@ -1,3 +1,22 @@
+<?php 
+
+include 'src/script/functions.php';
+
+if (isset($_POST['login'])) {
+    $username = $_POST['email'];
+    $password = $_POST['password'];
+
+    $query = "SELECT * FROM users WHERE username='$username'";
+    $result = query($query, true);
+
+    if (mysqli_num_rows($result) === 1) {
+        var_dump($result);
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -18,31 +37,26 @@
             </div>
             <div class="sd-login">
                 <div class="content-login my-5 mx-5">
-                    <h2 class="text-center">Login Form</h2>
+                    <h2 class="text-center text-purple">Login Form</h2>
                     <p class="text-center text-secondary">Silahkan login untuk menggunakan aplikasi ini</p>
 
-                    <form action="" class="form-login w-75">
+                    <form action="" method="POST" class="form-login">
                         <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Email address <b style="color: red;">*</b></label>
-                            <div class="input-group">
-                                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" require>
-                                <span class="input-group-text" id="emailHelp">@example.com</span>
-                                <div id="emailHelp" class="form-text">Kami tidak akan pernah membagikan email Anda kepada orang lain</div>
-                            </div>
-                        </div>
-                        <div class="mb-3">
-                            <label for="exampleInputEmail1" class="form-label">Username <b style="color: red;">*</b></label>
-                            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" require>
+                            <label for="exampleInputEmail1" class="form-label">Username / Email <b style="color: red;">*</b></label>
+                            <input type="text" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password <b style="color: red;">*</b></label>
-                            <input type="password" class="form-control" id="exampleInputPassword1" require>
+                            <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
                         </div>
-                        <button type="submit" class="btn btn-purple w-75" >Submit</button>
-                        <button type="button" class="btn btn-outline-danger" style="width: 24%;">Clear</button>
+                        <button type="submit" name="login" class="btn btn-purple" id="login" >Login</button>
+                        <button type="button" class="btn btn-outline-danger" id="clear">Clear</button>
+
+                        <label class="form-text mt-3 text-secondary" for="exampleCheck1">Belum punya akun ? silahkan <a href="register.php" style="font-size: medium;">Register</a></label>
                     </form>
                 </div>
             </div>
+            <div class="clear"></div>
         </div>
     </div>
 </body>
