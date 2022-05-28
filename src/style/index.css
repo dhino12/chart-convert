@@ -28,7 +28,8 @@ body {
     border-radius: 0.5rem !important;
 }
 
-.logo h5, .logo p {
+.logo h5,
+.logo p {
     display: block;
     margin: 0 1.5vw;
     color: white;
@@ -65,7 +66,7 @@ body {
     top: 161px;
     left: 0;
     bottom: 0;
-    padding-top: 1vw; 
+    padding-top: 1vw;
     color: white;
 }
 
@@ -94,7 +95,7 @@ body {
     float: right;
 }
 
-.offcanvas{
+.offcanvas {
     transition: all .5s ease !important;
 }
 
@@ -116,7 +117,7 @@ body {
 
 .logo img,
 .logo h5,
-.logo p {  
+.logo p {
     transition: all .8s ease;
     opacity: 0;
 }
@@ -128,7 +129,7 @@ body {
 
 .header-brand.active .logo img,
 .header-brand.active .logo h5,
-.header-brand.active .logo p  {
+.header-brand.active .logo p {
     opacity: 1;
 }
 
@@ -145,7 +146,7 @@ body {
     display: none;
 }
 
-.wrapper.active{
+.wrapper.active {
     padding-left: 300px;
 }
 
@@ -155,7 +156,7 @@ body {
     border-radius: 10px;
 }
 
-.menu-link { 
+.menu-link {
     padding: 10px;
     color: #676153;
     font-weight: 500;
@@ -182,7 +183,7 @@ body {
     margin-bottom: 5vh;
 }
 
-.offcanvas.active .aside-footer #user, 
+.offcanvas.active .aside-footer #user,
 .offcanvas.active .aside-footer #img-user {
     opacity: 1;
     display: inline-block !important;
@@ -194,7 +195,7 @@ body {
     left: 80%;
 }
 
-.offcanvas .aside-footer #user, 
+.offcanvas .aside-footer #user,
 .offcanvas .aside-footer #img-user {
     opacity: 0;
     display: none !important;
@@ -203,7 +204,7 @@ body {
 .logout {
     position: relative;
     top: 14px;
-    left: 20%; 
+    left: 20%;
     border-radius: 10px;
     cursor: pointer;
     transition: all .3s ease;
@@ -220,6 +221,7 @@ body {
 .img-user {
     overflow: hidden;
 }
+
 /* end sidebar */
 #user h5 {
     font-size: 1rem;
@@ -233,16 +235,21 @@ body {
     box-shadow: 1px 14px 15px 1px #dfdfdf;
 }
 
-.sd-login { 
+.sd-login {
     border-top-right-radius: 4vh;
     border-bottom-right-radius: 4vh;
 }
 
 .form-login {
-    margin: 3rem auto;
+    margin: 1.5rem auto;
 }
 
-.sd-background { 
+.sd-background,
+.sd-background-reg {
     border-top-left-radius: 4vh;
     border-bottom-left-radius: 4vh;
+}
+
+.clear {
+    clear: both;
 }

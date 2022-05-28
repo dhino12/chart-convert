@@ -16,8 +16,7 @@ foreach($dataTables as $key => $data) {
 ?>
 <script>
     // import { crTable } from "./table/createTable";
-
-
+    
 const formInput = document.querySelector("#form-input");
 
 const titleTable = document.querySelector('#titleTable');

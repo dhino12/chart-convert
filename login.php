@@ -2,17 +2,31 @@
 
 include 'src/script/functions.php';
 
+session_start();
+
+if (isset($_SESSION['identity'])) {
+    header("Location: src/index.php");
+    exit;
+}
+
 if (isset($_POST['login'])) {
     $username = $_POST['email'];
     $password = $_POST['password'];
 
-    $query = "SELECT * FROM users WHERE username='$username'";
-    $result = query($query, true);
+    $query = "SELECT * FROM users WHERE username='$username' OR email='$username'";
+    $result = query($query, true)[0];
+    
+    var_dump($result);
+    if (!is_null($result)) {
+        if (password_verify($password, $result['password'])) {
+            $_SESSION['identity'] = $username;
 
-    if (mysqli_num_rows($result) === 1) {
-        var_dump($result);
+            header("Location: src/index.php");
+            exit;
+        }
+    } else {
+        echo "<script>alert('ooppss user tidak ditemukan')</script>";
     }
-
 }
 
 ?>

@@ -1,4 +1,5 @@
 # chart-convert
 
-https://github.com/heroku/heroku-buildpack-google-chrome.git
-    https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git
+<!-- Query SHOW TABLES -->
+https://www.javatpoint.com/mysql-show-list-tables
+SHOW TABLES WHERE Tables_in_chart_generator="Disparitas Kemiskinan Perkotaan dan Perdesaan" OR Tables_in_chart_generator="IPM";

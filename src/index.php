@@ -1,3 +1,8 @@
+<?php
+
+session_start();
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +14,7 @@
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/test.css">
+    <link rel="stylesheet" href="./style/background/colors.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
@@ -47,7 +53,7 @@
             </div>
             <div class="aside-footer ">
                     <div class="img-user me-3 d-inline-block" id="img-user">
-                        <img src="./media/logo/android.svg" alt="" width="40px" height="40px">
+                        <img src="./media/userImg/kiana.png" alt="" width="40px" height="40px">
                     </div>
                     <div class="d-inline-block w-50" id="user">
                         <h5 class="m-0">Asep Wijaya</h5>
@@ -117,7 +123,7 @@
 
             <div class="container-fluid content mt-5">
                 <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
+                    <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
                     <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalClearData" id="clear-data">Bersihkan Data</button>
                     <?php include 'modalChart.php' ?>
                     <?php include 'modalClearData.php' ?>

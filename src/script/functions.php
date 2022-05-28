@@ -162,8 +162,85 @@ function clearData() {
     $query = "SHOW TABLES";
     $tablesName = query($query, false); 
     foreach ($tablesName as $value) {
-        mysqli_query($conn, "DROP TABLE `$value`");
+        if ($value !== 'users') mysqli_query($conn, "DROP TABLE `$value`");
 
     }
+    return mysqli_affected_rows($conn);
+}
+
+function uploadFile()
+{
+    $fileName = $_FILES['foto']['name'];
+    $sizeFile = $_FILES['foto']['size'];
+    $error = $_FILES['foto']['error'];
+    $tmpImg = $_FILES['foto']['tmp_name'];
+
+    $extensionImgValid = ['jpg', 'png', 'jpeg'];
+    $extensionImg = explode('.', $fileName);
+    $extensionImg = strtolower(end($extensionImg));
+
+    if (!in_array($extensionImg, $extensionImgValid)) {
+        echo "
+            <script>
+                alert('Pastikan yang anda upload gambar');
+            </script>
+        ";
+        return false;
+    }
+
+    if ($sizeFile > 10_000_000) {
+        echo "
+            <script>
+                alert('Ukuran file terlalu besar');
+            </script>
+        ";
+        return false;
+    }
+
+    $newNameFile = uniqid() . '.' . $extensionImg;
+
+    $result =  move_uploaded_file($tmpImg, 'img/'. $newNameFile);
+
+    return $newNameFile;
+
+}
+
+function register($data) {
+    global $conn;
+
+    $username = htmlspecialchars(strtolower(stripslashes($data['username'])));
+    $password = htmlspecialchars(mysqli_real_escape_string($conn, $data['password']));
+    $name = htmlspecialchars(mysqli_real_escape_string($conn, $data['name']));
+    $email = htmlspecialchars(mysqli_real_escape_string($conn, $data['email']));
+
+    $usernameCheck = query("SELECT username FROM users WHERE username='$username'", true);
+    
+    if (count($usernameCheck) > 0) {
+        echo "<script>
+            alert('username sudah ada');
+        </script>";
+    }
+
+    $enc_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $checkCodeImg = $_FILES['foto']['error'];
+    if ($checkCodeImg === 4) {
+        $foto = 'test.png';
+    } else {
+        $foto = uploadFile();
+    }
+
+    $queryInsert = "INSERT INTO users (
+        foto, username, 
+        name, password, 
+        level, email, id
+        ) VALUES (
+        '$foto', '$username', 
+        '$name', '$enc_password', 
+        'user', '$email', '". uniqid() ."'
+        )";
+
+    query($queryInsert, '');
+    
     return mysqli_affected_rows($conn);
 }
