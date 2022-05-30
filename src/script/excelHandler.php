@@ -164,7 +164,7 @@ function crTableSheet(array $sheetDatas, $chartType)
             $counter++;
         }
     }
-    // $strTableName = str_replace(',', '', $tableNames, strlen($tableNames) - 1);
+    
     $strTableNames = substr($tableNames, 0, strlen($tableNames) - 1);
     
     return $strTableNames;
