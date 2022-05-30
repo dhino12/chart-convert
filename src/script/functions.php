@@ -1,5 +1,7 @@
 <?php
 
+use Complex\Functions;
+
 include 'conn.php';
 
 function splitArray(array $datas)
@@ -24,7 +26,6 @@ function query(String $query, $assoc)
 {
     global $conn;
     $result = mysqli_query($conn, $query);
-    
     if (!$result) {
         return mysqli_error($conn);;
     }
@@ -165,6 +166,24 @@ function clearData($id) {
         if ($value !== 'users') mysqli_query($conn, "DROP TABLE `$value`");
 
     }
+    return mysqli_affected_rows($conn);
+}
+
+function deleteData($query, $tableNames, $tableName) {
+    global $conn;
+
+    $strTables = '';
+    $tables = explode(',', $tableNames);
+    foreach ($tables as $table) {
+        if ($table !== $tableName) $strTables .= "$table,";
+    }
+    $strTables = substr($strTables, 0, strlen($strTables) - 1);
+    $result = mysqli_query($conn ,$query);
+    
+    if ($result !== false) {
+        return $strTables;
+    }
+    
     return mysqli_affected_rows($conn);
 }
 
