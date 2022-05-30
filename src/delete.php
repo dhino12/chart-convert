@@ -6,16 +6,18 @@ include 'script/functions.php';
 if (isset($_GET['tableName'])) {
     $tableName = $_GET['tableName'];
     $id = $_SESSION['identity'];
+    $strTables = '';
 
     $tableNames = query("SELECT table_name FROM `users` WHERE id='$id'", true)[0]['table_name'];
-    $tableNames = str_replace("$tableName,", '', $tableNames);
-    $result = query("DROP TABLE `$tableName`;", ''); 
-    if (!$result) {
-        echo "Data $tableName gagal dihapus";
-    } else {
+
+    $tableNames = deleteData("DROP TABLE `$tableName`", $tableNames, $tableName);
+    
+    if (is_string($tableNames)) {
         $result = query("UPDATE `users` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
-        echo "Data $tableName berhasil dihapus";
-        // header("Location: index.php");
+        header("Location: index.php");
+        exit;
+    } else {
+        echo "Data $tableName gagal dihapus";
     }
 }
 
