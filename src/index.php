@@ -65,9 +65,11 @@ if (!isset($_SESSION['identity'])) {
                         <p class="m-0 fs-6">Software Engineer</h5>
                     </div>
                     <div class="logout d-inline-block">
-                        <button class="btn btn-icon btn-active-color-primary me-n4">
-                            <i class="bi bi-box-arrow-left" id="icon-side"></i>
-                        </button>
+                        <a href="logout.php">
+                            <button class="btn btn-icon btn-active-color-primary me-n4">
+                                <i class="bi bi-box-arrow-left" id="icon-side"></i>
+                            </button>
+                        </a>
                     </div>
             </div>
         </div>  
