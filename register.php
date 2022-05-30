@@ -6,6 +6,7 @@ if (isset($_POST['register'])) {
     
     if (register($_POST) > 0) {
         echo "<script>alert('berhasil menambahkan user')</script>";
+        header("Location: login.php");
     } else {
         echo "<script>alert('gagal menambahkan user')</script>";
     }
