@@ -1,5 +1,4 @@
 <?php 
-include 'functions.php';
 include 'dbToArray.php';
 
 $id = $_SESSION['identity'];
