@@ -81,7 +81,6 @@ function addDataTable(createThead, createTbody, valTitle) {
 
 function updateDataTable(createThead, createTbody, data, valTitle) {
 
-    const cols = data[0].length;
     const rows = data[1].length;
 
     for (let row = -1; row <= rows - 1; row++) {
@@ -114,7 +113,7 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
             data[1][row].forEach((rowData, key) => {
                 // row
                 const {createTh1, createInput1, selectChart} = crElement(valTitle);
-                selectChart.name = `${row + 1}-${key}`
+                selectChart.name = `${row + 1}-${key}`;
                 
                 if (data[1][row].length - 1 === key) {
                     createInput1.hidden = true; // id inputText
