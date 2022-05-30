@@ -14,10 +14,12 @@ if (isset($_GET['tableName'])) {
     
     if (is_string($tableNames)) {
         $result = query("UPDATE `users` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
+        echo "<script>alert('Data $tableName berhasil dihapus')</script>";
+
         header("Location: index.php");
         exit;
     } else {
-        echo "Data $tableName gagal dihapus";
+        echo "<script>alert('Data $tableName gagal dihapus')</script>";
     }
 }
 
