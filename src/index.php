@@ -1,11 +1,13 @@
 <?php
-
+include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
     header("Location: ../login.php");
     exit;
 }
+$id = $_SESSION['identity'];
+$data = query("SELECT * FROM users WHERE id='$id';", true)[0];
 
 ?>
 <!DOCTYPE html>
@@ -57,20 +59,20 @@ if (!isset($_SESSION['identity'])) {
                 </div>
             </div>
             <div class="aside-footer ">
-                    <div class="img-user me-3 d-inline-block" id="img-user">
-                        <img src="./media/userImg/android.svg" alt="" width="40px" height="40px">
-                    </div>
-                    <div class="d-inline-block w-50" id="user">
-                        <h5 class="m-0">Asep Wijaya</h5>
-                        <p class="m-0 fs-6">Software Engineer</h5>
-                    </div>
-                    <div class="logout d-inline-block">
-                        <a href="logout.php">
-                            <button class="btn btn-icon btn-active-color-primary me-n4">
-                                <i class="bi bi-box-arrow-left" id="icon-side"></i>
-                            </button>
-                        </a>
-                    </div>
+                <div class="img-user me-3 d-inline-block" id="img-user">
+                    <img src="./media/userImg/android.svg" alt="" width="40px" height="40px">
+                </div>
+                <div class="d-inline-block w-50" id="user">
+                    <h5 class="m-0"><?= $data['name']?></h5>
+                    <p class="m-0 fs-6">Software Engineer</h5>
+                </div>
+                <div class="logout d-inline-block">
+                    <a href="logout.php">
+                        <button class="btn btn-icon btn-active-color-primary me-n4">
+                            <i class="bi bi-box-arrow-left" id="icon-side"></i>
+                        </button>
+                    </a>
+                </div>
             </div>
         </div>  
         <div class="wrapper d-flex flex-column" style="width:100%;" id="content-wrapper">
