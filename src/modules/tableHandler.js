@@ -122,8 +122,8 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
 
                 if (data[0].length - 2 == key) {
                     // chart handler
-                    const chart = ['line', 'pie', 'bar'];
-                    for (let totalChart = 0; totalChart < 3; totalChart++) {
+                    const chart = ['line', 'pie', 'bar', 'doughnut'];
+                    for (let totalChart = 0; totalChart < chart.length; totalChart++) {
                         const { optionChart } = crElement(valTitle);
                         optionChart.value = chart[totalChart];
                         optionChart.innerText = chart[totalChart];
