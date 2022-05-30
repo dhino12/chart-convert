@@ -1,3 +1,9 @@
+
+
+
+
+
+
 function crCanvas (tTitle, counter) {
     const crCanvas = document.createElement('canvas')
     crCanvas.id = `myChart${counter}`;
@@ -20,6 +26,9 @@ function crCanvas (tTitle, counter) {
     const linkUpdate = document.createElement('a');
     linkUpdate.href = `update.php?tableName=${tTitle}`;
 
+    const linkDelete = document.createElement('a');
+    linkDelete.href = `delete.php?tableName=${tTitle}`;
+
     const editBtn = document.createElement("div");
     editBtn.className = "d-flex align-center btn round-cs-6 me-2";
     editBtn.id = "btn-edit";
@@ -27,6 +36,10 @@ function crCanvas (tTitle, counter) {
     const stracthBtn = document.createElement("div");
     stracthBtn.className = "d-flex align-center btn round-cs-6 me-2";
     stracthBtn.id = "btn-stratch";
+
+    const deleteBtn = document.createElement("div");
+    deleteBtn.className = "d-flex align-center btn round-cs-6 me-2";
+    deleteBtn.id = "btn-delete";
 
     const link = document.createElement("a")
     link.style.margin = "auto"
@@ -38,11 +51,18 @@ function crCanvas (tTitle, counter) {
     const imgIconStracth =  document.createElement("img")
     imgIconStracth.src = "./media/icon/stratch.svg";
     imgIconStracth.width = 25;
+
+    const imgIconDelete =  document.createElement("img")
+    imgIconDelete.src = "./media/icon/trash.svg";
+    imgIconDelete.width = 25;
     
     link.appendChild(imgIcon);
     editBtn.appendChild(link);
-    linkUpdate.appendChild(editBtn);
+    deleteBtn.appendChild(imgIconDelete);
     stracthBtn.appendChild(imgIconStracth);
+    linkUpdate.appendChild(editBtn);
+    linkDelete.appendChild(deleteBtn);
+    iconFeature.appendChild(linkDelete);
     iconFeature.appendChild(linkUpdate);
     iconFeature.appendChild(stracthBtn);
     headerCanvas.appendChild(tCanvas);

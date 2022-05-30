@@ -21,17 +21,18 @@ if (isset($_SESSION['identity'])) {
         
         $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
         $tableNames = crTableSheet($excelDatas, $chartType);
+        // var_dump($tableNames);
         $result = query("UPDATE `users` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
-        header("Location: index.php");
-        exit;
+        // header("Location: index.php");
+        // exit;
         
     } else {
-        echo "<script>alert('Maaf format file tidak didukung, pastikan .xlsx')</script>";
-        header("Location: index.php");
+        // echo "<script>alert('Maaf format file tidak didukung, pastikan .xlsx')</script>";
+        // header("Location: index.php");
     }
 } else {
-    header("Location: ../login.php");
-    exit;
+    // header("Location: ../login.php");
+    // exit;
 }
 
 ?>
