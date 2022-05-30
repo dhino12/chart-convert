@@ -1,11 +1,12 @@
 <?php
 
-use LDAP\Result;
-
 include 'script/functions.php';
+session_start();
 
-$result = clearData();
-if ($result === 0) {
-    header("Location: index.php");
+if (isset($_SESSION['identity'])) {
+    $result = clearData($_SESSION['identity']);     
+    if ($result === 0) {
+        header("Location: index.php");
+    }
 }
 ?>

@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
     var_dump($result);
     if (!is_null($result)) {
         if (password_verify($password, $result['password'])) {
-            $_SESSION['identity'] = $username;
+            $_SESSION['identity'] = $result['id'];
 
             header("Location: src/index.php");
             exit;

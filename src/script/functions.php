@@ -100,7 +100,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
     }
 
     $fixString = str_replace(',)', ')', $strTBody);
-    var_dump($fixString);
+    // var_dump($fixString);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
 
     $data = query($query, '');
@@ -157,10 +157,10 @@ function updateColumns($cols, $tTitle, $oldCols)
     return mysqli_affected_rows($conn);
 }
 
-function clearData() {
+function clearData($id) {
     global $conn;
-    $query = "SHOW TABLES";
-    $tablesName = query($query, false); 
+    $tablesName = query("SELECT table_name FROM users WHERE id='$id';", true)[0]; 
+    $tablesName = explode(',', $tablesName['table_name']);
     foreach ($tablesName as $value) {
         if ($value !== 'users') mysqli_query($conn, "DROP TABLE `$value`");
 

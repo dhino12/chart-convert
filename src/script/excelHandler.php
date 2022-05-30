@@ -65,20 +65,21 @@ function getDataCurrentSheet($sheetNames, $spreadsheet)
 
 function crTableSheet(array $sheetDatas, $chartType)
 {
-    $tableName = '';
+    $tableNames = '';
     $strField = '';
     $counter = 0;
     $rowValue = [];
     $colValue = [];
 
     foreach($sheetDatas as $sheet) { // sheet
-        foreach($sheet as $keyTable => $table){ // table
+        foreach($sheet as $table){ // table
             $strField = '';
             $tableName = '';
 
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
                 $tableName = $table[0][0];
+                $tableNames .= "$tableName,";
                 $table[1][] = "chart_type";
                 $table[1][] = "id";
 
@@ -94,7 +95,8 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                     $colValue[] = $data;
                 }
-                query("CREATE TABLE `$tableName` ($strField);", '');
+                $result = query("CREATE TABLE `$tableName` ($strField);", '');
+                if (is_string($result)) continue;
                 
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
@@ -106,10 +108,10 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        var_dump($rowValue);
+                        // var_dump($rowValue);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         // var_dump($strField);
                         $rowValue = [];
                         $colValue = [];
@@ -118,6 +120,7 @@ function crTableSheet(array $sheetDatas, $chartType)
             } else if (count($table) !== 0) {
                 // tanpa judul table
                 $tableName = 'untitled'. $counter;
+                $tableNames .= "$tableName,";
                 $table[0][] = "chart_type";
                 $table[0][] = "id";
 
@@ -134,7 +137,8 @@ function crTableSheet(array $sheetDatas, $chartType)
                     $colValue[] = $data;
                 }
 
-                query("CREATE TABLE `$tableName` ($strField);", '');
+                $result = query("CREATE TABLE `$tableName` ($strField);", '');
+                if (is_string($result)) continue;
 
                 foreach($table as $key => $data) { // row
                     if ($key > 0) {
@@ -146,11 +150,11 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        var_dump($rowValue);
+                        // var_dump($rowValue);
                         // var_dump($strField);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         $rowValue = [];
                         $colValue = [];
                     }
@@ -160,6 +164,10 @@ function crTableSheet(array $sheetDatas, $chartType)
             $counter++;
         }
     }
+    // $strTableName = str_replace(',', '', $tableNames, strlen($tableNames) - 1);
+    $strTableNames = substr($tableNames, 0, strlen($tableNames) - 1);
+    
+    return $strTableNames;
 }
 
 /*

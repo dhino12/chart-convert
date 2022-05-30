@@ -2,19 +2,15 @@
 include 'functions.php';
 include 'dbToArray.php';
 
-$tables = query('SHOW TABLES WHERE Tables_in_chart_generator NOT LIKE "users";', true);
+$id = $_SESSION['identity'];
+$tables = query("SELECT table_name FROM users WHERE id='$id'", true)[0];
+$tables = explode(',', $tables['table_name']); 
 $column = dbToArray($tables);
-// $dataDb = [];
-
-// var_dump($column['Laju Pertumbuhan Ekonomi Nasional']['column'][1]);
-// var_dump($column['Laju Pertumbuhan Ekonomi Nasional']);
-// print_r($column);
 $index = 0;
 ?>
 
 <script>
     const grafikCanvas = document.querySelector('#canvas-grafik');
-    // const wraperCanvas = document.querySelector("#wrapper-canvas");
     let wrapperCanvas, canvas, title, ctx, canvasContainer, myChart, searchEscapeString, tmp;
     let chartIndex = 1;
     let dataLabels = [];
@@ -23,7 +19,7 @@ $index = 0;
     const tmpCharts = [];
     
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
-        canvasContainer = crCanvas("<?= $tables[$i]['Tables_in_chart_generator'] ?>", <?= $i + 1 ?>);
+        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         
