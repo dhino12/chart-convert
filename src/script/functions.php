@@ -100,7 +100,7 @@ function addValue($tBodyDatas, $tTitle, $tHead)
         }
     }
 
-    $fixString = str_replace(',)', ')', $strTBody);
+    $fixString = str_replace(',)', ')', $strTBody); 
     var_dump($fixString);
     $query = "INSERT INTO `$tTitle` VALUES $fixString;";
 
@@ -166,6 +166,7 @@ function clearData($id) {
         if ($value !== 'users') mysqli_query($conn, "DROP TABLE `$value`");
 
     }
+    query("UPDATE `users` SET `table_name`=NULL WHERE id='$id'", '');
     return mysqli_affected_rows($conn);
 }
 
@@ -183,7 +184,7 @@ function deleteData($query, $tableNames, $tableName) {
     if ($result !== false) {
         return $strTables;
     }
-    
+
     return mysqli_affected_rows($conn);
 }
 
