@@ -221,7 +221,7 @@ function uploadFile()
 
     $newNameFile = uniqid() . '.' . $extensionImg;
 
-    $result =  move_uploaded_file($tmpImg, 'img/'. $newNameFile);
+    move_uploaded_file($tmpImg, 'img/'. $newNameFile);
 
     return $newNameFile;
 

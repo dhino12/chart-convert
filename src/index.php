@@ -74,7 +74,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
                     </a>
                 </div>
             </div>
-        </div>  
+        </div>
         <div class="wrapper d-flex flex-column" style="width:100%;" id="content-wrapper">
             <div class="header">
                 <div class="header-brand bg-side-wrapper">
@@ -88,7 +88,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
                     </div>
                     <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
                         <span class="navbar-toggler-icon">[ ]</span>
-                    </button> 
+                    </button>
                 </div>
 
                 <div style="width: 100%">
