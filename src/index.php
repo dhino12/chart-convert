@@ -64,7 +64,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
                 </div>
                 <div class="d-inline-block w-50" id="user">
                     <h5 class="m-0"><?= $data['name']?></h5>
-                    <p class="m-0 fs-6">Software Engineer</h5>
+                    <p class="m-0 fs-6">Software Engineer</p>
                 </div>
                 <div class="logout d-inline-block">
                     <a href="logout.php">
