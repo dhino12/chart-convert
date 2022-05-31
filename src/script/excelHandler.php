@@ -96,7 +96,13 @@ function crTableSheet(array $sheetDatas, $chartType)
                     $colValue[] = $data;
                 }
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
-                if (is_string($result)) continue;
+                
+                if (is_string($result)) { 
+                    var_dump($result);
+                    $counter++;
+                    $colValue = [];
+                    continue;
+                };
                 
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
@@ -108,8 +114,8 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        // var_dump($rowValue);
-                        // var_dump($colValue);
+                        var_dump($rowValue);
+                        var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
                         var_dump($result);
                         // var_dump($strField);
@@ -138,7 +144,12 @@ function crTableSheet(array $sheetDatas, $chartType)
                 }
 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
-                if (is_string($result)) continue;
+                if (is_string($result)) { 
+                    var_dump($result);
+                    $counter++;
+                    $colValue = [];
+                    continue;
+                };
 
                 foreach($table as $key => $data) { // row
                     if ($key > 0) {
@@ -150,7 +161,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        // var_dump($rowValue);
+                        var_dump($rowValue);
                         // var_dump($strField);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);

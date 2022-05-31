@@ -1,7 +1,5 @@
 <?php
 
-use Complex\Functions;
-
 include 'conn.php';
 
 function splitArray(array $datas)
