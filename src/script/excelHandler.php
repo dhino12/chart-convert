@@ -107,7 +107,10 @@ function crTableSheet(array $sheetDatas, $chartType)
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
                         foreach($data as $dataRecord) {
-                            $dataRecord = str_replace('.','', $dataRecord);
+                            if (str_contains($dataRecord, 'Rp') || str_contains($dataRecord, 'RP')) {
+                                $dataRecord = preg_replace("/[^0-9]/", "", $dataRecord);
+                            }
+
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
