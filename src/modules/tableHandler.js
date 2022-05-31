@@ -1,5 +1,3 @@
-// import { crTable } from "./table/createTable";
-
 const btnCreateTable = document.querySelector("#btnCreateTable");
 const btnCreateRows = document.querySelector("#addRow");
 const btnCreateColumn = document.querySelector("#addColumn");
