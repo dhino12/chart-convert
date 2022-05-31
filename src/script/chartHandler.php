@@ -17,6 +17,13 @@ $index = 0;
     let dataCharts = [];
     const tmpCharts = [];
     
+    const rupiah = (number)=>{
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR"
+        }).format(number);
+    }
+
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
         canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
@@ -47,7 +54,7 @@ $index = 0;
                     if (<?= $keyCol ?> === 0) dataValue = [];
                     
                     if ("<?= trim($valCol) ?>" === "") dataValue.push("0");
-                    else dataValue.push(parseFloat("<?= trim($valCol)?>").toLocaleString());
+                    else dataValue.push(parseFloat("<?= trim($valCol)?>"));
                 <?php endforeach?> 
                 
                 dataCharts.push({
