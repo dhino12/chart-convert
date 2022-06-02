@@ -4,6 +4,7 @@ include 'dbToArray.php';
 $id = $_SESSION['identity'];
 $tables = query("SELECT table_name FROM users WHERE id='$id'", true)[0];
 $tables = explode(',', $tables['table_name']); 
+if ($tables[0] == "") $tables = NULL;
 $column = dbToArray($tables);
 $index = 0;
 ?>
