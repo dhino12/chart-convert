@@ -6,7 +6,7 @@ function getExcelFile($dataFiles)
 {
     $arr_file = explode('.', $dataFiles['excel_file']['name']); // pecah kedalam array diantara . 
     $extension = end($arr_file); // mndapatkan extension .xlsx / .xls`
-
+ 
     if('csv' == $extension) {
         $reader = new \PhpOffice\PhpSpreadsheet\Reader\Csv();
     } else {
@@ -53,7 +53,7 @@ function fixArray(array $datas): array
 }
 
 function getDataCurrentSheet($sheetNames, $spreadsheet)
-{
+{ 
     $dataSheet = [];
     foreach($sheetNames as $name) {
         if($name === NULL) continue;
@@ -72,19 +72,18 @@ function crTableSheet(array $sheetDatas, $chartType)
     $colValue = [];
 
     foreach($sheetDatas as $sheet) { // sheet
-        foreach($sheet as $table){ // table
+        foreach($sheet as $keyTable => $table){ // table
             $strField = '';
             $tableName = '';
 
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
                 $tableName = $table[0][0];
-                $tableNames .= "$tableName,";
+		$tableNames .= "$tableName,";
                 $table[1][] = "chart_type";
                 $table[1][] = "id";
 
                 foreach($table[1] as $key => $data) { // column
-                    $data = trim(preg_replace('/\s\s+/', ' ', $data)); // remove line-break (enter)
                     if((count($table[1]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -96,7 +95,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                     $colValue[] = $data;
                 }
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
-                
+
                 if (is_string($result)) { 
                     // var_dump($result);
                     $counter++;
@@ -107,10 +106,6 @@ function crTableSheet(array $sheetDatas, $chartType)
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
                         foreach($data as $dataRecord) {
-                            if (str_contains($dataRecord, 'Rp') || str_contains($dataRecord, 'RP')) {
-                                $dataRecord = preg_replace("/[^0-9]/", "", $dataRecord);
-                            }
-
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
@@ -122,7 +117,6 @@ function crTableSheet(array $sheetDatas, $chartType)
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
                         // var_dump($result);
-                        // var_dump($strField);
                         $rowValue = [];
                         $colValue = [];
                     }
@@ -130,12 +124,12 @@ function crTableSheet(array $sheetDatas, $chartType)
             } else if (count($table) !== 0) {
                 // tanpa judul table
                 $tableName = 'untitled'. $counter;
-                $tableNames .= "$tableName,";
                 $table[0][] = "chart_type";
+                $tableNames .= "$tableName,";
                 $table[0][] = "id";
 
                 foreach($table[0] as $key => $data) { // col
-                    $data = trim(preg_replace('/\s\s+/', ' ', $data)); // remove line-break (enter)
+                    $data = trim(preg_replace('/\s\s+/', ' ', $data));
                     if((count($table[0]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -148,6 +142,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 }
 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
+
                 if (is_string($result)) { 
                     // var_dump($result);
                     $counter++;
@@ -166,7 +161,6 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                     if (count($table) - 1 === $key) {
                         // var_dump($rowValue);
-                        // var_dump($strField);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
                         // var_dump($result);
@@ -175,13 +169,12 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
                 }
             }
-            
+
+ 
             $counter++;
         }
     }
-    
     $strTableNames = substr($tableNames, 0, strlen($tableNames) - 1);
-    
     return $strTableNames;
 }
 

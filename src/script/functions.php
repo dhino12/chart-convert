@@ -123,15 +123,11 @@ function updateValue($datas, $tTable, $oldData)
     foreach($rows as $row) {
         $column = htmlspecialchars($columns[$counter]);
         $row = htmlspecialchars($row);
-        if (str_contains($row, 'Rp')) {
-            $row = preg_replace("/[^0-9]/", "", $row);
-
-        }
 
         if (count($columns) - 1 === $counter) {
             $query .= "`$column`='$row'";
             $counter = -1;
-            query("UPDATE `$tTable` SET $query WHERE id='$row'", "");
+            $result = query("UPDATE `$tTable` SET $query WHERE id='$row'", "");
             $query = "";
 
         } else {

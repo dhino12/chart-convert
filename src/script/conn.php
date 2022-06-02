@@ -1,4 +1,4 @@
 <?php
 
-    $conn = mysqli_connect('localhost', 'root', '', 'chart_generator');
+    $conn = mysqli_connect('localhost', 'dhoni', 'sipd', 'chart_generator');
     
