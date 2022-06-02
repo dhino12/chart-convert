@@ -10,7 +10,6 @@ if (isset($_POST['register'])) {
     } else {
         echo "<script>alert('gagal menambahkan user')</script>";
     }
-
 }
 
 ?>

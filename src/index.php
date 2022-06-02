@@ -32,8 +32,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
 <body>
     <header></header>
     <main>
-        
-        <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start " aria-labelledby="aside-toggler">
+        <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
                     <div class="menu-link active-menu" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -131,12 +130,14 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
             </div>
 
             <div class="container-fluid content mt-5">
-                <div class="d-flex mb-3">
-                    <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
-                    <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalClearData" id="clear-data">Bersihkan Data</button>
-                    <?php include 'modalChart.php' ?>
-                    <?php include 'modalClearData.php' ?>
-                </div>
+                <?php if ($data['level'] === 'user' || $data['level'] === 'admin') : ?>
+                    <div class="d-flex mb-3">
+                        <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
+                        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalClearData" id="clear-data">Bersihkan Data</button>
+                        <?php include 'modalChart.php' ?>
+                        <?php include 'modalClearData.php' ?>
+                    </div>
+                <?php endif ?>
                 
                 <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
                     

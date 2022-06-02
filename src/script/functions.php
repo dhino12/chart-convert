@@ -158,6 +158,7 @@ function updateColumns($cols, $tTitle, $oldCols)
 
 function clearData($id) {
     global $conn;
+    
     $tablesName = query("SELECT table_name FROM users WHERE id='$id';", true)[0]; 
     $tablesName = explode(',', $tablesName['table_name']);
     foreach ($tablesName as $value) {

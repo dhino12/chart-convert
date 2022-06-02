@@ -15,8 +15,7 @@ if (isset($_POST['login'])) {
 
     $query = "SELECT * FROM users WHERE username='$username' OR email='$username'";
     $result = query($query, true)[0];
-    
-    var_dump($result);
+
     if (!is_null($result)) {
         if (password_verify($password, $result['password'])) {
             $_SESSION['identity'] = $result['id'];

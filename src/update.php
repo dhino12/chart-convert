@@ -7,6 +7,7 @@ $result = query("SELECT * FROM `$tableName`", true);
 
 if (isset($_POST['submit'])) {
     query("RENAME TABLE `$tableName` TO `". $_POST['titleTable'] ."`", '');
+    
 
     $data = splitArray($_POST);
     $msgUpdate = updateValue($data, $tableName, $result[0]);
