@@ -150,6 +150,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/createChart.js"></script>
+    <script src="./modules/sideBar.js"></script>
 	<?php include './script/chartHandler.php' ?>
     <script src="./modules/index.js"></script>
 </body>
