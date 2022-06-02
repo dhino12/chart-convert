@@ -17,12 +17,13 @@ $index = 0;
     let dataCharts = [];
     const tmpCharts = [];
     
-    const rupiah = (number)=>{
-        return new Intl.NumberFormat("id-ID", {
-            style: "currency",
-            currency: "IDR"
-        }).format(number);
-    }
+    // currency converter
+    // const rupiah = (number)=>{
+    //     return new Intl.NumberFormat("id-ID", {
+    //         style: "currency",
+    //         currency: "IDR"
+    //     }).format(number);
+    // }
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
         canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
@@ -32,9 +33,9 @@ $index = 0;
     <?php foreach($column as $keyTable => $valTable) : ?>
         ctx = document.querySelector(`#myChart${chartIndex}`).getContext('2d');
         <?php $index = 0 ?>;
-        dataLabels = []
-        dataValue = []
-        dataCharts = []
+        dataLabels = [];
+        dataValue = [];
+        dataCharts = [];
 
         <?php foreach($valTable as $key => $value) : ?>
             <?php if(

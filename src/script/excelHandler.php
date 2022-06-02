@@ -98,7 +98,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
                 
                 if (is_string($result)) { 
-                    var_dump($result);
+                    // var_dump($result);
                     $counter++;
                     $colValue = [];
                     continue;
@@ -118,10 +118,10 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        var_dump($rowValue);
-                        var_dump($colValue);
+                        // var_dump($rowValue);
+                        // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
-                        var_dump($result);
+                        // var_dump($result);
                         // var_dump($strField);
                         $rowValue = [];
                         $colValue = [];
@@ -149,7 +149,7 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
                 if (is_string($result)) { 
-                    var_dump($result);
+                    // var_dump($result);
                     $counter++;
                     $colValue = [];
                     continue;
@@ -165,7 +165,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     if (count($table) - 1 === $key) {
-                        var_dump($rowValue);
+                        // var_dump($rowValue);
                         // var_dump($strField);
                         // var_dump($colValue);
                         $result = addValue($rowValue, $tableName, $colValue);
