@@ -210,14 +210,14 @@ function uploadFile()
         return false;
     }
 
-    if ($sizeFile > 10_000_000) {
-        echo "
-            <script>
-                alert('Ukuran file terlalu besar');
-            </script>
-        ";
-        return false;
-    }
+    // if ($sizeFile > 10_000_000) {
+    //     echo "
+    //         <script>
+    //             alert('Ukuran file terlalu besar');
+    //         </script>
+    //     ";
+    //     return false;
+    // }
 
     $newNameFile = uniqid() . '.' . $extensionImg;
 
