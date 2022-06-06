@@ -6,7 +6,7 @@ if (isset($_POST['register'])) {
     
     if (register($_POST) > 0) {
         echo "<script>alert('berhasil menambahkan user')</script>";
-        header("Location: login.php");
+        // header("Location: login.php");
     } else {
         echo "<script>alert('gagal menambahkan user')</script>";
     }
@@ -20,7 +20,7 @@ if (isset($_POST['register'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register Admin</title>
     <link rel="stylesheet" href="./src/style/index.css">
     <link rel="stylesheet" href="./src/style/background/colors.css">
     <link rel="stylesheet" href="./src/style/responsive/side-responsive.css">
@@ -35,7 +35,7 @@ if (isset($_POST['register'])) {
             <div class="sd-login">
                 <div class="content-login my-5 mx-5">
                     <h2 class="text-center text-purple">Register Form</h2>
-                    <p class="text-center text-secondary">Silahkan register untuk menambahkan akun</p>
+                    <p class="text-center text-secondary">Silahkan register untuk menambahkan akun <b style="color: red;">admin</b></p>
 
                     <form action="" method="POST" class="form-login mb-0" enctype="multipart/form-data">
                         <div class="mb-3">

@@ -207,6 +207,7 @@ function uploadFile()
         return false;
     }
 
+    var_dump($fileName);
     // if ($sizeFile > 10_000_000) {
     //     echo "
     //         <script>
@@ -215,13 +216,12 @@ function uploadFile()
     //     ";
     //     return false;
     // }
-
+    var_dump($error);
     $newNameFile = uniqid() . '.' . $extensionImg;
 
-    move_uploaded_file($tmpImg, 'img/'. $newNameFile);
+    move_uploaded_file($tmpImg, '../media/userImg'. $newNameFile);
 
-    return $newNameFile;
-
+    return $newNameFile; 
 }
 
 function register($data) {
@@ -238,15 +238,21 @@ function register($data) {
         echo "<script>
             alert('username sudah ada');
         </script>";
+        return false;
     }
 
     $enc_password = password_hash($password, PASSWORD_DEFAULT);
 
     $checkCodeImg = $_FILES['foto']['error'];
+    var_dump($_FILES);
     if ($checkCodeImg === 4) {
         $foto = 'test.png';
     } else {
         $foto = uploadFile();
+
+        if ($foto === false) {
+            return false;
+        }
     }
 
     $queryInsert = "INSERT INTO users (
@@ -256,7 +262,7 @@ function register($data) {
         ) VALUES (
         '$foto', '$username', 
         '$name', '$enc_password', 
-        'user', '$email', '". uniqid() ."'
+        'admin', '$email', '". uniqid() ."'
         )";
 
     query($queryInsert, '');
