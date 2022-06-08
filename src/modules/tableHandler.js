@@ -6,7 +6,7 @@ const btnSubmitCrTable = document.querySelector('#submit');
 
 const formInput = document.querySelector("#form-input");
 
-const titleTable = document.querySelector('#titleTable');
+const titleTable = (document.querySelector('#titleTable') !== null)? document.querySelector('#titleTable') : '';
 const columnTotal = document.querySelector('#columnTotal');
 const rowTotal = document.querySelector('#rowsTotal');
 
@@ -77,7 +77,7 @@ function addDataTable(createThead, createTbody, valTitle) {
     }
 }
 
-function updateDataTable(createThead, createTbody, data, valTitle) {
+function updateDataTable(createThead, createTbody, data, valTitle, chart) {
 
     const rows = data[1].length;
 
@@ -92,14 +92,16 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
                 // col  
                 const { createTh1, createInput1} = crElement(valTitle);
 
-                createInput1.className = 'form-control border-0';
+                createInput1.className = 'form-control border-0 bg-transparent';
                 createInput1.placeholder = 'Masukan Data';
                 createInput1.type = 'text';
                 createInput1.name = `${row + 1}-${key}`;
                 createInput1.autocomplete = 'off';
                 createInput1.value = col;
                 
-                if (data[0].length - 1 === key) {
+                if (data[0].length - 1 === key && chart === true) {
+                    createInput1.hidden = true; // id inputText
+                } else if (data[0].length - 2 === key && chart === false) {
                     createInput1.hidden = true; // id inputText
                 }
 
@@ -113,11 +115,13 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
                 const {createTh1, createInput1, selectChart} = crElement(valTitle);
                 selectChart.name = `${row + 1}-${key}`;
                 
-                if (data[1][row].length - 1 === key) {
+                if (data[0].length - 1 === key && chart === true) {
+                    createInput1.hidden = true; // id inputText
+                } else if (data[0].length - 2 === key && chart === false) {
                     createInput1.hidden = true; // id inputText
                 }
 
-                if (data[0].length - 2 == key) {
+                if (data[0].length - 2 == key && chart === true) {
                     // chart handler
                     const chart = ['line', 'pie', 'bar', 'doughnut'];
                     for (let totalChart = 0; totalChart < chart.length; totalChart++) {
@@ -133,7 +137,7 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
 
                     createTh1.appendChild(selectChart);
                 } else {
-                    createInput1.className = 'form-control border-0';
+                    createInput1.className = 'form-control border-0 bg-transparent';
                     createInput1.placeholder = 'Masukan Data';
                     createInput1.type = 'text';
                     createInput1.name = `${row + 1}-${key}`;
@@ -150,11 +154,9 @@ function updateDataTable(createThead, createTbody, data, valTitle) {
         if (row === -1) createThead.appendChild(createTr);
         else createTbody.appendChild(createTr);
     }
-
-    
 }
 
-function crTable(updateData, tableName){
+function crTable(updateData, tableName, chart){
     const valTitle = titleTable.value;
 
     const { createTable, 
@@ -165,7 +167,7 @@ function crTable(updateData, tableName){
     } = crElement((valTitle == '')? tableName : valTitle);
     
     if (updateData) {
-        updateDataTable(createThead, createTbody, updateData, tableName);
+        updateDataTable(createThead, createTbody, updateData, tableName, chart);
 
     } else {
         addDataTable(createThead, createTbody, valTitle);

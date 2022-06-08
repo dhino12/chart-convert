@@ -58,10 +58,10 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
                 </div>
             </div>
             <div class="aside-footer ">
-                <div class="img-user me-3 d-inline-block" id="img-user">
-                    <img src="./media/userImg/android.svg" alt="" width="40px" height="40px">
+                <div class="img-user me-2 d-inline-block" id="img-user">
+                    <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
-                <div class="d-inline-block w-50" id="user">
+                <div class="d-inline-block" id="user">  
                     <h5 class="m-0"><?= $data['name']?></h5>
                     <p class="m-0 fs-6">Software Engineer</p>
                 </div>

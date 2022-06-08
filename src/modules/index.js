@@ -3,6 +3,7 @@ const containerAside = document.querySelector(".aside-menu");
 const canvasGrafik = document.querySelector('#canvas-grafik')
 const btnStratchs = document.querySelectorAll('#btn-stratch');
 const wrapCanvas = document.querySelectorAll('#wrapper-canvas');
+const userManagement = document.querySelector("#user");
 
 containerAside.addEventListener("click", (e) => {
     if (e.target.className.includes('menu-link')) {
@@ -13,6 +14,10 @@ containerAside.addEventListener("click", (e) => {
         e.target.classList.add("active-menu");
     }
 });
+
+userManagement.onclick = () => {
+    window.location.href = "userManagement.php";
+}
 
 function toggleStracth(btnStratchs, i) {
     if (btnStratchs.target.className.includes('bg-light')) {

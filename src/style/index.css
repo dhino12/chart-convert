@@ -6,6 +6,10 @@ body {
     background: #f7f7f7 !important;
 }
 
+.form-control:focus {
+    background-color: white!important;
+}
+
 #icon-side::before {
     color: white;
     font-weight: bold !important;
@@ -184,10 +188,23 @@ body {
 }
 
 .offcanvas.active .aside-footer #user,
-.offcanvas.active .aside-footer #img-user {
+.offcanvas.active .aside-footer #img-user,
+.offcanvas.active .aside-footer #user h5,
+.offcanvas.active .aside-footer #user p {
     opacity: 1;
     display: inline-block !important;
     transition: all .3s ease;
+    text-align: left;
+}
+
+.offcanvas.active .aside-footer #user{
+    width: 65%;
+}
+
+#user:hover {
+    background-color: #dfdfdf;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .offcanvas.active .logout {
@@ -195,10 +212,16 @@ body {
     left: 80%;
 }
 
-.offcanvas .aside-footer #user,
 .offcanvas .aside-footer #img-user {
     opacity: 0;
     display: none !important;
+}
+
+.offcanvas .aside-footer #user h5,
+.offcanvas .aside-footer #user p {
+    height: 20px;
+    overflow: hidden;
+    text-align: center;
 }
 
 .logout {

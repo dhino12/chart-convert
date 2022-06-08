@@ -115,9 +115,11 @@ function updateValue($datas, $tTable, $oldData)
     $query = "";
     $counter = 0;
 
-    foreach($columns as $key => $newCol) {
-        $oldCol = array_keys($oldData)[$key];
-        query("ALTER TABLE `$tTable` CHANGE `$oldCol` `$newCol` VARCHAR(180)", '');
+    if (count($oldData) !== 0) {
+        foreach($columns as $key => $newCol) {
+            $oldCol = array_keys($oldData)[$key];
+            query("ALTER TABLE `$tTable` CHANGE `$oldCol` `$newCol` VARCHAR(180)", '');
+        }
     }
 
     foreach($rows as $row) {
@@ -207,19 +209,18 @@ function uploadFile()
         return false;
     }
 
-    var_dump($fileName);
     // if ($sizeFile > 10_000_000) {
     //     echo "
-    //         <script>
-    //             alert('Ukuran file terlalu besar');
-    //         </script>
+    //     <script>
+    //        alert('Ukuran file terlalu besar');
+    //     </script>
     //     ";
     //     return false;
     // }
-    var_dump($error);
+
     $newNameFile = uniqid() . '.' . $extensionImg;
 
-    move_uploaded_file($tmpImg, '../media/userImg'. $newNameFile);
+    $result = move_uploaded_file($tmpImg, '../media/userImg/'. $newNameFile);
 
     return $newNameFile; 
 }
@@ -244,9 +245,9 @@ function register($data) {
     $enc_password = password_hash($password, PASSWORD_DEFAULT);
 
     $checkCodeImg = $_FILES['foto']['error'];
-    var_dump($_FILES);
+    
     if ($checkCodeImg === 4) {
-        $foto = 'test.png';
+        $foto = 'person.svg';
     } else {
         $foto = uploadFile();
 
