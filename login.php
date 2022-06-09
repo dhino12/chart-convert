@@ -12,13 +12,15 @@ if (isset($_SESSION['identity'])) {
 if (isset($_POST['login'])) {
     $username = $_POST['email'];
     $password = $_POST['password'];
+    $level = $_POST['level'];
 
-    $query = "SELECT * FROM users WHERE username='$username' OR email='$username'";
+    $query = "SELECT * FROM $level WHERE username='$username' OR email='$username'";
     $result = query($query, true)[0];
 
     if (!is_null($result)) {
         if (password_verify($password, $result['password'])) {
             $_SESSION['identity'] = $result['id'];
+            $_SESSION['level'] = $_POST['level'];
 
             header("Location: src/index.php");
             exit;
@@ -61,6 +63,14 @@ if (isset($_POST['login'])) {
                         <div class="mb-3">
                             <label for="exampleInputPassword1" class="form-label">Password <b style="color: red;">*</b></label>
                             <input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputAsLevel" class="form-label">Sebagai <b style="color: red;">*</b></label>
+                            <select class="form-select" name="level" aria-label="Default select example">
+                                <option selected>Login Sebagai ?</option>
+                                <option value="admins">admins</option>
+                                <option value="users">users</option>
+                            </select>
                         </div>
                         <button type="submit" name="login" class="btn btn-purple" id="login" >Login</button>
                         <button type="button" class="btn btn-outline-danger" id="clear">Clear</button>
