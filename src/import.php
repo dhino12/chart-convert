@@ -7,6 +7,7 @@ session_start();
 
 if (isset($_SESSION['identity'])) {
     $id = $_SESSION['identity'];
+    $level = $_SESSION['level']; // admins / users
 
     $file_mimes = array('application/octet-stream',
         'application/vnd.ms-excel', 'application/x-csv',
@@ -22,7 +23,7 @@ if (isset($_SESSION['identity'])) {
         
         $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
         $tableNames = crTableSheet($excelDatas, $chartType);
-        $result = query("UPDATE `users` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
+        $result = query("UPDATE `$level` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
         header("Location: index.php");
         exit;
         
