@@ -1,9 +1,3 @@
-
-
-
-
-
-
 function crCanvas (tTitle, counter) {
     const crCanvas = document.createElement('canvas')
     crCanvas.id = `myChart${counter}`;
