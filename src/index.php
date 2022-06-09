@@ -7,7 +7,8 @@ if (!isset($_SESSION['identity'])) {
     exit;
 }
 $id = $_SESSION['identity'];
-$data = query("SELECT * FROM users WHERE id='$id';", true)[0];
+$level = $_SESSION['level'];
+$data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 
 ?>
 <!DOCTYPE html>
@@ -17,7 +18,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>Home Page</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/test.css">
@@ -61,7 +62,7 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
                 <div class="img-user me-2 d-inline-block" id="img-user">
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
-                <div class="d-inline-block" id="user">  
+                <div class="d-inline-block" id="user">
                     <h5 class="m-0"><?= $data['name']?></h5>
                     <p class="m-0 fs-6">Software Engineer</p>
                 </div>
@@ -152,7 +153,18 @@ $data = query("SELECT * FROM users WHERE id='$id';", true)[0];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/createChart.js"></script>
     <script src="./modules/sideBar.js"></script>
+    
+    <?php if($_SESSION['level'] === 'admins') : ?>
+        <script>
+            const userManagement = document.querySelector("#user");
+            userManagement.onclick = () => {
+                window.location.href = "userManagement.php";
+            }
+        </script>
+    <?php endif ?>
+    
 	<?php include './script/chartHandler.php' ?>
     <script src="./modules/index.js"></script>
+
 </body>
 </html>
