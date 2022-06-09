@@ -7,23 +7,39 @@ if (!isset($_SESSION['identity'])) {
     exit;
 }
 $id = $_SESSION['identity'];
-$data = query("SELECT * FROM users WHERE id='$id';", true)[0];
-$users = query("SELECT * FROM users WHERE level='user'", true);
+$level = $_SESSION['level'];
+$data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
+$users = query("SELECT * FROM users WHERE level='user' AND id='$id'", true);
 
 if (isset($_POST['submit'])) {
     $data = splitArray($_POST);
-    var_dump($data);
+    $data[0] = ['name', 'password', 'level', 'email','username', 'username_hidden'];
     $msgUpdateUser = updateValue($data, 'users', []);
 
-    if ($msgUpdateUser > 0) {
+    if ($msgUpdateUser >= 0) {
         echo "
             <script>
                 alert('Data berhasil diubah');
             </script>";
+        header("Refresh:0");
     } else {
         echo "<script>alert('Data gagal diubah')</script>";
     }
 }
+
+if (isset($_GET['username'])) {
+    $username = $_GET['username'];
+    $query = "DELETE FROM users WHERE username = '$username';";
+    $result = query($query, '');
+
+    if ($result === true) {
+        echo "<script>alert('user $username berhasil dihapus')</script>";
+        header("Location: userManagement.php");
+    } else {
+        echo "<script>alert('user $username berhasil dihapus')</script>";
+    }
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,7 +48,7 @@ if (isset($_POST['submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Document</title>
+    <title>User Management</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/test.css">
@@ -149,36 +165,40 @@ if (isset($_POST['submit'])) {
                         <thead>
                             <tr class="py-2">
                                 <th>No</th>
-                                <th>username</th>
                                 <th>name</th>
                                 <th>password</th>
                                 <th>level</th>
                                 <th>email</th>
+                                <th>username</th>
                                 <th>action</th>
+                                <th hidden>username</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($users as $rowIndex => $dataWrap) : ?>
                                 <tr>
-                                    <td>1</td>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['username']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['name']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['password']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['level']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['email']?>"></th>
+                                    <td><?=$rowIndex+1  ?></td>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></th>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"></th>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></th>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></th>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></th>
                                     <td style="width: 15vh;">
-                                        <button type="button" class="btn btn-outline-danger me-2">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
-                                                <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
-                                                <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
-                                            </svg>
-                                        </button>
+                                        <a href="deleteUser.php?username=<?= $dataWrap['username'] ?>" onclick="return confirm('delete <?= $dataWrap['username']?> ?')">
+                                            <button type="button" class="btn btn-outline-danger me-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                            </button>
+                                        </a>
                                         <button type="button" class="btn btn-outline-primary">
                                             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
                                                 <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
                                             </svg>
                                         </button>
                                     </td>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-5" autocomplete="off" value="<?= $dataWrap['username']?>" hidden></th>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
