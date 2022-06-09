@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <div class="mb-3">
                         <label for="title" class="form-label">Nama Lengkap <b style="color: red">*</b> </label>
-                        <input type="text" class="form-control" id="full-name" name="title_table" required>
+                        <input type="text" class="form-control" id="full-name" name="fullName" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email <b style="color: red">*</b> </label>
