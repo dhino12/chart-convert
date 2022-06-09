@@ -127,9 +127,18 @@ function updateValue($datas, $tTable, $oldData)
         $row = htmlspecialchars($row);
 
         if (count($columns) - 1 === $counter) {
-            $query .= "`$column`='$row'";
-            $counter = -1;
-            $result = query("UPDATE `$tTable` SET $query WHERE id='$row'", "");
+            if (count($oldData) !== 0) {
+                // update data
+                $query .= "`$column`='$row'";
+                $counter = -1;
+                $querySQL = "UPDATE `$tTable` SET $query WHERE id='$row';";
+            } else {
+                // update user
+                $counter = -1;
+                $queryTmp = "UPDATE `$tTable` SET $query WHERE username='$row';";
+                $querySQL = str_replace(", ", " ", $queryTmp);
+            }
+            $result = query($querySQL, "");
             $query = "";
 
         } else {
@@ -158,16 +167,16 @@ function updateColumns($cols, $tTitle, $oldCols)
     return mysqli_affected_rows($conn);
 }
 
-function clearData($id) {
+function clearData($id, $level) {
     global $conn;
     
-    $tablesName = query("SELECT table_name FROM users WHERE id='$id';", true)[0]; 
+    $tablesName = query("SELECT table_name FROM $level WHERE id='$id';", true)[0]; 
     $tablesName = explode(',', $tablesName['table_name']);
     foreach ($tablesName as $value) {
-        if ($value !== 'users') mysqli_query($conn, "DROP TABLE `$value`");
+        if ($value !== $level) mysqli_query($conn, "DROP TABLE `$value`");
 
     }
-    query("UPDATE `users` SET `table_name`=NULL WHERE id='$id'", '');
+    query("UPDATE `$level` SET `table_name`=NULL WHERE id='$id'", '');
     return mysqli_affected_rows($conn);
 }
 
@@ -256,7 +265,7 @@ function register($data) {
         }
     }
 
-    $queryInsert = "INSERT INTO users (
+    $queryInsert = "INSERT INTO admins (
         foto, username, 
         name, password, 
         level, email, id
@@ -265,7 +274,6 @@ function register($data) {
         '$name', '$enc_password', 
         'admin', '$email', '". uniqid() ."'
         )";
-
     query($queryInsert, '');
     
     return mysqli_affected_rows($conn);
