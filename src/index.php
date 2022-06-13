@@ -165,6 +165,70 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     
 	<?php include './script/chartHandler.php' ?>
     <script src="./modules/index.js"></script>
+    <script>
 
+        const grafik = document.querySelector("#canvas-grafik");
+        const chartAll = document.querySelectorAll('#wrapper-canvas');
+        const loading = document.createElement('div');
+        loading.innerHTML = `
+            <button class="btn btn-primary" type="button" disabled>
+                <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>`;
+        loading.id = 'loading'
+        let totalChart = 10;
+        grafik.innerHTML = '';
+
+        for (let i = 0; i < totalChart; i++) {
+            grafik.appendChild(chartAll[i]);
+        }
+
+        function getScrollXY() {
+            var scrOfX = 0, scrOfY = 0;
+            if( typeof( window.pageYOffset ) == 'number' ) {
+                //Netscape compliant
+                scrOfY = window.pageYOffset;
+                scrOfX = window.pageXOffset;
+            } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
+                //DOM compliant
+                scrOfY = document.body.scrollTop;
+                scrOfX = document.body.scrollLeft;
+            } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
+                //IE6 standards compliant mode
+                scrOfY = document.documentElement.scrollTop;
+                scrOfX = document.documentElement.scrollLeft;
+            }
+            return [ scrOfX, scrOfY ];
+        }
+
+        function getDocHeight() {
+            var D = document;
+            return Math.max(
+                D.body.scrollHeight, D.documentElement.scrollHeight,
+                D.body.offsetHeight, D.documentElement.offsetHeight,
+                D.body.clientHeight, D.documentElement.clientHeight
+            );
+        }
+
+        document.addEventListener("scroll", function (event) {
+            if (getDocHeight() - 20 <= getScrollXY()[1] + window.innerHeight)
+            {
+                totalChart += 10;
+                for (let i = 10; i < totalChart; i++) {
+                    if (chartAll.length <= i) {
+                        console.log(i);
+                        return;
+                    };
+                    grafik.appendChild(loading);
+
+                    setTimeout(() => {
+                        document.querySelector('#loading').innerHTML = ''
+                        grafik.appendChild(chartAll[i]);
+                    }, 3000);
+                }
+                
+            }
+        });
+    </script>
 </body>
 </html>
