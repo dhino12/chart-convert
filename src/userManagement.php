@@ -110,7 +110,7 @@ if (isset($_GET['username'])) {
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo-kemendagri.png" width="50px">
-                        <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p> 
+                        <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p>
                         <p>Kementrian Dalam Negeri</p>
                         <div id="toggle" class="sidebar-toggle">
                             <i class="bi bi-list" style="font-size: 20px;" id="icon-side"></i>
@@ -183,7 +183,7 @@ if (isset($_GET['username'])) {
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></th>
-                                    <td style="width: 15vh;">
+                                    <td style="width: 18vh;">
                                         <a href="deleteUser.php?username=<?= $dataWrap['username'] ?>" onclick="return confirm('delete <?= $dataWrap['username']?> ?')">
                                             <button type="button" class="btn btn-outline-danger me-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

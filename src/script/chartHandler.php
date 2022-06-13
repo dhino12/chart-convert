@@ -4,9 +4,11 @@ include 'dbToArray.php';
 $id = $_SESSION['identity'];
 $level = $_SESSION['level'];
 $tables = query("SELECT table_name FROM $level WHERE id='$id'", true)[0];
-$tables = explode(',', $tables['table_name']); 
-if ($tables[0] == "") $tables = NULL;
-$column = dbToArray($tables);
+$tables = explode(',', $tables['table_name']);
+if (strlen($tables[0]) !== 0 && !is_null($tables[1])) {
+    $column = dbToArray($tables);
+}
+
 $index = 0;
 ?>
 

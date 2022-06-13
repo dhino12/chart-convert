@@ -24,7 +24,8 @@ if (isset($_POST['submit'])) {
     }
 }
 $id = $_SESSION['identity'];
-$data = query("SELECT * FROM users WHERE id='$id';", true)[0];
+$level = $_SESSION['level'];
+$data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 ?>
 
 <!DOCTYPE html>
