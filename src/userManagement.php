@@ -181,6 +181,7 @@ if (isset($_GET['username'])) {
                                 <th>level</th>
                                 <th>email</th>
                                 <th>username</th>
+                                <th>status</th>
                                 <th>action</th>
                                 <th hidden>username</th>
                             </tr>
@@ -188,12 +189,13 @@ if (isset($_GET['username'])) {
                         <tbody>
                             <?php foreach($users as $rowIndex => $dataWrap) : ?>
                                 <tr>
-                                    <td><?=$rowIndex+1  ?></td>
+                                    <td><?=$rowIndex + 1  ?></td>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></th>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></th>
+                                    <th><button type="button" class="btn btn-success">Aktif</button></th>
                                     <td style="width: 18vh;">
                                         <a href="deleteUser.php?username=<?= $dataWrap['username'] ?>" onclick="return confirm('delete <?= $dataWrap['username']?> ?')">
                                             <button type="button" class="btn btn-outline-danger me-2">
