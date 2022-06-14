@@ -19,7 +19,6 @@ $index = 0;
     let dataLabels = [];
     let dataValue = []; 
     let dataCharts = [];
-    const tmpCharts = [];
     
     // currency converter
     // const rupiah = (number)=>{

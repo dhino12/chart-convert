@@ -13,6 +13,7 @@ function crCanvas (tTitle, counter) {
     const tCanvas = document.createElement("h5");
     tCanvas.className = "w-100 pt-1 text-center";
     tCanvas.innerText = tTitle;
+    tCanvas.id = tTitle
 
     const iconFeature = document.createElement('div');
     iconFeature.className = "icon";

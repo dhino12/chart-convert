@@ -170,13 +170,14 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
         const grafik = document.querySelector("#canvas-grafik");
         const chartAll = document.querySelectorAll('#wrapper-canvas');
         const loading = document.createElement('div');
+        let totalChart = 10;
+        let counter = 10;
         loading.innerHTML = `
             <button class="btn btn-primary" type="button" disabled>
                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Loading...
             </button>`;
         loading.id = 'loading'
-        let totalChart = 10;
         grafik.innerHTML = '';
 
         for (let i = 0; i < totalChart; i++) {
@@ -214,19 +215,24 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
             if (getDocHeight() - 20 <= getScrollXY()[1] + window.innerHeight)
             {
                 totalChart += 10;
+                if (counter >= chartAll.length) return;
+
                 for (let i = 10; i < totalChart; i++) {
                     if (chartAll.length <= i) {
                         console.log(i);
+                        console.log('if');
                         return;
-                    };
-                    grafik.appendChild(loading);
-
-                    setTimeout(() => {
-                        document.querySelector('#loading').innerHTML = ''
-                        grafik.appendChild(chartAll[i]);
-                    }, 3000);
+                    } else {
+                        grafik.appendChild(loading);
+                        console.log('test');
+                        setTimeout(() => {
+                            console.log('jalan' + i);
+                            document.querySelector('#loading').innerHTML = ''
+                            grafik.appendChild(chartAll[i]);
+                        }, 3000);
+                    }
+                    counter++;
                 }
-                
             }
         });
     </script>
