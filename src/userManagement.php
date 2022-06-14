@@ -87,6 +87,17 @@ if (isset($_GET['username'])) {
                         </a>
                     </div>
                 </div>
+                <a href="list.php">
+                    <div class="my-2 py-2 px-2" id="item-side">
+                        <div class="menu-link text-white" >
+                            <i class="bi bi-list-ul"></i>
+                            <span>
+                                <span class="t-sidebar">List</span>
+                                <span id="expand">></span>
+                            </span>
+                        </div>
+                    </div>
+                </a>
             </div>
             <div class="aside-footer ">
                 <div class="img-user me-2 d-inline-block" id="img-user">
