@@ -276,3 +276,22 @@ body {
 .clear {
     clear: both;
 }
+
+/* List */
+.statisk {
+    display: flex;
+    justify-content:space-around;
+    box-shadow: 3px 6px 5px 0px #00000014;
+    margin-bottom: 10vh;
+}
+
+.total-table {
+    width: 15vw;
+    height: 18vh;
+    padding-top: 5vh;
+    border-radius: 10px;
+}
+
+.total-table h3 {
+    text-align: center;
+}
