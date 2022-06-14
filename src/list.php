@@ -156,20 +156,45 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                         <tr>
                             <td>Name</td>
                             <td>Jumlah Data</td>
+                            <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <td>Hello </td>
                             <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
                         </tr>
                         <tr>
                             <td>Hello </td>
                             <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
+
                         </tr>
                         <tr>
                             <td>Hello </td>
                             <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Hello </td>
+                            <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Hello </td>
+                            <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Hello </td>
+                            <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
+                        </tr>
+                        <tr>
+                            <td>Hello </td>
+                            <td>World</td>
+                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
                         </tr>
                     </tbody>
                 </table>
