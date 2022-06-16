@@ -9,6 +9,11 @@ if (!isset($_SESSION['identity'])) {
 $id = $_SESSION['identity'];
 $level = $_SESSION['level'];
 $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
+$tables = explode(",", $data['table_name']);
+$totalRows;
+foreach ($tables as $key => $value) {
+    $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
+}
 
 ?>
 <!DOCTYPE html>
@@ -71,7 +76,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                     </div>
                 </a>
             </div>
-            <div class="aside-footer ">
+            <div class="aside-footer">
                 <div class="img-user me-2 d-inline-block" id="img-user">
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
@@ -142,7 +147,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
             <div class="container-fluid content mt-5">
                 <div class="statisk">
                     <div class="total-table">
-                        <h3>100+</h3>
+                        <h3><?= count($tables) ?></h3>
                         <p class="text-center">Total Table</p>
                     </div>
                     <div class="total-table">
@@ -154,48 +159,21 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
+                            <td>No</td>
                             <td>Name</td>
                             <td>Jumlah Data</td>
                             <td>Action</td>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
-                        <tr>
-                            <td>Hello </td>
-                            <td>World</td>
-                            <td><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></td>
-                        </tr>
+                        <?php foreach ($tables as $index => $value) : ?>
+                            <tr>
+                                <td><?= $index + 1?></td>
+                                <td><?= $value ?></td>
+                                <td><?= $totalRows[$index][0] ?></td>
+                                <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
+                            </tr>
+                        <?php endforeach ?>
                     </tbody>
                 </table>
             </div>
@@ -208,5 +186,13 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/sideBar.js"></script>
     <script src="./modules/index.js"></script>
+    <?php if($_SESSION['level'] === 'admins') : ?>
+        <script>
+            const userManagement = document.querySelector("#user");
+            userManagement.onclick = () => {
+                window.location.href = "userManagement.php";
+            }
+        </script>
+    <?php endif ?>
 </body>
 </html>
