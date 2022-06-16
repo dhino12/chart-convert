@@ -120,10 +120,8 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                                     <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
                                 </form>
                                 
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/square.svg" alt="" srcset="">
-                                    </a>
+                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
+                                    <img src="./media/icon/square.svg" alt="" srcset="">
                                 </div>
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
                                     <a href="">
@@ -177,7 +175,6 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 	<?php include './script/chartHandler.php' ?>
     <script src="./modules/index.js"></script>
     <script>
-
         const grafik = document.querySelector("#canvas-grafik");
         const chartAll = document.querySelectorAll('#wrapper-canvas');
         const loading = document.createElement('div');
@@ -194,19 +191,19 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
         for (let i = 0; i < totalChart; i++) {
             grafik.appendChild(chartAll[i]);
         }
-
+        
         function getScrollXY() {
             var scrOfX = 0, scrOfY = 0;
             if( typeof( window.pageYOffset ) == 'number' ) {
-                //Netscape compliant
+                
                 scrOfY = window.pageYOffset;
                 scrOfX = window.pageXOffset;
             } else if( document.body && ( document.body.scrollLeft || document.body.scrollTop ) ) {
-                //DOM compliant
+                
                 scrOfY = document.body.scrollTop;
                 scrOfX = document.body.scrollLeft;
             } else if( document.documentElement && ( document.documentElement.scrollLeft || document.documentElement.scrollTop ) ) {
-                //IE6 standards compliant mode
+                
                 scrOfY = document.documentElement.scrollTop;
                 scrOfX = document.documentElement.scrollLeft;
             }
