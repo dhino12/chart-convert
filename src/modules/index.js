@@ -3,8 +3,7 @@ const containerAside = document.querySelector(".aside-menu");
 const canvasGrafik = document.querySelector('#canvas-grafik')
 const btnStratchs = document.querySelectorAll('#btn-stratch');
 const wrapCanvas = document.querySelectorAll('#wrapper-canvas');
-const buttonStatus = document.querySelector("#status");
-console.log(buttonStatus);
+const buttonStract = document.querySelector("#btn-stracting");
 let indicator = true;
 
 containerAside.addEventListener("click", (e) => {
@@ -36,14 +35,17 @@ btnStratchs.forEach((e, i) => {
     })
 })
 
-buttonStatus.addEventListener('click', () => {
-    if (indicator){
-        buttonStatus.classList.replace('btn-danger', 'btn-success');
-        buttonStatus.value = "active"
-        indicator = false;
-    } else {
-        buttonStatus.classList.replace('btn-success', 'btn-danger');
-        buttonStatus.value = "unactive"
-        indicator = true;
+buttonStract.addEventListener('click', () => {
+    if (indicator) {
+        wrapCanvas.forEach(e => {
+            e.classList.replace('col-xl-6', 'col-xl-12');
+        });
+        indicator = false
+    }else {
+        wrapCanvas.forEach(e => {
+            e.classList.replace('col-xl-12', 'col-xl-6');
+        });
+        indicator = true
     }
 })
+
