@@ -3,6 +3,9 @@ const containerAside = document.querySelector(".aside-menu");
 const canvasGrafik = document.querySelector('#canvas-grafik')
 const btnStratchs = document.querySelectorAll('#btn-stratch');
 const wrapCanvas = document.querySelectorAll('#wrapper-canvas');
+const buttonStatus = document.querySelector("#status");
+console.log(buttonStatus);
+let indicator = true;
 
 containerAside.addEventListener("click", (e) => {
     if (e.target.className.includes('menu-link')) {
@@ -31,4 +34,16 @@ btnStratchs.forEach((e, i) => {
         e.preventDefault();
         toggleStracth(e, i);
     })
+})
+
+buttonStatus.addEventListener('click', () => {
+    if (indicator){
+        buttonStatus.classList.replace('btn-danger', 'btn-success');
+        buttonStatus.value = "active"
+        indicator = false;
+    } else {
+        buttonStatus.classList.replace('btn-success', 'btn-danger');
+        buttonStatus.value = "unactive"
+        indicator = true;
+    }
 })
