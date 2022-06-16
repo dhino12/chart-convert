@@ -9,11 +9,10 @@ if (!isset($_SESSION['identity'])) {
 $id = $_SESSION['identity'];
 $level = $_SESSION['level'];
 $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
-$users = query("SELECT * FROM users WHERE level='user' AND id='$id'", true);
-
+$users = query("SELECT * FROM users WHERE level='user' AND id='$id' ", true);
 if (isset($_POST['submit'])) {
     $data = splitArray($_POST);
-    $data[0] = ['name', 'password', 'level', 'email','username', 'username_hidden'];
+    $data[0] = ['name', 'password', 'level', 'email','username', 'status', 'username_hidden'];
     $msgUpdateUser = updateValue($data, 'users', []);
 
     if ($msgUpdateUser >= 0) {
@@ -66,7 +65,7 @@ if (isset($_GET['username'])) {
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <div class="menu-link active-menu" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                         <i class="bi bi-columns" id="icon-side"></i>
                         <span>
                             <span class="t-sidebar">Dashboard</span>
@@ -190,14 +189,18 @@ if (isset($_GET['username'])) {
                             <?php foreach($users as $rowIndex => $dataWrap) : ?>
                                 <tr>
                                     <td><?=$rowIndex + 1  ?></td>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></th>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></th>
-                                    <th><button type="button" class="btn btn-success">Aktif</button></th>
+                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></td>
+                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="password" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"></td>
+                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></td>
+                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></td>
+                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></td>
+                                    <td><input type="text" readonly class="btn <?php
+                                        if ($dataWrap['status'] === 'active') echo "btn-success";
+                                        else echo "btn-danger";
+                                    ?>" id="status" value="<?= $dataWrap['status']?>" name="<?= $rowIndex + 1?>-5"/></td>
+
                                     <td style="width: 18vh;">
-                                        <a href="deleteUser.php?username=<?= $dataWrap['username'] ?>" onclick="return confirm('delete <?= $dataWrap['username']?> ?')">
+                                        <a href="userManagement.php?username=<?= $dataWrap['username'] ?>" onclick="return confirm('delete <?= $dataWrap['username']?> ?')">
                                             <button type="button" class="btn btn-outline-danger me-2">
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
                                                     <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
@@ -211,7 +214,7 @@ if (isset($_GET['username'])) {
                                             </svg>
                                         </button>
                                     </td>
-                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-5" autocomplete="off" value="<?= $dataWrap['username']?>" hidden></th>
+                                    <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-6" autocomplete="off" value="<?= $dataWrap['username']?>" hidden></th>
                                 </tr>
                             <?php endforeach; ?>
                         </tbody>
@@ -227,6 +230,6 @@ if (isset($_GET['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/sideBar.js"></script>
-    <script src="./modules/index.js"></script>
+    <script src="./modules/index.js"></script>  
 </body>
 </html>
