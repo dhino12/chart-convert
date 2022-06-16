@@ -12,10 +12,10 @@ if (isset($_POST['submit'])) {
     $password = $_POST['password'];
 
     $query = "INSERT INTO users (
-            foto, username, name, password,
+            status, foto, username, name, password,
             level, email, id
         ) VALUES (
-            'person.svg', '$username',
+            'unactive', 'person.svg', '$username',
             '$name', '$password',
             'user', '$email', '$id'
         );";
