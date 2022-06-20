@@ -10,17 +10,17 @@ $id = $_SESSION['identity'];
 $level = $_SESSION['level'];
 $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 $users = query("SELECT * FROM users WHERE level='user' AND id='$id' ", true);
+
 if (isset($_POST['submit'])) {
     $data = splitArray($_POST);
-    $data[0] = ['name', 'password', 'level', 'email','username', 'status', 'username_hidden'];
-    $msgUpdateUser = updateValue($data, 'users', []);
+    $data[0] = ['name', 'password', 'level', 'email','username', 'status', 'username_hidden']; 
+    $msgUpdateUser = updateValue($data, 'users', []); 
 
     if ($msgUpdateUser >= 0) {
-        echo "
-            <script>
+        echo "<script>
                 alert('Data berhasil diubah');
             </script>";
-        header("Refresh:0");
+        header("Location: userManagement.php");
     } else {
         echo "<script>alert('Data gagal diubah')</script>";
     }
@@ -65,13 +65,15 @@ if (isset($_GET['username'])) {
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-columns" id="icon-side"></i>
-                        <span>
-                            <span class="t-sidebar">Dashboard</span>
-                            <span id="expand">></span>
-                        </span>
-                    </div>
+                    <a href="index.php">
+                        <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="bi bi-columns" id="icon-side"></i>
+                            <span>
+                                <span class="t-sidebar">Dashboard</span>
+                                <span id="expand">></span>
+                            </span>
+                        </div>
+                    </a>
 
                     <div class="ms-4 collapse" id="navbarToggleExternalContent">
                         <a href="default.html" class="text-decoration-none">
@@ -208,19 +210,76 @@ if (isset($_GET['username'])) {
                                                 </svg>
                                             </button>
                                         </a>
-                                        <button type="button" class="btn btn-outline-primary">
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
-                                                <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
-                                            </svg>
-                                        </button>
+                                        <a href="userManagement.php?email=<?= $dataWrap['email'] ?>&level=<?= $dataWrap['level'] ?>">
+                                            <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@getbootstrap">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-pencil" viewBox="0 0 16 16">
+                                                    <path d="M12.146.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1 0 .708l-10 10a.5.5 0 0 1-.168.11l-5 2a.5.5 0 0 1-.65-.65l2-5a.5.5 0 0 1 .11-.168l10-10zM11.207 2.5 13.5 4.793 14.793 3.5 12.5 1.207 11.207 2.5zm1.586 3L10.5 3.207 4 9.707V10h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.293l6.5-6.5zm-9.761 5.175-.106.106-1.528 3.821 3.821-1.528.106-.106A.5.5 0 0 1 5 12.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.468-.325z"/>
+                                                </svg>
+                                            </button>
+                                        </a>
                                     </td>
                                     <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-6" autocomplete="off" value="<?= $dataWrap['username']?>" hidden></th>
                                 </tr>
                             <?php endforeach; ?>
+                            
                         </tbody>
                     </table>
                     <button type="submit" class="btn btn-outline-primary" name="submit" title="edit semua data user" >Submit</button>
                 </form>
+
+                <?php if (isset($_GET['email'])) : ?>
+                    <?php
+                        $email = $_GET['email'];
+                        $levelEdit = $_GET['level'] . "s";
+                        $data = query("SELECT * FROM $levelEdit WHERE email='$email';", true)[0];
+                    ?>
+                    <div class="modal fade show" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-modal="true" role="dialog" style="display: block;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <form method="post" action="" id="form-input">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Edit User</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" onclick="return window.location.replace('userManagement.php');"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Nama:</label>
+                                            <input type="text" class="form-control" name="1-0" value="<?= $data['name']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Password:</label>
+                                            <input type="text" class="form-control" name="1-1" value="<?= $data['password']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Level:</label>
+                                            <input type="text" class="form-control" name="1-2" value="<?= $data['level']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Email:</label>
+                                            <input type="text" class="form-control" name="1-3" value="<?= $data['email']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Username:</label>
+                                            <input type="text" class="form-control" name="1-4" value="<?= $data['username']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="recipient-name" class="col-form-label">Status:</label>
+                                            <input type="text" class="form-control" name="1-5" value="<?= $data['status']?>">
+                                        </div>
+                                        <div class="mb-3">
+                                            <input type="text" class="form-control" name="1-6" value="<?= $data['username']?>" hidden>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" onclick="return window.location.replace('userManagement.php');">Close</button>
+                                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-backdrop fade show"></div>
+                <?php endif ?>
             </div>
         </div>
     </main>
@@ -231,5 +290,21 @@ if (isset($_GET['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/sideBar.js"></script>
     <script src="./modules/index.js"></script>  
+
+    <script>
+        let indicator = true;
+        const buttonStatus = document.querySelector("#status");
+        buttonStatus.addEventListener('click', () => {
+            if (indicator) {
+                buttonStatus.classList.replace('btn-danger', 'btn-success');
+                buttonStatus.value = "active"
+                indicator = false;
+            } else {
+                buttonStatus.classList.replace('btn-success', 'btn-danger');
+                buttonStatus.value = "unactive"
+                indicator = true;
+            }
+        })
+    </script>
 </body>
 </html>
