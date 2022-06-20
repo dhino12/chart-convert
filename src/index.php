@@ -91,7 +91,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
                         <img src="./media/logo/logo-kemendagri.png" width="50px">
-                        <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p> 
+                        <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p>
                         <p>Kementrian Dalam Negeri</p>
                         <div id="toggle" class="sidebar-toggle">
                             <i class="bi bi-list" style="font-size: 20px;" id="icon-side"></i>
@@ -178,6 +178,23 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
         const grafik = document.querySelector("#canvas-grafik");
         const chartAll = document.querySelectorAll('#wrapper-canvas');
         const loading = document.createElement('div');
+        const buttonStract = document.querySelector("#btn-stracting");
+        let indicator = true;
+        
+        buttonStract.addEventListener('click', () => {
+            if (indicator) {
+                wrapCanvas.forEach(e => {
+                    e.classList.replace('col-xl-6', 'col-xl-12');
+                });
+                indicator = false
+            }else {
+                wrapCanvas.forEach(e => {
+                    e.classList.replace('col-xl-12', 'col-xl-6');
+                });
+                indicator = true
+            }
+        })
+
         let totalChart = 10;
         let counter = 10;
         loading.innerHTML = `
@@ -237,7 +254,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                             console.log('jalan' + i);
                             document.querySelector('#loading').innerHTML = ''
                             grafik.appendChild(chartAll[i]);
-                        }, 2000);
+                        }, 1000);
                     }
                     counter++;
                 }
