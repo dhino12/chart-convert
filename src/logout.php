@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-include 'src/script/functions.php';
+include 'script/functions.php';
 $username = $_SESSION['username'];
 $level = $_SESSION['level'];
 $queryUpdateStatus = "UPDATE $level SET status='unactive' WHERE username='$username'";
