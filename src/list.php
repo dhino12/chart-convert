@@ -50,7 +50,6 @@ foreach ($tables as $key => $value) {
                             </span>
                         </div>
                     </a>
-
                     <div class="ms-4 collapse" id="navbarToggleExternalContent">
                         <a href="default.html" class="text-decoration-none">
                             <div class="menu-item">
@@ -155,12 +154,15 @@ foreach ($tables as $key => $value) {
                         <p class="text-center">Total Views</p>
                     </div>
                 </div>
+                
+                <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Tambah Tag</button>
+                <?php include 'modalTag.php' ?>
 
                 <table class="table table-striped table-hover">
                     <thead>
                         <tr>
                             <td>No</td>
-                            <td>Name</td>
+                            <td>Name</td> 
                             <td>Jumlah Data</td>
                             <td>Action</td>
                         </tr>
@@ -169,7 +171,10 @@ foreach ($tables as $key => $value) {
                         <?php foreach ($tables as $index => $value) : ?>
                             <tr>
                                 <td><?= $index + 1?></td>
-                                <td><?= $value ?></td>
+                                <td>
+                                    <?= $value ?> <br>
+                                    <span class="badge bg-primary"><i class="bi bi-tag"></i> Primary</span>
+                                </td> 
                                 <td><?= $totalRows[$index][0] ?></td>
                                 <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
                             </tr>
