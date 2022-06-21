@@ -174,10 +174,10 @@ $counterTag = 0;
                                 <td>
                                     <?= $value ?> <br>
                                     
-                                    <?php if(strpos($tagsName, $value) !== false) : ?> 
+                                    <?php if(strpos($tableNames, $value) !== false) : ?> 
                                         <?php $tagsNameStr = explode(',', $tagsAll[$counterTag]['tag_name']); ?>
                                         <?php foreach ($tagsNameStr as $key => $tag) :?>
-                                            <span class="badge bg-primary"><i class="bi bi-tag"></i><?= $tag ?></span>
+                                            <span class="badge bg-primary" id="tag"><i class="bi bi-tag"></i>  <?= $tag ?></span>
                                         <?php endforeach ?>
                                         <?php $counterTag++ ?>
                                     <?php endif ?>
@@ -216,6 +216,18 @@ $counterTag = 0;
                 document.getElementById('input-tag').value = tagElement.innerText
             }
         }
+
+        const tagWrap = document.querySelector('#tag-wrapper');
+        const inputTagEl = document.querySelector('#input-tag');
+
+        tagWrap.addEventListener('click', (e) => {
+            console.log(e.target.id );
+            if (inputTagEl.value.includes(`${e.target.innerText}`)) {
+                return;
+            }else if (e.target.id.includes('tag')) {
+                inputTagEl.value += `${e.target.innerText},`
+            }
+        })
     </script>
 </body>
 </html>
