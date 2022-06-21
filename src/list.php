@@ -14,7 +14,7 @@ $totalRows;
 foreach ($tables as $key => $value) {
     $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
 }
-
+$counterTag = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -173,7 +173,15 @@ foreach ($tables as $key => $value) {
                                 <td><?= $index + 1?></td>
                                 <td>
                                     <?= $value ?> <br>
-                                    <span class="badge bg-primary"><i class="bi bi-tag"></i> Primary</span>
+                                    
+                                    <?php if(strpos($tagsName, $value) !== false) : ?> 
+                                        <?php $tagsNameStr = explode(',', $tagsAll[$counterTag]['tag_name']); ?>
+                                        <?php foreach ($tagsNameStr as $key => $tag) :?>
+                                            <span class="badge bg-primary"><i class="bi bi-tag"></i><?= $tag ?></span>
+                                        <?php endforeach ?>
+                                        <?php $counterTag++ ?>
+                                    <?php endif ?>
+                                    
                                 </td> 
                                 <td><?= $totalRows[$index][0] ?></td>
                                 <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
@@ -199,5 +207,15 @@ foreach ($tables as $key => $value) {
             }
         </script>
     <?php endif ?>
+    <script>
+        function inputTag(e) {
+            const tagElement = document.querySelector(`#${e.target.value.replace(/\s/g, '')}`);
+            if (tagElement === null) {
+                document.getElementById('input-tag').value = ''
+            } else {
+                document.getElementById('input-tag').value = tagElement.innerText
+            }
+        }
+    </script>
 </body>
 </html>
