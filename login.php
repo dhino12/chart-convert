@@ -14,7 +14,15 @@ if (isset($_POST['login'])) {
     $password = $_POST['password'];
     $level = $_POST['level'];
 
+    if ($_POST['level'] === 'Login Sebagai ?') {
+        echo "<script>alert('mohon diisi login sebagai apa')</script>"; 
+        header("Refresh:0");
+    }
+
     $query = "SELECT * FROM $level WHERE username='$username' OR email='$username'";
+    $queryUpdateStatus = "UPDATE $level SET status='active' WHERE username='$username' OR email='$username'";
+    query($queryUpdateStatus, '');
+
     $result = query($query, true)[0];
 
     if (!is_null($result)) {
@@ -66,7 +74,7 @@ if (isset($_POST['login'])) {
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputAsLevel" class="form-label">Sebagai <b style="color: red;">*</b></label>
-                            <select class="form-select" name="level" aria-label="Default select example">
+                            <select class="form-select" name="level" aria-label="Default select example" required>
                                 <option selected>Login Sebagai ?</option>
                                 <option value="admins">admins</option>
                                 <option value="users">users</option>
@@ -74,7 +82,6 @@ if (isset($_POST['login'])) {
                         </div>
                         <button type="submit" name="login" class="btn btn-purple" id="login" >Login</button>
                         <button type="button" class="btn btn-outline-danger" id="clear">Clear</button>
-
                         <label class="form-text mt-3 text-secondary" for="exampleCheck1">Belum punya akun ? silahkan <a href="register.php" style="font-size: medium;">Register</a></label>
                     </form>
                 </div>
