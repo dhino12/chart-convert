@@ -1,11 +1,17 @@
 <?php 
 
 $tagsAll = query("SELECT * FROM tag", true);
-$tagsName = '';
+$tableNames = '';
+$tagNames = '';
 foreach ($tagsAll as $key => $value) {
-  $tagValue = $value['table_name'];
-  $tagsName .= "$tagValue, ";
+  $tableValue = $value['table_name'];
+  $tagValue = $value['tag_name'];
+
+  $tableNames .= "$tableValue,";
+  $tagNames .= "$tagValue,";
 }
+
+$tagNames = explode(',', $tagNames);
 
 if (isset($_POST['submit'])) {
     $tableName = $_POST['table-name'];
@@ -49,6 +55,14 @@ if (isset($_POST['submit'])) {
                         <option value="<?= $table ?>"><?= $table?></option>
                     <?php endforeach ?>
                 </select>
+            </div>
+            <div class="mb-3" id='tag-wrapper'>
+                <label for="message-text" class="col-form-label">Tag tersedia:</label> <br>
+                <?php foreach($tagNames as $index => $value) : ?>
+                  <?php if($value == '') continue; ?>
+                  <span id="tag" class="badge bg-primary"><i class="bi bi-tag"></i> <?= $value ?></span>
+                <?php endforeach ?>
+                
             </div>
             <div class="mb-3">
                 <label for="message-text" class="col-form-label">Tag:</label>
