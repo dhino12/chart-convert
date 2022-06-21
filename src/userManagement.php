@@ -192,7 +192,7 @@ if (isset($_GET['username'])) {
                                 <tr>
                                     <td><?=$rowIndex + 1  ?></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></td>
-                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="password" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"></td>
+                                    <td><input class="form-control border-0 bg-transparent w-75 d-inline" placeholder="Masukan Data" id="input-password" type="password" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"><button type="button" class="btn btn-outline-primary" id="btn-show" onclick="showPassword()"><i class="bi bi-eye"></i></button></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></td>
@@ -305,6 +305,20 @@ if (isset($_GET['username'])) {
                 indicator = true;
             }
         })
+
+        function showPassword() {
+            const inputPassword = document.querySelector('#input-password');
+            const btnShow = document.querySelector("#btn-show");
+            if (inputPassword.type === "password") {
+                inputPassword.type = "text";
+                btnShow.style.backgroundColor = "#0d6efd";
+                btnShow.style.color = "#fff"
+            } else {
+                inputPassword.type = "password";
+                btnShow.style.backgroundColor = "transparent";
+                btnShow.style.color = "#0d6efd"
+            }
+        }
     </script>
 </body>
 </html>
