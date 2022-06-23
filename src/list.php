@@ -30,6 +30,7 @@ $counterTag = 0;
     <link rel="stylesheet" href="./style/background/colors.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
+    <link rel="stylesheet" href="./modules/sorTable.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="./modules/Chart-3.7.1.min.js"></script>
@@ -155,17 +156,39 @@ $counterTag = 0;
                     </div>
                 </div>
                 
-                <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">Tambah Tag</button>
+                <div class="feature-list">
+                    <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                        Tambah Tag
+                    </button>
+                    <div class="dropdown">
+                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-funnel"></i> Filter
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                            <li><a class="dropdown-item" href="list.php?fil=a-z">A - Z</a></li>
+                            <li><a class="dropdown-item" href="list.php?fil=tagTerbanyak">Tag terbanyak</a></li>    
+                            <li>
+                                <select class="form-select" aria-label="Default select example">
+                                    <option selected>Pilih Tag</option>
+                                    <option value="1">One</option>
+                                    <option value="2">Two</option>
+                                    <option value="3">Three</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
                 <?php include 'modalTag.php' ?>
 
-                <table class="table table-striped table-hover">
+                <table class="sortable table table-striped table-hover" id="myTable3">
                     <thead>
                         <tr>
-                            <td>No</td>
-                            <td>Name</td> 
-                            <td>Jumlah Data</td>
-                            <td>Action</td>
-                        </tr>
+                            <th mytable2="" onclick="sortTable(0, 'myTable3')">No</th>
+                            <th mytable2="" onclick="sortTable(1, 'myTable3')">Name</th> 
+                            <th mytable2="" onclick="sortTable(2, 'myTable3')">Jumlah Data</th>
+                            <th mytable2="" onclick="sortTable(3, 'myTable3')">Action</th>
+                        </tr>  
                     </thead>
                     <tbody>
                         <?php foreach ($tables as $index => $value) : ?>
@@ -182,20 +205,20 @@ $counterTag = 0;
                                         ?>
                                         <?php $tagsNameStr = explode(',', $tagsAll[0]['tag_name']); ?>
                                         <?php foreach ($tagsNameStr as $key => $tag) :?>
+                                            <?php if($tag === '') continue ?>
                                             <span class="badge bg-primary me-0" id="tag">
                                                 <span> <i class="bi bi-tag"></i> </span>
                                                 <span> <?= $tag ?> </span>
                                             </span>
                                         <?php endforeach ?>
                                         <?php $counterTag++ ?>
-                                    <?php endif ?>
-                                    
+                                    <?php endif ?> 
                                 </td> 
                                 <td><?= $totalRows[$index][0] ?></td>
                                 <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
                             </tr>
                         <?php endforeach ?>
-                    </tbody>
+                    </thead>
                 </table>
             </div>
         </div>
@@ -205,6 +228,7 @@ $counterTag = 0;
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="./modules/sorTable.min.js"></script>
     <script src="./modules/sideBar.js"></script>
     <script src="./modules/index.js"></script>
     <?php if($_SESSION['level'] === 'admins') : ?>
@@ -236,6 +260,10 @@ $counterTag = 0;
                 inputTagEl.value += `${e.target.innerText},`
             }
         })
+        window.onload = function(){
+            TableSorter.makeSortable(document.getElementById("myTable"));
+        };
     </script>
+    
 </body>
 </html>
