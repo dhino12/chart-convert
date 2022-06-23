@@ -1,13 +1,14 @@
 <?php 
 
 $tagsAll = query("SELECT * FROM tag", true);
-$tableNames = '';
+$tableNames = [];
 $tagNames = '';
+
 foreach ($tagsAll as $key => $value) {
   $tableValue = $value['table_name'];
   $tagValue = $value['tag_name'];
 
-  $tableNames .= "$tableValue,";
+  $tableNames[] = $tableValue;
   $tagNames .= "$tagValue,";
 }
 
@@ -23,14 +24,18 @@ if (isset($_POST['submit'])) {
     if ($countQuery > 0) {
       $query = "UPDATE tag SET table_name='$tableName', tag_name='$tag' WHERE table_name = '$tableName'";
       query($query, '');
+
     } else {
       $query = "INSERT INTO tag VALUES ('$tag', '$tableName');";
       $result = query($query, '');
     }
 
     if ($result >= 0) {
-        echo "<script>alert('tag berhasil ditambahkan')</script>";
-        header("Refresh:0");
+        echo "
+          <script>
+            alert('tag berhasil ditambahkan')
+            window.location.href = 'list.php'
+          </script>";
     } else {
         echo "<script>alert('tag gagal ditambahkan')</script>";
     }

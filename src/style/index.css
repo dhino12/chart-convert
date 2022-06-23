@@ -298,4 +298,5 @@ body {
 
 #tag:hover {
     cursor: pointer;
+    background-color: red !important;
 }

@@ -10,8 +10,8 @@ if (isset($_SESSION['identity'])) {
 }
 
 if (isset($_POST['login'])) {
-    $username = $_POST['email'];
-    $password = $_POST['password'];
+    $username = strtolower($_POST['email']);
+    $password = strtolower($_POST['password']);
     $level = $_POST['level'];
 
     if ($_POST['level'] === 'Login Sebagai ?') {
@@ -26,8 +26,9 @@ if (isset($_POST['login'])) {
     $result = query($query, true)[0];
 
     if (!is_null($result)) {
-        if (password_verify($password, $result['password'])) {
+        if ($password === $result['password']) {
             $_SESSION['identity'] = $result['id'];
+            $_SESSION['username'] = $result['username'];
             $_SESSION['level'] = $_POST['level'];
 
             header("Location: src/index.php");
@@ -35,6 +36,7 @@ if (isset($_POST['login'])) {
         }
     } else {
         echo "<script>alert('ooppss user tidak ditemukan')</script>";
+        header("refresh: 0");
     }
 }
 

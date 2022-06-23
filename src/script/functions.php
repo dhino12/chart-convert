@@ -251,8 +251,6 @@ function register($data) {
         return false;
     }
 
-    $enc_password = password_hash($password, PASSWORD_DEFAULT);
-
     $checkCodeImg = $_FILES['foto']['error'];
     
     if ($checkCodeImg === 4) {
@@ -271,7 +269,7 @@ function register($data) {
         level, email, id
         ) VALUES (
         '$foto', '$username', 
-        '$name', '$enc_password', 
+        '$name', '$password', 
         'admin', '$email', '". uniqid() ."'
         )";
     query($queryInsert, '');

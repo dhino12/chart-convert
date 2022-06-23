@@ -13,8 +13,8 @@ $users = query("SELECT * FROM users WHERE level='user' AND id='$id' ", true);
 
 if (isset($_POST['submit'])) {
     $data = splitArray($_POST);
-    $data[0] = ['name', 'password', 'level', 'email','username', 'status', 'username_hidden']; 
-    $msgUpdateUser = updateValue($data, 'users', []); 
+    $data[0] = ['name', 'password', 'level', 'email','username', 'status', 'username_hidden'];
+    $msgUpdateUser = updateValue($data, 'users', []);
 
     if ($msgUpdateUser >= 0) {
         echo "<script>
@@ -100,7 +100,7 @@ if (isset($_GET['username'])) {
                     </div>
                 </a>
             </div>
-            <div class="aside-footer ">
+            <div class="aside-footer">
                 <div class="img-user me-2 d-inline-block" id="img-user">
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
@@ -192,8 +192,15 @@ if (isset($_GET['username'])) {
                                 <tr>
                                     <td><?=$rowIndex + 1  ?></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-0" autocomplete="off" value="<?= $dataWrap['name']?>"></td>
-                                    <td><input class="form-control border-0 bg-transparent w-75 d-inline" placeholder="Masukan Data" id="input-password" type="password" name="<?= $rowIndex + 1?>-1" autocomplete="off" value="<?= $dataWrap['password']?>"><button type="button" class="btn btn-outline-primary" id="btn-show" onclick="showPassword()"><i class="bi bi-eye"></i></button></td>
-                                    <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></td>
+                                    <td>
+                                        <input class="form-control border-0 bg-transparent w-75 d-inline" placeholder="Masukan Data" 
+                                            id="input-<?= $rowIndex ?>" type="password" name="<?= $rowIndex + 1?>-1" autocomplete="off" 
+                                            value="<?= $dataWrap['password']?>">
+                                        <button type="button" class="btn btn-outline-primary" id="btn-show-<?= $rowIndex ?>" onclick="showPassword('<?= $rowIndex ?>')">
+                                            <i class="bi bi-eye"></i>
+                                        </button>
+                                    </td>
+                                    <td><input class="form-control border-0 bg-transparent" readonly placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-2" autocomplete="off" value="<?= $dataWrap['level']?>"></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-3" autocomplete="off" value="<?= $dataWrap['email']?>"></td>
                                     <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="<?= $rowIndex + 1?>-4" autocomplete="off" value="<?= $dataWrap['username']?>"></td>
                                     <td><input type="text" readonly class="btn <?php
@@ -289,26 +296,28 @@ if (isset($_GET['username'])) {
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     <script src="./modules/sideBar.js"></script>
-    <script src="./modules/index.js"></script>  
+    <script src="./modules/index.js"></script>
 
     <script>
         let indicator = true;
-        const buttonStatus = document.querySelector("#status");
-        buttonStatus.addEventListener('click', () => {
-            if (indicator) {
-                buttonStatus.classList.replace('btn-danger', 'btn-success');
-                buttonStatus.value = "active"
-                indicator = false;
-            } else {
-                buttonStatus.classList.replace('btn-success', 'btn-danger');
-                buttonStatus.value = "unactive"
-                indicator = true;
+        const formInput = document.querySelector("#form-input");
+        formInput.addEventListener('click', (e) => {
+            if (e.target.id.includes("status")) {
+                if (indicator) {
+                    e.target.classList.replace('btn-danger', 'btn-success');
+                    e.target.value = "active";
+                    indicator = false;
+                } else {
+                    e.target.classList.replace('btn-success', 'btn-danger');
+                    e.target.value = "unactive"
+                    indicator = true;
+                }
             }
         })
 
-        function showPassword() {
-            const inputPassword = document.querySelector('#input-password');
-            const btnShow = document.querySelector("#btn-show");
+        function showPassword(id) {
+            const inputPassword = document.querySelector(`#input-${id}`);
+            const btnShow = document.querySelector(`#btn-show-${id}`);
             if (inputPassword.type === "password") {
                 inputPassword.type = "text";
                 btnShow.style.backgroundColor = "#0d6efd";

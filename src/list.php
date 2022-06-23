@@ -174,10 +174,18 @@ $counterTag = 0;
                                 <td>
                                     <?= $value ?> <br>
                                     
-                                    <?php if(strpos($tableNames, $value) !== false) : ?> 
-                                        <?php $tagsNameStr = explode(',', $tagsAll[$counterTag]['tag_name']); ?>
+                                    <?php if(array_search($value, $tableNames) !== false) : ?> 
+                                        <?php 
+                                            $tableIndex = array_search($value, $tableNames);
+                                            $tableIndex = $tableNames[$tableIndex];
+                                            $tagsAll = query("SELECT tag_name FROM tag WHERE table_name = '$tableIndex'", true);
+                                        ?>
+                                        <?php $tagsNameStr = explode(',', $tagsAll[0]['tag_name']); ?>
                                         <?php foreach ($tagsNameStr as $key => $tag) :?>
-                                            <span class="badge bg-primary" id="tag"><i class="bi bi-tag"></i>  <?= $tag ?></span>
+                                            <span class="badge bg-primary me-0" id="tag">
+                                                <span> <i class="bi bi-tag"></i> </span>
+                                                <span> <?= $tag ?> </span>
+                                            </span>
                                         <?php endforeach ?>
                                         <?php $counterTag++ ?>
                                     <?php endif ?>
