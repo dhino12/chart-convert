@@ -298,5 +298,12 @@ body {
 
 #tag:hover {
     cursor: pointer;
-    background-color: red !important;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10vh;
+    padding-left: 10vh;
+    margin-bottom: 3vh;
 }
