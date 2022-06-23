@@ -1,13 +1,13 @@
 table.sortable thead tr  .order-asc {
-    background-image: url(./img/asc.png);
+    background-image: url(../media/icon/asc.png); 
 }
 table.sortable thead tr .order-desc {
-    background-image: url(./img/desc.png);
+    background-image: url(../media/icon/desc.png); 
 }
 
 table.sortable thead tr th {
     background-repeat: no-repeat;
     background-position: center right;
     cursor: pointer;
-    background-image: url(./img/bg.png);
+    background-image: url(../media/icon/bg.png);
 }
