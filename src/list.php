@@ -160,16 +160,18 @@ $counterTag = 0;
                     <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
                         Tambah Tag
                     </button>
+                    
+                    <?php include 'modalTag.php' ?>
+
                     <div class="dropdown">
                         <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-funnel"></i> Filter
                         </button>
                         <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" href="list.php?fil=a-z">A - Z</a></li>
                             <li><a class="dropdown-item" href="list.php?fil=tagTerbanyak">Tag terbanyak</a></li>    
                             <li>
                                 <select class="form-select" aria-label="Default select example">
-                                    <option selected>Pilih Tag</option>
+                                    <option selected>All</option>
                                     <option value="1">One</option>
                                     <option value="2">Two</option>
                                     <option value="3">Three</option>
@@ -178,8 +180,6 @@ $counterTag = 0;
                         </ul>
                     </div>
                 </div>
-                
-                <?php include 'modalTag.php' ?>
 
                 <table class="sortable table table-striped table-hover" id="myTable3">
                     <thead>
@@ -260,9 +260,6 @@ $counterTag = 0;
                 inputTagEl.value += `${e.target.innerText},`
             }
         })
-        window.onload = function(){
-            TableSorter.makeSortable(document.getElementById("myTable"));
-        };
     </script>
     
 </body>
