@@ -1,15 +1,18 @@
 <?php 
 // include 'functions.php';
 
-function dbToArray($tables)
+function dbToArray(array $tables)
 {
 
     $column = [];
     // $dataDb = [];
-
     for ($i = 0; $i < count($tables) ; $i++) {
         $tableName = $tables[$i];
+        
         $table = query("DESC `$tableName`;", true);
+        
+        if (is_string($table)) continue;
+
         for ($j=0; $j < count($table); $j++) {
             $columnName = $table[$j]['Field'];
             $column[$tableName]['column'][$j] = $columnName;

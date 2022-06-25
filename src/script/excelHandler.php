@@ -74,12 +74,14 @@ function crTableSheet(array $sheetDatas, $chartType)
     foreach($sheetDatas as $sheet) { // sheet
         foreach($sheet as $keyTable => $table){ // table
             $strField = '';
-            $tableName = '';
+            $tableName = ''; 
+
+            if (count($table) === 0) continue;
 
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
                 $tableName = $table[0][0];
-		$tableNames .= "$tableName,";
+		        $tableNames .= "$tableName,";
                 $table[1][] = "chart_type";
                 $table[1][] = "id";
 
@@ -94,14 +96,17 @@ function crTableSheet(array $sheetDatas, $chartType)
 
                     $colValue[] = $data;
                 }
+                
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
+                var_dump($tableName);
+                var_dump($result);
 
-                if (is_string($result)) { 
+                if (is_string($result)) {
                     // var_dump($result);
                     $counter++;
                     $colValue = [];
                     continue;
-                };
+                }
                 
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
@@ -148,7 +153,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                     $counter++;
                     $colValue = [];
                     continue;
-                };
+                }
 
                 foreach($table as $key => $data) { // row
                     if ($key > 0) {
