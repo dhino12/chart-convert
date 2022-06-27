@@ -10,6 +10,10 @@ function crCanvas (tTitle, counter) {
     headerCanvas.className = "d-flex justify-content-between"
     headerCanvas.id = "header-canvas";
 
+    const linkToDetail = document.createElement('a');
+    linkToDetail.href = `detail.php?title=${tTitle}`;
+    linkToDetail.className = "w-100 text-decoration-none"
+
     const tCanvas = document.createElement("h5");
     tCanvas.className = "w-100 pt-1 text-center";
     tCanvas.innerText = tTitle;
@@ -63,7 +67,8 @@ function crCanvas (tTitle, counter) {
     iconFeature.appendChild(linkDelete);
     iconFeature.appendChild(linkUpdate);
     iconFeature.appendChild(stracthBtn);
-    headerCanvas.appendChild(tCanvas);
+    linkToDetail.appendChild(tCanvas);
+    headerCanvas.appendChild(linkToDetail);
     headerCanvas.appendChild(iconFeature);
     
     crWrapper.appendChild(headerCanvas);

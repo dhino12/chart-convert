@@ -111,6 +111,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 foreach($table as $key => $data) { // row
                     if ($key > 1) {
                         foreach($data as $dataRecord) {
+                            $dataRecord = trim(preg_replace('/\s+/', ' ', $dataRecord));
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
@@ -158,6 +159,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 foreach($table as $key => $data) { // row
                     if ($key > 0) {
                         foreach($data as $dataRecord) {
+                            $dataRecord = str_replace(',', '.', trim(preg_replace('/\s+/', ' ', $dataRecord)));
                             $rowValue[] = $dataRecord;
                         }
                         $rowValue[] = $chartType;
