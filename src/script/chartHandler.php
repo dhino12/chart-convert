@@ -15,8 +15,7 @@ if (isset($_GET['title'])) {
     if (strlen($tables[0]) !== 0 && !is_null($tables[1])) {
         $column = dbToArray($tables);
     }
-}
-
+} 
 $index = 0;
 ?>
 
@@ -38,7 +37,7 @@ $index = 0;
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
         canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
-        grafikCanvas.appendChild(canvasContainer);        
+        grafikCanvas.appendChild(canvasContainer);
     <?php endfor; ?>
         
     <?php foreach($column as $keyTable => $valTable) : ?>

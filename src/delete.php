@@ -13,6 +13,8 @@ if (isset($_GET['tableName'])) {
 
     $tableNames = deleteData("DROP TABLE `$tableName`", $tableNames, $tableName);
     
+    query("DELETE FROM tag WHERE table_name = '$tableName' AND id_user = '$id'", '');
+    
     if (is_string($tableNames)) {
         $result = query("UPDATE `$level` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
         echo "<script>alert('Data $tableName berhasil dihapus')</script>";

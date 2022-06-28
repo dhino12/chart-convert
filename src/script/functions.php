@@ -173,7 +173,10 @@ function clearData($id, $level) {
     $tablesName = query("SELECT table_name FROM $level WHERE id='$id';", true)[0]; 
     $tablesName = explode(',', $tablesName['table_name']);
     foreach ($tablesName as $value) {
-        if ($value !== $level) mysqli_query($conn, "DROP TABLE `$value`");
+        if ($value !== $level) {
+            mysqli_query($conn, "DROP TABLE `$value`");
+            mysqli_query($conn, "DELETE FROM tag WHERE table_name = '$value' AND id_user = '$id'");
+        };
 
     }
     query("UPDATE `$level` SET `table_name`=NULL WHERE id='$id'", '');
@@ -242,7 +245,7 @@ function register($data) {
     $name = htmlspecialchars(mysqli_real_escape_string($conn, $data['name']));
     $email = htmlspecialchars(mysqli_real_escape_string($conn, $data['email']));
 
-    $usernameCheck = query("SELECT username FROM users WHERE username='$username'", true);
+    $usernameCheck = query("SELECT username FROM admins WHERE username='$username'", true);
     
     if (count($usernameCheck) > 0) {
         echo "<script>

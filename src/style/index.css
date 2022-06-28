@@ -60,6 +60,14 @@ body {
     font-size: 0.9rem;
 }
 
+#header-canvas {
+    transition: .2s ease;
+}
+
+#header-canvas:hover {
+    background-color: #e1e1e1;
+}
+
 /* sidebar */
 .aside {
     width: 105px;
@@ -306,4 +314,12 @@ body {
     padding-right: 10vh;
     padding-left: 10vh;
     margin-bottom: 3vh;
+}
+
+#toDetail {
+    transition: .2s ease-in;
+}
+
+#toDetail:hover { 
+    text-shadow: 1px 1px #7666f4;
 }

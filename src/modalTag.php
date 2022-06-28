@@ -16,6 +16,7 @@ $tagNames = explode(',', $tagNames);
 
 if (isset($_POST['submit'])) {
     $tableName = $_POST['table-name'];
+    $id = $_SESSION['identity'];
     $tag = str_replace(' ', '', $_POST['tag-name']);
     $query = "SELECT table_name FROM tag WHERE table_name = '$tableName'";
     $result = query($query, true);
@@ -26,7 +27,7 @@ if (isset($_POST['submit'])) {
       query($query, '');
 
     } else {
-      $query = "INSERT INTO tag VALUES ('$tag', '$tableName');";
+      $query = "INSERT INTO tag VALUES ('$id', '$tag', '$tableName');";
       $result = query($query, '');
     }
 

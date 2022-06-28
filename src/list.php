@@ -195,7 +195,9 @@ $counterTag = 0;
                             <tr>
                                 <td><?= $index + 1?></td>
                                 <td>
-                                    <?= $value ?> <br>
+                                    <a href="detail.php?title=<?= $value ?>" id="toDetail" class="text-decoration-none text-black">
+                                        <?= explode('-', $value)[0] ?>
+                                    </a><br>
                                     
                                     <?php if(array_search($value, $tableNames) !== false) : ?> 
                                         <?php 
@@ -256,7 +258,7 @@ $counterTag = 0;
             console.log(e.target.id );
             if (inputTagEl.value.includes(`${e.target.innerText}`)) {
                 return;
-            }else if (e.target.id.includes('tag')) {
+            } else if (e.target.id.includes('tag')) {
                 inputTagEl.value += `${e.target.innerText},`
             }
         })
