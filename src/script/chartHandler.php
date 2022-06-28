@@ -1,21 +1,28 @@
 <?php 
 include 'dbToArray.php';
 
-$id = $_SESSION['identity'];
-$level = $_SESSION['level'];
-
 if (isset($_GET['title'])) {
+    // detail
     $tableName = $_GET['title'];
     $tables = explode(',', $tableName); 
     $column = dbToArray($tables);
     
-} else {
+} else if (isset($_SESSION) && count($_SESSION) !== 0) {
+    // index 
+    $id = $_SESSION['identity'];
+    $level = $_SESSION['level'];
+
     $tables = query("SELECT table_name FROM $level WHERE id='$id'", true)[0];
     $tables = explode(',', $tables['table_name']);
     if (strlen($tables[0]) !== 0 && !is_null($tables[1])) {
         $column = dbToArray($tables);
     }
-} 
+} else {
+    //  guest
+    $tables = query("SHOW TABLES WHERE NOT Tables_in_chart_generator = 'users' AND NOT Tables_in_chart_generator = 'tag' AND NOT Tables_in_chart_generator = 'admins';", false);
+    // var_dump($tables);
+    $column = dbToArray($tables);
+}
 $index = 0;
 ?>
 
@@ -37,7 +44,7 @@ $index = 0;
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
         canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
-        grafikCanvas.appendChild(canvasContainer);
+        grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         
     <?php foreach($column as $keyTable => $valTable) : ?>
