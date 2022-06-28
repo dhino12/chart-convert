@@ -10,7 +10,6 @@ if (isset($_GET['tableName'])) {
     $strTables = '';
 
     $tableNames = query("SELECT table_name FROM `$level` WHERE id='$id'", true)[0]['table_name'];
-
     $tableNames = deleteData("DROP TABLE `$tableName`", $tableNames, $tableName);
     
     query("DELETE FROM tag WHERE table_name = '$tableName' AND id_user = '$id'", '');
