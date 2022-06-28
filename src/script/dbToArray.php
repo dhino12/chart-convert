@@ -8,7 +8,6 @@ function dbToArray(array $tables)
     // $dataDb = [];
     for ($i = 0; $i < count($tables) ; $i++) {
         $tableName = $tables[$i];
-        
         $table = query("DESC `$tableName`;", true);
         
         if (is_string($table)) continue;
