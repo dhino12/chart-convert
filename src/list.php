@@ -3,18 +3,23 @@ include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
-    header("Location: ../login.php");
-    exit;
+    $data = query("SHOW TABLES;", true);
+    var_dump($data);
+    $tables = explode(",", $data['Tables_in_chart_generator']);
+    $totalRows;
+    foreach ($tables as $key => $value) {
+        $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
+    } 
+} else {
+    $id = $_SESSION['identity'];
+    $level = $_SESSION['level'];
+    $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
+    $tables = explode(",", $data['table_name']);
+    $totalRows;
+    foreach ($tables as $key => $value) {
+        $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
+    } 
 }
-$id = $_SESSION['identity'];
-$level = $_SESSION['level'];
-$data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
-$tables = explode(",", $data['table_name']);
-$totalRows;
-foreach ($tables as $key => $value) {
-    $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
-}
-$counterTag = 0;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -213,7 +218,6 @@ $counterTag = 0;
                                                 <span> <?= $tag ?> </span>
                                             </span>
                                         <?php endforeach ?>
-                                        <?php $counterTag++ ?>
                                     <?php endif ?> 
                                 </td> 
                                 <td><?= $totalRows[$index][0] ?></td>
