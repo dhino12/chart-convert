@@ -249,7 +249,6 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                         return;
                     } else {
                         grafik.appendChild(loading);
-                        console.log('test');
                         setTimeout(() => {
                             console.log('jalan' + i);
                             document.querySelector('#loading').innerHTML = ''
