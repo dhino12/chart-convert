@@ -80,7 +80,11 @@ function crTableSheet(array $sheetDatas, $chartType)
 
             if ($table[0] !== NULL && count($table[0]) === 1) {
                 // dengan judul table
-                $tableName = $table[0][0];
+                $tableName = $table[0][0] . '-' . (string)uniqid();
+                if (strlen($tableName) > 64) {
+                    echo "<script>alert('table name tidak boleh lebih dari 64 karakter')</script>"; 
+                    continue;
+                } 
 		        $tableNames .= "$tableName,";
                 $table[1][] = "chart_type";
                 $table[1][] = "id";
@@ -98,7 +102,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 }
                 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
-                var_dump($tableName);
+                var_dump($strField);
                 var_dump($result);
 
                 if (is_string($result)) {
@@ -129,7 +133,11 @@ function crTableSheet(array $sheetDatas, $chartType)
                 }
             } else if (count($table) !== 0) {
                 // tanpa judul table
-                $tableName = 'untitled'. $counter;
+                $tableName = 'untitled'. $counter. '-' . (string)uniqid();
+                if (strlen($tableName) > 64) {
+                    echo "<script>alert('table name <?= $tableName ?> tidak boleh lebih dari 64 karakter')</script>"; 
+                    continue;
+                } 
                 $table[0][] = "chart_type";
                 $tableNames .= "$tableName,";
                 $table[0][] = "id";
@@ -148,6 +156,8 @@ function crTableSheet(array $sheetDatas, $chartType)
                 }
 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
+                var_dump($strField);
+                var_dump($result);
 
                 if (is_string($result)) { 
                     // var_dump($result);
