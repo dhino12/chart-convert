@@ -5,9 +5,7 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
     // detail
     $tableName = $_GET['title'];
     $tables = explode(',', $tableName); 
-    $column = dbToArray($tables);
-    var_dump($column);
-    $role = true;
+    $column = dbToArray($tables);  
     
 } else if (isset($_SESSION) && count($_SESSION) !== 0) {
     // index 
@@ -18,8 +16,7 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
     $tables = explode(',', $tables['table_name']);
     if (strlen($tables[0]) !== 0 && !is_null($tables[1])) {
         $column = dbToArray($tables);
-    }
-    $role = true;
+    } 
 } else {
     //  guest
     if (isset($_GET['title'])) {
@@ -35,16 +32,14 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
         // var_dump($tables);
         $column = dbToArray($tables);    
     }
-    
-    $role = false;
+     
 }
-$index = 0;
-var_dump($role);
+$index = 0; 
 ?>
 
 <script>
     const grafikCanvas = document.querySelector('#canvas-grafik');
-    let wrapperCanvas, canvas, title, ctx, canvasContainer, myChart, searchEscapeString, tmp;
+    let wrapperCanvas, canvas, title, ctx, canvasContainer, myChart, searchEscapeString, tmp, role;
     let chartIndex = 1;
     let dataLabels = [];
     let dataValue = []; 
@@ -59,7 +54,7 @@ var_dump($role);
     // }
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
-        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>, <?= $role ?>);
+        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         

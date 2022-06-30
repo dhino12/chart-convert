@@ -2,11 +2,14 @@
 include 'script/functions.php';
 session_start();
 
+$titleData = $_GET['title'];
 if (!isset($_SESSION['identity'])) {
+    // detail guest
     $data['foto'] = 'person.png';
     $data['name'] = 'guest';
     $page['role'] = 'guest';
 } else {
+    // detail user / admin
     $id = $_SESSION['identity'];
     $level = $_SESSION['level'];
     $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
@@ -39,11 +42,11 @@ if (!isset($_SESSION['identity'])) {
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <a href="<?= $page['role'] . ".php" ?>">
+                    <a href="<?= $page['role'] . ".php" ?>" class="text-decoration-none">
                         <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-columns" id="icon-side"></i>
                             <span>
-                                <span class="t-sidebar">Dashboard</span>
+                                <span class="t-sidebar text-light">Dashboard</span>
                                 <span id="expand">></span>
                             </span>
                         </div>
@@ -62,7 +65,7 @@ if (!isset($_SESSION['identity'])) {
                         </a>
                     </div>
                 </div>
-                <a href="list.php">
+                <a href="list.php" class="text-decoration-none">
                     <div class="my-2 py-2 px-2" id="item-side">
                         <div class="menu-link text-white" >
                             <i class="bi bi-list-ul"></i>
@@ -111,10 +114,10 @@ if (!isset($_SESSION['identity'])) {
                     <div class="topbar">
                         <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
                             <div class="page-title d-flex flex-column me-5">
-                                <h1 class="fs-5 mb-0 text-dark my-3">Dashboard</h1>
+                                <h1 class="fs-5 mb-0 text-dark my-3">Detail</h1>
                                 <ul class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
+                                    <li class="breadcrumb-item active" aria-current="page"><?= ucwords(explode('-',$titleData)[0]) ?></li>
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
@@ -128,14 +131,16 @@ if (!isset($_SESSION['identity'])) {
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
                                     <img src="./media/icon/square.svg" alt="" srcset="">
                                 </div>
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/message.svg" alt="" srcset="">
-                                    </a>
-                                </div>
+                                <?php if (!isset($_SESSION['level'])) : ?>
+                                    <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
+                                        <h6>Login</h6>
+                                    </div>
+                                <?php endif ?>
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
-                                    <a href="" class="text-decoration-none light fw-bold" style="color: white;">
-                                        2
+                                    <a href="help.php" class="text-decoration-none light fw-bold" style="color: white;">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd" d="M4.475 5.458c-.284 0-.514-.237-.47-.517C4.28 3.24 5.576 2 7.825 2c2.25 0 3.767 1.36 3.767 3.215 0 1.344-.665 2.288-1.79 2.973-1.1.659-1.414 1.118-1.414 2.01v.03a.5.5 0 0 1-.5.5h-.77a.5.5 0 0 1-.5-.495l-.003-.2c-.043-1.221.477-2.001 1.645-2.712 1.03-.632 1.397-1.135 1.397-2.028 0-.979-.758-1.698-1.926-1.698-1.009 0-1.71.529-1.938 1.402-.066.254-.278.461-.54.461h-.777ZM7.496 14c.622 0 1.095-.474 1.095-1.09 0-.618-.473-1.092-1.095-1.092-.606 0-1.087.474-1.087 1.091S6.89 14 7.496 14Z"/>
+                                        </svg>
                                     </a>
                                 </div>
                             </div>

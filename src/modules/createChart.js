@@ -1,4 +1,4 @@
-function crCanvas (tTitle, counter, indicator) {
+function crCanvas (tTitle, counter) {
     const crCanvas = document.createElement('canvas')
     crCanvas.id = `myChart${counter}`;
     
@@ -22,26 +22,23 @@ function crCanvas (tTitle, counter, indicator) {
     const iconFeature = document.createElement('div');
     iconFeature.className = "icon";
 
-    if (indicator) {
-        const linkUpdate = document.createElement('a');
-        linkUpdate.href = `update.php?tableName=${tTitle}`;
-    
-        const linkDelete = document.createElement('a');
-        linkDelete.href = `delete.php?tableName=${tTitle}`;
-        linkDelete.onclick = () => confirm(`Yakin Hapus Data ${tTitle}?`);
+    const linkUpdate = document.createElement('a');
+    linkUpdate.href = `update.php?tableName=${tTitle}`;
+    linkUpdate.id = "btn-update";
 
-        const deleteBtn = document.createElement("div");
-        deleteBtn.className = "d-flex align-center btn round-cs-6 me-2";
-        deleteBtn.id = "btn-delete";
+    const linkDelete = document.createElement('a');
+    linkDelete.href = `delete.php?tableName=${tTitle}`;
+    linkDelete.onclick = () => confirm(`Yakin Hapus Data ${tTitle}?`);
+    linkDelete.id = "btn-delete"; // =============
 
-        const editBtn = document.createElement("div");
-        editBtn.className = "d-flex align-center btn round-cs-6 me-2";
-        editBtn.id = "btn-edit";
-    }
+    const editBtn = document.createElement("div");
+    editBtn.className = "d-flex align-center btn round-cs-6 me-2";
 
     const stracthBtn = document.createElement("div");
     stracthBtn.className = "d-flex align-center btn round-cs-6 me-2";
-    stracthBtn.id = "btn-stratch";
+
+    const deleteBtn = document.createElement("div");
+    deleteBtn.className = "d-flex align-center btn round-cs-6 me-2";
 
     const link = document.createElement("a")
     link.style.margin = "auto"
@@ -61,17 +58,13 @@ function crCanvas (tTitle, counter, indicator) {
     </svg>`;
     
     link.appendChild(imgIcon);
+    editBtn.appendChild(link);
+    deleteBtn.appendChild(imgIconDelete);
     stracthBtn.appendChild(imgIconStracth);
-
-    if (indicator) {
-        editBtn.appendChild(link);
-        deleteBtn.appendChild(imgIconDelete);
-        linkUpdate.appendChild(editBtn);
-        linkDelete.appendChild(deleteBtn);
-        iconFeature.appendChild(linkDelete);
-        iconFeature.appendChild(linkUpdate);    
-    }
-    
+    linkUpdate.appendChild(editBtn);
+    linkDelete.appendChild(deleteBtn);
+    iconFeature.appendChild(linkDelete);
+    iconFeature.appendChild(linkUpdate);
     iconFeature.appendChild(stracthBtn);
     linkToDetail.appendChild(tCanvas);
     headerCanvas.appendChild(linkToDetail);
