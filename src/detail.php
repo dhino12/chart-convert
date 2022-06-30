@@ -3,12 +3,15 @@ include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
-    header("Location: ../login.php");
-    exit;
+    $data['foto'] = 'person.png';
+    $data['name'] = 'guest';
+    $page['role'] = 'guest';
+} else {
+    $id = $_SESSION['identity'];
+    $level = $_SESSION['level'];
+    $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
+    $page['role'] = 'index';
 }
-$id = $_SESSION['identity'];
-$level = $_SESSION['level'];
-$data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 
 ?>
 <!DOCTYPE html>
@@ -36,13 +39,15 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="bi bi-columns" id="icon-side"></i>
-                        <span>
-                            <span class="t-sidebar">Dashboard</span>
-                            <span id="expand">></span>
-                        </span>
-                    </div>
+                    <a href="<?= $page['role'] . ".php" ?>">
+                        <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+                            <i class="bi bi-columns" id="icon-side"></i>
+                            <span>
+                                <span class="t-sidebar">Dashboard</span>
+                                <span id="expand">></span>
+                            </span>
+                        </div>
+                    </a>
 
                     <div class="ms-4 collapse" id="navbarToggleExternalContent">
                         <a href="default.html" class="text-decoration-none">
@@ -154,13 +159,15 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     <script src="./modules/createChart.js"></script>
     <script src="./modules/sideBar.js"></script>
     
-    <?php if($_SESSION['level'] === 'admins') : ?>
-        <script>
-            const userManagement = document.querySelector("#user");
-            userManagement.onclick = () => {
-                window.location.href = "userManagement.php";
-            }
-        </script>
+    <?php if(isset($_SESSION['level'])) : ?>
+        <?php if ($_SESSION['level'] === 'admins') : ?>
+            <script>
+                const userManagement = document.querySelector("#user");
+                userManagement.onclick = () => {
+                    window.location.href = "userManagement.php";
+                }
+            </script>
+        <?php endif ?>
     <?php endif ?>
     
 	<?php include './script/chartHandler.php' ?>

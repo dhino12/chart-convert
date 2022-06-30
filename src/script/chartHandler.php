@@ -1,11 +1,13 @@
 <?php 
 include 'dbToArray.php';
 
-if (isset($_GET['title'])) {
+if (isset($_GET['title']) && isset($_SESSION['identity'])) {
     // detail
     $tableName = $_GET['title'];
     $tables = explode(',', $tableName); 
     $column = dbToArray($tables);
+    var_dump($column);
+    $role = true;
     
 } else if (isset($_SESSION) && count($_SESSION) !== 0) {
     // index 
@@ -17,13 +19,27 @@ if (isset($_GET['title'])) {
     if (strlen($tables[0]) !== 0 && !is_null($tables[1])) {
         $column = dbToArray($tables);
     }
+    $role = true;
 } else {
     //  guest
-    $tables = query("SHOW TABLES WHERE NOT Tables_in_chart_generator = 'users' AND NOT Tables_in_chart_generator = 'tag' AND NOT Tables_in_chart_generator = 'admins';", false);
-    // var_dump($tables);
-    $column = dbToArray($tables);
+    if (isset($_GET['title'])) {
+        $tableName = $_GET['title'];
+        $tables = explode(',', $tableName); 
+        $column = dbToArray($tables);
+    }else {
+        $tables = query("SHOW TABLES 
+        WHERE NOT Tables_in_chart_generator = 'users' 
+        AND NOT Tables_in_chart_generator = 'tag' 
+        AND NOT Tables_in_chart_generator = 'admins';", 
+        false);
+        // var_dump($tables);
+        $column = dbToArray($tables);    
+    }
+    
+    $role = false;
 }
 $index = 0;
+var_dump($role);
 ?>
 
 <script>
@@ -43,7 +59,7 @@ $index = 0;
     // }
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
-        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
+        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>, <?= $role ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         

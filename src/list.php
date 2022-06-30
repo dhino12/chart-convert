@@ -3,9 +3,9 @@ include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
-    $data = query("SHOW TABLES;", true);
-    var_dump($data);
-    $tables = explode(",", $data['Tables_in_chart_generator']);
+    $tables = query("SHOW TABLES WHERE NOT Tables_in_chart_generator = 'users' 
+    AND NOT Tables_in_chart_generator = 'tag' 
+    AND NOT Tables_in_chart_generator = 'admins';", false);
     $totalRows;
     foreach ($tables as $key => $value) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
@@ -47,7 +47,7 @@ if (!isset($_SESSION['identity'])) {
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <a href="index.php">
+                    <a href="<?php if (isset($_SESSION['identity'])) echo "index.php"; else echo "guest.php"; ?>">
                         <div class="menu-link text-white" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-columns" id="icon-side"></i>
                             <span>
@@ -86,7 +86,7 @@ if (!isset($_SESSION['identity'])) {
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
                 <div class="d-inline-block" id="user">  
-                    <h5 class="m-0"><?= $data['name']?></h5>
+                    <h5 class="m-0"><?php if (isset($_SESSION['identity'])) echo $data['name']; else echo "Guest" ?></h5>
                     <p class="m-0 fs-6">Software Engineer</p>
                 </div>
                 <div class="logout d-inline-block">
@@ -237,7 +237,7 @@ if (!isset($_SESSION['identity'])) {
     <script src="./modules/sorTable.min.js"></script>
     <script src="./modules/sideBar.js"></script>
     <script src="./modules/index.js"></script>
-    <?php if($_SESSION['level'] === 'admins') : ?>
+    <?php if(isset($_SESSION)) : ?>
         <script>
             const userManagement = document.querySelector("#user");
             userManagement.onclick = () => {
