@@ -34,7 +34,7 @@ function crElement(titleTable) {
     crInputTitle.placeholder = 'Masukan Judul Table';
     crInputTitle.type = 'text';
     crInputTitle.name = `titleTable`;
-    crInputTitle.value = `${titleTable}`;
+    crInputTitle.value = `${titleTable.split('-')[0]}`;
     crInputTitle.required
     crInputTitle.autocomplete = 'off'
 
