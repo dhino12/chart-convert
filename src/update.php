@@ -2,16 +2,27 @@
 include 'script/functions.php';
 session_start();
 
+if (!isset($_SESSION['username'])) header("Location: ../login.php");
+
 $tableName = $_GET['tableName'];
+$level = $_SESSION['level'];
+$username = $_SESSION['username'];
 
 $result = query("SELECT * FROM `$tableName`", true);
 
 if (isset($_POST['submit'])) {
-    query("RENAME TABLE `$tableName` TO `". $_POST['titleTable'] ."`", '');
-    
+    $idTableName = explode("-", $tableName)[1];
+    $idTableName = $_POST['titleTable'] . "-" . $idTableName; 
+    query("RENAME TABLE `$tableName` TO `". $idTableName . "`", '');
+
+    // update table_name in admins/users tableDB
+    $tablesName = query("SELECT table_name FROM $level WHERE username = '$username' OR email = '$username';", false); 
+    $updateTableName = str_replace($tableName, $idTableName, $tablesName[0]); 
+    var_dump($updateTableName);
+    query("UPDATE $level SET table_name = '$updateTableName' WHERE username= '$username' OR email = '$username'", "");
 
     $data = splitArray($_POST);
-    $msgUpdate = updateValue($data, $tableName, $result[0]);
+    $msgUpdate = updateValue($data,  $idTableName, $result[0]); 
 
     if ($msgUpdate >= 0) {
         echo "
@@ -154,7 +165,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                 </div>
             </div>
 
-            <div class="container-fluid content mt-5">    
+            <div class="container-fluid content mt-5">
                 <button type="button" class="btn btn-outline-primary" id="btnCreateTable" data-bs-toggle="modal" data-bs-target="#modalTable">Buat Table</button>
                 <button type="button" class="btn btn-outline-primary" id="addRow" disabled>Tambah Baris</button>
                 <button type="button" class="btn btn-outline-primary" id="addColumn" disabled>Tambah Kolom</button>
