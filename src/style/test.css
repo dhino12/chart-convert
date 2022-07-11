@@ -39,6 +39,7 @@
     background-color: #eaeaea!important;
 }
 
+#btn-delete .btn:hover,
 #btn-delete.btn:hover {
     background-color: red;
     color: white;

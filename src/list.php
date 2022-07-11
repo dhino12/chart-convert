@@ -18,7 +18,7 @@ if (!isset($_SESSION['identity'])) {
     $totalRows;
     foreach ($tables as $key => $value) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
-    } 
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -47,7 +47,7 @@ if (!isset($_SESSION['identity'])) {
         <div id="offcanvasNavbar" class="offcanvas aside bg-side-wrapper drawer drawer-start" aria-labelledby="aside-toggler">
             <div class="aside-menu">
                 <div class="my-2 py-2 px-2" id="item-side">
-                    <a href="<?php if (isset($_SESSION['identity'])) echo "index.php"; else echo "guest.php"; ?>">
+                    <a href="<?php if (isset($_SESSION['identity'])) echo "index.php"; else echo "../"; ?>">
                         <div class="menu-link text-white" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-columns" id="icon-side"></i>
                             <span>
@@ -89,13 +89,15 @@ if (!isset($_SESSION['identity'])) {
                     <h5 class="m-0"><?php if (isset($_SESSION['identity'])) echo $data['name']; else echo "Guest" ?></h5>
                     <p class="m-0 fs-6">Software Engineer</p>
                 </div>
-                <div class="logout d-inline-block">
-                    <a href="logout.php">
-                        <button class="btn btn-icon btn-active-color-primary me-n4">
-                            <i class="bi bi-box-arrow-left" id="icon-side"></i>
-                        </button>
-                    </a>
-                </div>
+                <?php if(isset($level)) : ?>
+                    <div class="logout d-inline-block">
+                        <a href="logout.php">
+                            <button class="btn btn-icon btn-active-color-primary me-n4">
+                                <i class="bi bi-box-arrow-left" id="icon-side"></i>
+                            </button>
+                        </a>
+                    </div>
+                <?php endif ?>
             </div>
         </div>
         <div class="wrapper d-flex flex-column" style="width:100%;" id="content-wrapper">
@@ -134,9 +136,11 @@ if (!isset($_SESSION['identity'])) {
                                     </a>
                                 </div>
                                 <?php if (!isset($_SESSION['level'])) : ?>
-                                    <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
-                                        <h6>Login</h6>
-                                    </div>
+                                    <a href="../login.php">
+                                        <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
+                                            <h6>Login</h6>
+                                        </div>
+                                    </a>
                                 <?php endif ?>
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
                                     <a href="help.php" class="text-decoration-none light fw-bold" style="color: white;">
@@ -164,10 +168,11 @@ if (!isset($_SESSION['identity'])) {
                 </div>
                 
                 <div class="feature-list">
-                    <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                        Tambah Tag
-                    </button>
-                    
+                    <?php if(isset($level)) : ?>
+                        <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                            Tambah Tag
+                        </button>
+                    <?php endif ?>
                     <?php include 'modalTag.php' ?>
 
                     <div class="dropdown">

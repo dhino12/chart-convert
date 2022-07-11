@@ -117,7 +117,9 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                                     <span class="position-absolute ms-2 mt-1">
                                         <img src="./media/icon/search.svg" alt="" srcset="">
                                     </span>
-                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
+                                    <form action="" method="get">
+                                        <input type="text" class="form-control ps-5 d-inline" name="search" style="border-radius: 8px;" placeholder="search">
+                                    </form>
                                 </form>
                                 
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">

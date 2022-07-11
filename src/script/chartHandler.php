@@ -12,19 +12,32 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
     $id = $_SESSION['identity'];
     $level = $_SESSION['level'];
 
-    $tables = query("SELECT table_name FROM $level WHERE id='$id'", true)[0];
-    $tables = explode(',', $tables['table_name']); 
-    
+    if(isset($_GET['search'])) { 
+        $searchData = $_GET['search'];
+        
+        if (strlen($searchData) === 0) return header("Location: index.php");
+
+        $dataTables = query("SHOW TABLES FROM chart_generator LIKE '%$searchData%'", true);
+        foreach ($dataTables as $key => $value) {
+            $tables[] = $value["Tables_in_chart_generator (%$searchData%)"]; 
+        }
+    } else {
+        $tables = query("SELECT table_name FROM $level WHERE id='$id'", true)[0];
+        $tables = explode(',', $tables['table_name']); 
+    }
+
     if (strlen($tables[0]) !== 0) {
         $column = dbToArray($tables);
-    } 
+    }
+
+    $indicator = "true";
 } else {
     //  guest
     if (isset($_GET['title'])) {
         $tableName = $_GET['title'];
         $tables = explode(',', $tableName); 
         $column = dbToArray($tables);
-    }else {
+    } else {
         $tables = query("SHOW TABLES 
         WHERE NOT Tables_in_chart_generator = 'users' 
         AND NOT Tables_in_chart_generator = 'tag' 
@@ -33,6 +46,7 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
         // var_dump($tables);
         $column = dbToArray($tables);    
     }
+    $indicator = "false";
      
 }
 $index = 0; 
@@ -55,7 +69,7 @@ $index = 0;
     // }
 
     <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
-        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>);
+        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>, <?= $indicator ?>);
         grafikCanvas.appendChild(canvasContainer);        
     <?php endfor; ?>
         

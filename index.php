@@ -47,21 +47,8 @@ if (!isset($_SESSION['identity'])) {
                             </span>
                         </div>
                     </a>
-
-                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                Default
-                            </div>
-                        </a>
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                E-Comernce
-                            </div>
-                        </a>
-                    </div>
                 </div>
-                <a href="list.php">
+                <a href="src/list.php">
                     <div class="my-2 py-2 px-2" id="item-side">
                         <div class="menu-link text-white" >
                             <i class="bi bi-list-ul"></i>
@@ -80,14 +67,7 @@ if (!isset($_SESSION['identity'])) {
                 <div class="d-inline-block" id="user">
                     <h5 class="m-0">Guest</h5>
                     <p class="m-0 fs-6">Software Engineer</p>
-                </div>
-                <div class="logout d-inline-block">
-                    <a href="logout.php">
-                        <button class="btn btn-icon btn-active-color-primary me-n4">
-                            <i class="bi bi-box-arrow-left" id="icon-side"></i>
-                        </button>
-                    </a>
-                </div>
+                </div> 
             </div>
         </div>
         <div class="wrapper d-flex flex-column" style="width:100%;" id="content-wrapper">
@@ -128,9 +108,11 @@ if (!isset($_SESSION['identity'])) {
                                     <img src="./src/media/icon/square.svg" alt="" srcset="">
                                 </div>
                                 <?php if (!isset($_SESSION['level'])) : ?>
+                                    <a href="login.php">
                                     <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
                                         <h6>Login</h6>
                                     </div>
+                                    </a>
                                 <?php endif ?>
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
                                     <a href="help.php" class="text-decoration-none light fw-bold" style="color: white;">
