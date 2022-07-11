@@ -198,10 +198,10 @@ if (!isset($_SESSION['identity'])) {
                     <thead>
                         <tr>
                             <th mytable2="" onclick="sortTable(0, 'myTable3')">No</th>
-                            <th mytable2="" onclick="sortTable(1, 'myTable3')">Name</th> 
+                            <th mytable2="" onclick="sortTable(1, 'myTable3')">Name</th>
                             <th mytable2="" onclick="sortTable(2, 'myTable3')">Jumlah Data</th>
                             <th mytable2="" onclick="sortTable(3, 'myTable3')">Action</th>
-                        </tr>  
+                        </tr>
                     </thead>
                     <tbody>
                         <?php foreach ($tables as $index => $value) : ?>

@@ -6,6 +6,7 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
     $tableName = $_GET['title'];
     $tables = explode(',', $tableName); 
     $column = dbToArray($tables);  
+    $indicator = "true";
     
 } else if (isset($_SESSION) && count($_SESSION) !== 0) {
     // index 
@@ -32,22 +33,32 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
 
     $indicator = "true";
 } else {
-    //  guest
-    if (isset($_GET['title'])) {
-        $tableName = $_GET['title'];
-        $tables = explode(',', $tableName); 
-        $column = dbToArray($tables);
+    if(isset($_GET['search'])) { 
+        $searchData = $_GET['search'];
+        
+        if (strlen($searchData) === 0) return header("Location: index.php");
+
+        $dataTables = query("SHOW TABLES FROM chart_generator LIKE '%$searchData%'", true);
+        foreach ($dataTables as $key => $value) {
+            $tables[] = $value["Tables_in_chart_generator (%$searchData%)"]; 
+        }
     } else {
-        $tables = query("SHOW TABLES 
-        WHERE NOT Tables_in_chart_generator = 'users' 
-        AND NOT Tables_in_chart_generator = 'tag' 
-        AND NOT Tables_in_chart_generator = 'admins';", 
-        false);
-        // var_dump($tables);
-        $column = dbToArray($tables);    
+        //  guest
+        if (isset($_GET['title'])) {
+            $tableName = $_GET['title'];
+            $tables = explode(',', $tableName); 
+            $column = dbToArray($tables);
+        } else {
+            $tables = query("SHOW TABLES
+            WHERE NOT Tables_in_chart_generator = 'users'
+            AND NOT Tables_in_chart_generator = 'tag'
+            AND NOT Tables_in_chart_generator = 'admins';",
+            false);
+            // var_dump($tables);
+            $column = dbToArray($tables);    
+        }
     }
     $indicator = "false";
-     
 }
 $index = 0; 
 ?>

@@ -41,26 +41,26 @@ if (isset($_POST['register'])) {
                         <div class="mb-3">
                             <label for="InputEmail1" class="form-label">Email address <b style="color: red;">*</b></label>
                             <div class="input-group">
-                                <input type="email" name="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" require>
+                                <input type="email" name="email" class="form-control" id="InputEmail1" aria-describedby="emailHelp" required>
                                 <span class="input-group-text" id="emailHelp">@example.com</span>
                                 <div id="emailHelp" class="form-text">Kami tidak akan pernah membagikan email Anda kepada orang lain</div>
                             </div>
                         </div>
                         <div class="input-grup mb-3">
                             <label for="InputName" class="form-label">Full Name <b style="color: red;">*</b></label>
-                            <input type="text" name="name" class="form-control" id="InputName" aria-describedby="emailHelp" require>
+                            <input type="text" name="name" class="form-control" id="InputName" aria-describedby="emailHelp" required>
                         </div>
                         <div class="mb-3">
                             <div class="row">
                                 <div class="col">
                                     <label for="InputUsername" class="form-label">Username <b style="color: red;">*</b></label>
-                                    <input type="text" name="username" class="form-control" id="InputUsername" aria-describedby="usernameHelp" require>
+                                    <input type="text" name="username" class="form-control" id="InputUsername" aria-describedby="usernameHelp" required>
                                 </div> 
                             </div>
                         </div>
                         <div class="mb-3">
                             <label for="InputPassword1" class="form-label">Password <b style="color: red;">*</b></label>
-                            <input type="password" name="password" class="form-control" id="InputPassword1" require>
+                            <input type="password" name="password" class="form-control" id="InputPassword1" required>
                         </div>
                         <button type="submit" name="register" class="btn btn-purple" id="register" >Register</button>
                         <button type="button" class="btn btn-outline-danger" id="clear">Clear</button>

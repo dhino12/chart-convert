@@ -121,16 +121,6 @@ if (!isset($_SESSION['identity'])) {
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
-                                    <span class="position-absolute ms-2 mt-1">
-                                        <img src="./media/icon/search.svg" alt="" srcset="">
-                                    </span>
-                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
-                                </form>
-                                
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
-                                    <img src="./media/icon/square.svg" alt="" srcset="">
-                                </div>
                                 <?php if (!isset($_SESSION['level'])) : ?>
                                     <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
                                         <h6>Login</h6>
