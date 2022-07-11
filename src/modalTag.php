@@ -85,6 +85,5 @@ if (isset($_POST['submit'])) {
     <?php foreach ($tagsAll as $key => $tag) : ?>
       <p id="<?= str_replace(' ', '', $tag['table_name']) ?>" hidden><?= $tag['tag_name'] ?></p>
     <?php endforeach ?>
-
   </div>
 </div>

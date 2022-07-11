@@ -1,5 +1,5 @@
 <?php
-include 'script/functions.php';
+include 'src/script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
@@ -21,16 +21,16 @@ if (!isset($_SESSION['identity'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Home Page</title>
-    <link rel="stylesheet" href="./style/fonts.css">
-    <link rel="stylesheet" href="./style/index.css">
-    <link rel="stylesheet" href="./style/test.css">
-    <link rel="stylesheet" href="./style/background/colors.css">
-    <link rel="stylesheet" href="./style/background/bg-side.css">
-    <link rel="stylesheet" href="./style/responsive/side-responsive.css">
+    <link rel="stylesheet" href="./src/style/fonts.css">
+    <link rel="stylesheet" href="./src/style/index.css">
+    <link rel="stylesheet" href="./src/style/test.css">
+    <link rel="stylesheet" href="./src/style/background/colors.css">
+    <link rel="stylesheet" href="./src/style/background/bg-side.css">
+    <link rel="stylesheet" href="./src/style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
-    <script src="./modules/Chart-3.7.1.min.js"></script>
-    <script src="./modules/chartjs-plugin-datalabels.min.js"></script>
+    <script src="./src/modules/Chart-3.7.1.min.js"></script>
+    <script src="./src/modules/chartjs-plugin-datalabels.min.js"></script>
 </head>
 <body>
     <header></header>
@@ -75,7 +75,7 @@ if (!isset($_SESSION['identity'])) {
             </div>
             <div class="aside-footer ">
                 <div class="img-user me-2 d-inline-block" id="img-user">
-                    <img src="./media/userImg/person.svg" alt="" width="40px" height="40px">
+                    <img src="./src/media/userImg/person.svg" alt="" width="40px" height="40px">
                 </div>
                 <div class="d-inline-block" id="user">
                     <h5 class="m-0">Guest</h5>
@@ -94,7 +94,7 @@ if (!isset($_SESSION['identity'])) {
             <div class="header">
                 <div class="header-brand bg-side-wrapper">
                     <div class="logo">
-                        <img src="./media/logo/logo-kemendagri.png" width="50px">
+                        <img src="./src/media/logo/logo-kemendagri.png" width="50px">
                         <p><b> e - Database </b> ※ <b>SIPD Pusat</b></p>
                         <p>Kementrian Dalam Negeri</p>
                         <div id="toggle" class="sidebar-toggle">
@@ -119,13 +119,13 @@ if (!isset($_SESSION['identity'])) {
                             <div class="d-flex align-items-center overflow-auto me-5">
                                 <form action="" class="mx-3">
                                     <span class="position-absolute ms-2 mt-1">
-                                        <img src="./media/icon/search.svg" alt="" srcset="">
+                                        <img src="./src/media/icon/search.svg" alt="" srcset="">
                                     </span>
                                     <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
                                 </form>
                                 
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
-                                    <img src="./media/icon/square.svg" alt="" srcset="">
+                                    <img src="./src/media/icon/square.svg" alt="" srcset="">
                                 </div>
                                 <?php if (!isset($_SESSION['level'])) : ?>
                                     <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
@@ -157,11 +157,11 @@ if (!isset($_SESSION['identity'])) {
     </footer> 
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="./modules/createChart.js"></script>
-    <script src="./modules/sideBar.js"></script>
+    <script src="./src/modules/createChart.js"></script>
+    <script src="./src/modules/sideBar.js"></script>
     
-	<?php include './script/chartHandler.php' ?>
-    <script src="./modules/index.js"></script>
+	<?php include './src/script/chartHandler.php' ?>
+    <script src="./src/modules/index.js"></script>
     <script>
         const grafik = document.querySelector("#canvas-grafik");
         const chartAll = document.querySelectorAll('#wrapper-canvas');

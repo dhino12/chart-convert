@@ -118,7 +118,7 @@ function updateValue($datas, $tTable, $oldData)
     if (count($oldData) !== 0) {
         foreach($columns as $key => $newCol) {
             $oldCol = array_keys($oldData)[$key];
-            query("ALTER TABLE `$tTable` CHANGE `$oldCol` `$newCol` VARCHAR(180)", '');
+            $result = query("ALTER TABLE `$tTable` CHANGE `$oldCol` `$newCol` VARCHAR(180)", '');
         }
     }
 
@@ -138,7 +138,7 @@ function updateValue($datas, $tTable, $oldData)
                 $queryTmp = "UPDATE `$tTable` SET $query WHERE username='$row';";
                 $querySQL = str_replace(", ", " ", $queryTmp);
             }
-            $result = query($querySQL, "");
+            $result = query($querySQL, ""); 
             $query = "";
 
         } else {
@@ -254,7 +254,7 @@ function register($data) {
         return false;
     }
 
-    $checkCodeImg = $_FILES['foto']['error'];
+    $checkCodeImg = 4;
     
     if ($checkCodeImg === 4) {
         $foto = 'person.svg';

@@ -24,18 +24,19 @@ function crCanvas (tTitle, counter) {
 
     const linkUpdate = document.createElement('a');
     linkUpdate.href = `update.php?tableName=${tTitle}`;
-    linkUpdate.id = "btn-update";
+    linkUpdate.id = "btn-edit"
 
     const linkDelete = document.createElement('a');
     linkDelete.href = `delete.php?tableName=${tTitle}`;
-    linkDelete.onclick = () => confirm(`Yakin Hapus Data ${tTitle}?`);
-    linkDelete.id = "btn-delete"; // =============
+    linkDelete.onclick = () => confirm(`Yakin Hapus Data ${tTitle}?`); 
+    linkDelete.id = "btn-delete"
 
     const editBtn = document.createElement("div");
     editBtn.className = "d-flex align-center btn round-cs-6 me-2";
 
     const stracthBtn = document.createElement("div");
     stracthBtn.className = "d-flex align-center btn round-cs-6 me-2";
+    stracthBtn.id = "btn-stratch"
 
     const deleteBtn = document.createElement("div");
     deleteBtn.className = "d-flex align-center btn round-cs-6 me-2";

@@ -55,12 +55,7 @@ if (isset($_POST['register'])) {
                                 <div class="col">
                                     <label for="InputUsername" class="form-label">Username <b style="color: red;">*</b></label>
                                     <input type="text" name="username" class="form-control" id="InputUsername" aria-describedby="usernameHelp" require>
-                                </div>
-                                <div class="col">
-                                    <label for="formFile" class="form-label">Foto</label>
-                                    <input class="form-control" name="foto" type="file" id="formFile">
-                                    <div id="emailHelp" class="form-text">size tidak boleh lebih dari 50MB</div>
-                                </div>
+                                </div> 
                             </div>
                         </div>
                         <div class="mb-3">
