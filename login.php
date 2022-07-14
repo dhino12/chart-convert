@@ -19,7 +19,7 @@ if (isset($_POST['login'])) {
         header("Refresh:0");
     }
 
-    $query = "SELECT * FROM $level WHERE username='$username' OR email='$username'";
+    $query = "SELECT * FROM $level WHERE username='$username' OR email='$username' AND password='$password'";
     $queryUpdateStatus = "UPDATE $level SET status='active' WHERE username='$username' OR email='$username'";
     query($queryUpdateStatus, '');
 
@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
         }
     } else {
         echo "<script>alert('ooppss user tidak ditemukan')</script>";
-        header("refresh: 0");
+        
     }
 }
 
@@ -51,6 +51,7 @@ if (isset($_POST['login'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="stylesheet" href="./src/style/index.css">
+    <link rel="stylesheet" href="./src/style/login.css">
     <link rel="stylesheet" href="./src/style/background/colors.css">
     <link rel="stylesheet" href="./src/style/responsive/side-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">

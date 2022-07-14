@@ -1,0 +1,39 @@
+
+/* List */
+.statisk {
+    display: flex;
+    justify-content:space-around;
+    box-shadow: 3px 6px 5px 0px #00000014;
+    margin-bottom: 10vh;
+    border-radius: 20px;
+}
+
+.total-table {
+    width: 15vw;
+    height: 18vh;
+    padding-top: 5vh;
+}
+
+.total-table h3 {
+    text-align: center;
+}
+
+#tag:hover {
+    cursor: pointer;
+}
+
+.feature-list {
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10vh;
+    padding-left: 10vh;
+    margin-bottom: 3vh;
+}
+
+#toDetail {
+    transition: .2s ease-in;
+}
+
+#toDetail:hover { 
+    text-shadow: 1px 1px #7666f4;
+}

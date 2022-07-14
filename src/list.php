@@ -31,7 +31,9 @@ if (!isset($_SESSION['identity'])) {
     <title>List Data</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/sidebar.css">
     <link rel="stylesheet" href="./style/test.css">
+    <link rel="stylesheet" href="./style/list.css">
     <link rel="stylesheet" href="./style/background/colors.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">

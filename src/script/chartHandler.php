@@ -79,10 +79,12 @@ $index = 0;
     //     }).format(number);
     // }
 
-    <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
-        canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>, <?= $indicator ?>);
-        grafikCanvas.appendChild(canvasContainer);        
-    <?php endfor; ?>
+    <?php if($tables[0] !== '') : ?>
+        <?php for ($i = 0; $i <= count($tables) - 1 ; $i++) : ?> 
+            canvasContainer = crCanvas("<?= $tables[$i] ?>", <?= $i + 1 ?>, <?= $indicator ?>);
+            grafikCanvas.appendChild(canvasContainer);        
+        <?php endfor; ?>
+    <?php endif ?>
         
     <?php foreach($column as $keyTable => $valTable) : ?>
         ctx = document.querySelector(`#myChart${chartIndex}`).getContext('2d');

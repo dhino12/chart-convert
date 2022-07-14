@@ -25,6 +25,7 @@ if (isset($_POST['submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Document</title>
     <link rel="stylesheet" href="./style/fonts.css">
+    <link rel="stylesheet" href="./style/sidebar.css">
     <link rel="stylesheet" href="./style/index.css">
     <link rel="stylesheet" href="./style/test.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">

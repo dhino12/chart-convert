@@ -24,6 +24,7 @@ if (!isset($_SESSION['identity'])) {
     <title>Home Page</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/sidebar.css">
     <link rel="stylesheet" href="./style/test.css">
     <link rel="stylesheet" href="./style/background/colors.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">

@@ -49,6 +49,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     <title>Document</title>
     <link rel="stylesheet" href="./style/fonts.css">
     <link rel="stylesheet" href="./style/index.css">
+    <link rel="stylesheet" href="./style/sidebar.css">
     <link rel="stylesheet" href="./style/test.css">
     <link rel="stylesheet" href="./style/background/bg-side.css">
     <link rel="stylesheet" href="./style/responsive/side-responsive.css">
