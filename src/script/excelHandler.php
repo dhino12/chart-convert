@@ -57,6 +57,10 @@ function getDataCurrentSheet($sheetNames, $spreadsheet)
     $dataSheet = [];
     foreach($sheetNames as $name) {
         if($name === NULL) continue;
+        $spreadsheet->getSheetByName($name);
+        if (count($spreadsheet->getSheetByName($name)->getMergeCells()) !== 0) {
+            return $name;
+        }
         $dataSheet[] = fixArray($spreadsheet->getSheetByName($name)->toArray());
     }
     
@@ -82,7 +86,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 // dengan judul table
                 $tableName = $table[0][0] . '-' . (string)uniqid();
                 if (strlen($tableName) > 64) {
-                    echo "<script>alert('table name tidak boleh lebih dari 64 karakter')</script>"; 
+                    echo "<script>alert('table name <?= $tableName ?> tidak boleh lebih dari 64 karakter')</script>"; 
                     continue;
                 } 
 		        $tableNames .= "$tableName,";

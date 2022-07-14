@@ -139,11 +139,19 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
             </div>
 
             <div class="container-fluid content mt-5">
+                <?php if($_SESSION['msg'] !== '') : ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $_SESSION['msg'] ?>
+                        <button type="button" id="close" class="float-end btn-close btn-close-black" aria-label="Close"></button>
+                    </div>
+                <?php endif ?>
                 <?php if ($data['level'] === 'user' || $data['level'] === 'admin') : ?>
                     <div class="d-flex mb-3">
                         <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalClearData" id="clear-data">Bersihkan Data</button>
+                        <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalExport" id="clear-data">Export</button> -->
                         <?php include 'modalChart.php' ?>
+                        <?php include 'modalExport.php' ?>
                         <?php include 'modalClearData.php' ?>
                     </div>
                 <?php endif ?>

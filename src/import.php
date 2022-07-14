@@ -20,11 +20,23 @@ if (isset($_SESSION['identity'])) {
 
         $chartType = $_POST['chart_type']; 
         $spreadsheet = getExcelFile($_FILES);
-        
-        $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);
-        $tableNames = crTableSheet($excelDatas, $chartType);
-        $result = query("UPDATE `$level` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
-        header("Location: index.php");
+        $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);        
+        if (is_string($excelDatas)) {
+            $msg = "untuk sementara aplikasi tidak dapat menghandle mergeCell pada sheet <b> $excelDatas </b>";
+            $_SESSION['msg'] = $msg;
+            header("Location: index.php");
+
+        } else {
+            $_SESSION['msg'] = '';
+            $tableNames = crTableSheet($excelDatas, $chartType);    
+            $data = query("SELECT table_name FROM `$level` WHERE id='$id'", false)[0];
+
+            if (strlen($data) !== 0) $tableNames .= ',' . $data;
+
+            $result = query("UPDATE `$level` SET `table_name`='$tableNames' WHERE `id`='$id'", '');
+            header("Location: index.php");
+        }
+
         exit;
         
     } else {

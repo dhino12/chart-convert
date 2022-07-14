@@ -30,6 +30,7 @@ if (isset($_POST['login'])) {
             $_SESSION['identity'] = $result['id'];
             $_SESSION['username'] = $result['username'];
             $_SESSION['level'] = $_POST['level'];
+            $_SESSION['msg'] = '';
 
             header("Location: src/index.php");
             exit;

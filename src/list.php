@@ -155,18 +155,11 @@ if (!isset($_SESSION['identity'])) {
                 </div>
             </div>
 
+            <?php if (strlen($tables[0]) !== 0): ?>
+
             <div class="container-fluid content mt-5">
                 <div class="statisk">
-                    <div class="total-table">
-                        <h3><?= count($tables) ?></h3>
-                        <p class="text-center">Total Table</p>
-                    </div>
-                    <div class="total-table">
-                        <h3>100</h3>
-                        <p class="text-center">Total Views</p>
-                    </div>
-                </div>
-                
+                </div>                
                 <div class="feature-list">
                     <?php if(isset($level)) : ?>
                         <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
@@ -193,7 +186,7 @@ if (!isset($_SESSION['identity'])) {
                         </ul>
                     </div>
                 </div>
-
+                
                 <table class="sortable table table-striped table-hover" id="myTable3">
                     <thead>
                         <tr>
@@ -235,6 +228,7 @@ if (!isset($_SESSION['identity'])) {
                     </thead>
                 </table>
             </div>
+            <?php endif ?>
         </div>
     </main>
     <footer>
