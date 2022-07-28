@@ -11,14 +11,13 @@ $username = $_SESSION['username'];
 $result = query("SELECT * FROM `$tableName`", true);
 
 if (isset($_POST['submit'])) {
-    $idTableName = explode("-", $tableName)[1];
+    $idTableName = explode("-", $tableName)[1]; // get id table
     $idTableName = $_POST['titleTable'] . "-" . $idTableName; 
     query("RENAME TABLE `$tableName` TO `". $idTableName . "`", '');
 
-    // update table_name in admins/users tableDB
+    // update table_name di admins/users tables pada database
     $tablesName = query("SELECT table_name FROM $level WHERE username = '$username' OR email = '$username';", false); 
-    $updateTableName = str_replace($tableName, $idTableName, $tablesName[0]); 
-    var_dump($updateTableName);
+    $updateTableName = str_replace($tableName, $idTableName, $tablesName[0]);  
     query("UPDATE $level SET table_name = '$updateTableName' WHERE username= '$username' OR email = '$username'", "");
 
     $data = splitArray($_POST);
@@ -166,10 +165,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                 </div>
             </div>
 
-            <div class="container-fluid content mt-5">
-                <button type="button" class="btn btn-outline-primary" id="btnCreateTable" data-bs-toggle="modal" data-bs-target="#modalTable">Buat Table</button>
-                <button type="button" class="btn btn-outline-primary" id="addRow" disabled>Tambah Baris</button>
-                <button type="button" class="btn btn-outline-primary" id="addColumn" disabled>Tambah Kolom</button>
+            <div class="container-fluid content mt-5"> 
                 <?php include './modalTable.php' ?>
                 
                 <form action="" id="form-input" class="mt-5" method="POST">

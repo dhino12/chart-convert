@@ -279,3 +279,16 @@ function register($data) {
     
     return mysqli_affected_rows($conn);
 }
+
+function pagination ($halaman) {
+    global $conn;
+
+    $batas = 10;
+    $halamanAwal = ($halaman > 1) ? ( ($halaman * $batas) - $batas ) : 0;
+
+    $previous = $halaman - 1;
+    $next = $halaman + 1;
+
+    
+    return $dataTables;
+}

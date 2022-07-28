@@ -42,6 +42,7 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
         foreach ($dataTables as $key => $value) {
             $tables[] = $value["Tables_in_chart_generator (%$searchData%)"]; 
         }
+        $column = dbToArray($tables);
     } else {
         //  guest
         if (isset($_GET['title'])) {

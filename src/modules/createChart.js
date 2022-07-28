@@ -1,7 +1,15 @@
 function crCanvas (tTitle, counter, indicator) {
     const indicatorRole = Boolean(indicator);
+    let toDetail;
 
-    const crCanvas = document.createElement('canvas')
+    if (indicatorRole) {
+        toDetail = `detail.php?title=${tTitle}`;
+    } else {
+        // guest
+        toDetail = `src/detail.php?title=${tTitle}`;
+    }
+
+    const crCanvas = document.createElement('canvas');
     crCanvas.id = `myChart${counter}`;
     
     const crWrapper = document.createElement('div')
@@ -13,7 +21,7 @@ function crCanvas (tTitle, counter, indicator) {
     headerCanvas.id = "header-canvas";
 
     const linkToDetail = document.createElement('a');
-    linkToDetail.href = `detail.php?title=${tTitle}`;
+    linkToDetail.href = toDetail;
     linkToDetail.className = "w-100 text-decoration-none"
 
     const tCanvas = document.createElement("h5");

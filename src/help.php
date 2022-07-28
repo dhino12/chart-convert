@@ -80,7 +80,7 @@ if (!isset($_SESSION['identity'])) {
                     <img src="./media/userImg/person.svg" alt="" width="40px" height="40px">
                 </div>
                 <div class="d-inline-block" id="user">
-                    <h5 class="m-0">Guest</h5>
+                    <h5 class="m-0"><?= $data['name']?></h5>
                     <p class="m-0 fs-6">Software Engineer</p>
                 </div>
                 <div class="logout d-inline-block">
@@ -126,9 +126,7 @@ if (!isset($_SESSION['identity'])) {
                                     <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
                                 </form>
                                 
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
-                                    <img src="./media/icon/square.svg" alt="" srcset="">
-                                </div>
+                                
                                 <?php if (!isset($_SESSION['level'])) : ?>
                                     <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
                                         <h6>Login</h6>
@@ -148,8 +146,74 @@ if (!isset($_SESSION['identity'])) {
             </div>
 
             <div class="container-fluid content mt-5">
-                <div class="bg-red row align-items-center justify-content-between" id="canvas-grafik">
-                    
+                <h2>F.A.Q Seputar Chart Generator</h2>
+                <div class="mt-5">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse1" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Apa itu Chart Generator ?
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse1">
+                        <div class="card card-body">
+                            Chart Generator adalah sebuah aplikasi yang dapat mengubah tabel document excel kedalam sebuah chart pada website, 
+                            dengan beberapa opsi chart yang tersedia pada web ini adalah pie, line, doughnut, dan bar.
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Dokumen apa saja yang dapat di convert kedalam web ini ?
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse2">
+                        <div class="card card-body">
+                            Hanya file excel saja, dengan format .xlsx atau .xls
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Bagaimana format penulisan yang benar agar dapat diimport ke dalam website ini ?
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse3">
+                        <div class="card card-body">
+                            untuk sementara chart generator tidak support untuk import dengan `merge cell`, untuk penulisan bisa dilihat pada dokumen
+                            <a href="./media/Raw Data 2203 new without mergeCell.xlsx">contoh_ini.xlsx</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse4" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Bagaimana agar judul terisi pada website secara otomatis ?
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse4">
+                        <div class="card card-body">
+                            untuk mengisi judul secara otomatis, cukup ketikan judul diatas table pada dokumen excel anda. seperti gambar dibawah : <br><br>
+                            <img src="./media/faq/faq1.png" alt="penulisan judul" width="500">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse5" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            Bagaimana cara mengubah chart ?
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse5">
+                        <div class="card card-body">
+                            untuk mengubah chart bisa masuk ke halaman dashboard lalu menekan tombol edit (icon pencil), lalu ubah pada kolom "chart_type" pada baris pertama
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

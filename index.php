@@ -24,6 +24,7 @@ if (!isset($_SESSION['identity'])) {
     <link rel="stylesheet" href="./src/style/fonts.css">
     <link rel="stylesheet" href="./src/style/index.css">
     <link rel="stylesheet" href="./src/style/test.css">
+    <link rel="stylesheet" href="./src/style/sidebar.css">
     <link rel="stylesheet" href="./src/style/background/colors.css">
     <link rel="stylesheet" href="./src/style/background/bg-side.css">
     <link rel="stylesheet" href="./src/style/responsive/side-responsive.css">
@@ -96,15 +97,13 @@ if (!isset($_SESSION['identity'])) {
                                     <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
                                 </ul>
                             </div>
-                            <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
-                                    <span class="position-absolute ms-2 mt-1">
-                                        <img src="./src/media/icon/search.svg" alt="" srcset="">
-                                    </span>
-                                    <form method="get">
-                                        <input type="text" name="search" class="form-control ps-5" style="border-radius: 8px;" placeholder="search">
-                                    </form>
-                                </form>
+                            <div class="d-flex align-items-center overflow-auto me-5"> 
+                                <span class="position-absolute ms-2 mt-1">
+                                    <img src="./src/media/icon/search.svg" alt="" srcset="">
+                                </span>
+                                <form method="get">
+                                    <input type="text" name="search" class="form-control ps-5" style="border-radius: 8px;" placeholder="search">
+                                </form> 
                                 
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
                                     <img src="./src/media/icon/square.svg" alt="" srcset="">
@@ -153,8 +152,8 @@ if (!isset($_SESSION['identity'])) {
         const buttonStract = document.querySelector("#btn-stracting");
         const btnDelete = document.querySelector("#btn-delete");
         const btnUpdate = document.querySelector("#btn-update"); 
-        btnUpdate.innerHTML = '';
-        btnDelete.innerHTML = '';
+        btnUpdate.innerHTML = '<div></div>';
+        btnDelete.innerHTML = '<div></div>';
 
         let indicator = true;
         

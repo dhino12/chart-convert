@@ -150,7 +150,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                     <div class="d-flex mb-3">
                         <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#modalChart">Import Excel</button>
                         <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#modalClearData" id="clear-data">Bersihkan Data</button>
-                        <!-- <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalExport" id="clear-data">Export</button> -->
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#modalExport" id="clear-data">Export</button>
                         <?php include 'modalChart.php' ?>
                         <?php include 'modalExport.php' ?>
                         <?php include 'modalClearData.php' ?>
@@ -196,7 +196,7 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                     e.classList.replace('col-xl-6', 'col-xl-12');
                 });
                 indicator = false
-            }else {
+            } else {
                 wrapCanvas.forEach(e => {
                     e.classList.replace('col-xl-12', 'col-xl-6');
                 });

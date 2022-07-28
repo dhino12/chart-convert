@@ -3,6 +3,7 @@ include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
+    // ROLL USED
     $tables = query("SHOW TABLES WHERE NOT Tables_in_chart_generator = 'users' 
     AND NOT Tables_in_chart_generator = 'tag' 
     AND NOT Tables_in_chart_generator = 'admins';", false);
@@ -11,10 +12,12 @@ if (!isset($_SESSION['identity'])) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
     } 
 } else {
+    // GUEST
     $id = $_SESSION['identity'];
     $level = $_SESSION['level'];
     $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     $tables = explode(",", $data['table_name']);
+
     $totalRows;
     foreach ($tables as $key => $value) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
@@ -118,18 +121,18 @@ if (!isset($_SESSION['identity'])) {
                     </button>
                 </div>
 
-                <div style="width: 100%">
+                <div style="width: 100%"  class="mt-3">
                     <div class="topbar">
                         <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
                             <div class="page-title d-flex flex-column me-5">
-                                <h1 class="fs-5 mb-0 text-dark my-3">List Data</h1> 
+                                <h1 class="fs-5 text-dark my-3">List Data</h1> 
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
                                 <form action="" class="mx-3">
                                     <span class="position-absolute ms-2 mt-1">
                                         <img src="./media/icon/search.svg" alt="" srcset="">
                                     </span>
-                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
+                                    <input type="text" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
                                 </form>
                                 
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
@@ -157,79 +160,92 @@ if (!isset($_SESSION['identity'])) {
                 </div>
             </div>
 
-            <?php if (strlen($tables[0]) !== 0): ?>
+            <?php if (strlen($tables[0]) !== 0): ?> 
+                <div class="container-fluid content mt-5">
+                    <div class="statisk">
+                    </div>                
+                    <div class="feature-list">
+                        <?php if(isset($level)) : ?>
+                            <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
+                                Tambah Tag
+                            </button>
+                        <?php endif ?>
+                        <?php include 'modalTag.php' ?>
 
-            <div class="container-fluid content mt-5">
-                <div class="statisk">
-                </div>                
-                <div class="feature-list">
-                    <?php if(isset($level)) : ?>
-                        <button type="button" class="btn btn-outline-purple" data-bs-toggle="modal" data-bs-target="#exampleModal" data-bs-whatever="@mdo">
-                            Tambah Tag
-                        </button>
-                    <?php endif ?>
-                    <?php include 'modalTag.php' ?>
+                        <div class="dropdown">
+                            <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="bi bi-funnel"></i> Filter
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                <li><a class="dropdown-item" id="most-tags-asc">Tag terbanyak ASC</a></li>    
+                                <li><a class="dropdown-item" id="most-tags-desc">Tag terbanyak DESC</a></li>    
+                                <li>
+                                    <select class="form-select" aria-label="Default select example">
+                                        <option selected>All</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <table class="sortable table table-striped table-hover" id="myTable3">
+                        <thead>
+                            <tr>
+                                <th mytable2="" onclick="sortTable(0, 'myTable3')">No</th>
+                                <th mytable2="" onclick="sortTable(1, 'myTable3')">Name</th>
+                                <th mytable2="" onclick="sortTable(2, 'myTable3')">Jumlah Data</th>
+                                <th mytable2="" onclick="sortTable(3, 'myTable3')">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach ($tables as $index => $value) : ?>
+                                <tr>
+                                    <td><?= $index + 1?></td>
+                                    <td>
+                                        <a href="detail.php?title=<?= $value ?>" id="toDetail" class="text-decoration-none text-black">
+                                            <?= explode('-', $value)[0] ?>
+                                        </a><br>
+                                        
+                                        <?php if(array_search($value, $tableNames) !== false) : ?> 
+                                            <?php 
+                                                $tableIndex = array_search($value, $tableNames);
+                                                $tableIndex = $tableNames[$tableIndex];
+                                                $tagsAll = query("SELECT tag_name FROM tag WHERE table_name = '$tableIndex'", true);
+                                            ?>
+                                            <?php $tagsNameStr = explode(',', $tagsAll[0]['tag_name']); ?>
+                                            <?php foreach ($tagsNameStr as $key => $tag) :?>
+                                                <?php if($tag === '') continue ?>
+                                                <span class="badge bg-primary me-0" id="tag">
+                                                    <span> <i class="bi bi-tag"></i> </span>
+                                                    <span> <?= $tag ?> </span>
+                                                </span>
+                                            <?php endforeach ?>
+                                        <?php endif ?> 
+                                    </td> 
+                                    <td><?= $totalRows[$index][0] ?></td>
+                                    <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </thead>
+                    </table>
 
-                    <div class="dropdown">
-                        <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="bi bi-funnel"></i> Filter
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item" id="most-tags-asc">Tag terbanyak ASC</a></li>    
-                            <li><a class="dropdown-item" id="most-tags-desc">Tag terbanyak DESC</a></li>    
-                            <li>
-                                <select class="form-select" aria-label="Default select example">
-                                    <option selected>All</option>
-                                    <option value="1">One</option>
-                                    <option value="2">Two</option>
-                                    <option value="3">Three</option>
-                                </select>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item disabled">
+                            <a class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                            <a class="page-link" href="#">Next</a>
                             </li>
                         </ul>
-                    </div>
+                    </nav>
                 </div>
-                
-                <table class="sortable table table-striped table-hover" id="myTable3">
-                    <thead>
-                        <tr>
-                            <th mytable2="" onclick="sortTable(0, 'myTable3')">No</th>
-                            <th mytable2="" onclick="sortTable(1, 'myTable3')">Name</th>
-                            <th mytable2="" onclick="sortTable(2, 'myTable3')">Jumlah Data</th>
-                            <th mytable2="" onclick="sortTable(3, 'myTable3')">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php foreach ($tables as $index => $value) : ?>
-                            <tr>
-                                <td><?= $index + 1?></td>
-                                <td>
-                                    <a href="detail.php?title=<?= $value ?>" id="toDetail" class="text-decoration-none text-black">
-                                        <?= explode('-', $value)[0] ?>
-                                    </a><br>
-                                    
-                                    <?php if(array_search($value, $tableNames) !== false) : ?> 
-                                        <?php 
-                                            $tableIndex = array_search($value, $tableNames);
-                                            $tableIndex = $tableNames[$tableIndex];
-                                            $tagsAll = query("SELECT tag_name FROM tag WHERE table_name = '$tableIndex'", true);
-                                        ?>
-                                        <?php $tagsNameStr = explode(',', $tagsAll[0]['tag_name']); ?>
-                                        <?php foreach ($tagsNameStr as $key => $tag) :?>
-                                            <?php if($tag === '') continue ?>
-                                            <span class="badge bg-primary me-0" id="tag">
-                                                <span> <i class="bi bi-tag"></i> </span>
-                                                <span> <?= $tag ?> </span>
-                                            </span>
-                                        <?php endforeach ?>
-                                    <?php endif ?> 
-                                </td> 
-                                <td><?= $totalRows[$index][0] ?></td>
-                                <td><a href="index.php#<?=$value?>"><button type="button" class="btn btn-outline-primary"><i class="bi bi-eye"></i> Kunjungi</button></a></td>
-                            </tr>
-                        <?php endforeach ?>
-                    </thead>
-                </table>
-            </div>
             <?php endif ?>
         </div>
     </main>
