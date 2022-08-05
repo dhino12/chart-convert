@@ -19,8 +19,13 @@ if (isset($_GET['title']) && isset($_SESSION['identity'])) {
         if (strlen($searchData) === 0) return header("Location: index.php");
 
         $dataTables = query("SHOW TABLES FROM chart_generator LIKE '%$searchData%'", true);
-        foreach ($dataTables as $key => $value) {
-            $tables[] = $value["Tables_in_chart_generator (%$searchData%)"]; 
+        
+        if (count($dataTables) !== 0) {
+            foreach ($dataTables as $key => $value) {
+                $tables[] = $value["Tables_in_chart_generator (%$searchData%)"]; 
+            }
+        } else {
+            $tables[] = '';
         }
     } else {
         $tables = query("SELECT table_name FROM $level WHERE id='$id'", true)[0];
@@ -71,6 +76,8 @@ $index = 0;
     let dataLabels = [];
     let dataValue = []; 
     let dataCharts = [];
+    let randomColor = 0;
+    // let randomColor = Math.floor(Math.random() * 16777215).toString(16);
     
     // currency converter
     // const rupiah = (number)=>{
@@ -95,6 +102,8 @@ $index = 0;
         dataCharts = [];
 
         <?php foreach($valTable as $key => $value) : ?>
+            randomColor = Math.floor(Math.random() * 16777215).toString(16);
+
             <?php if(
                 trim(strtolower("$key")) === "no." || 
                 trim(strtolower("$key")) === "no" || 
@@ -120,16 +129,10 @@ $index = 0;
                     borderRadius: [11,11,11,11],
                     data: dataValue,
                     backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)'
+                        `#${randomColor}`,
                     ],
                     borderColor: [
-                        'rgba(255,99,132,1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)'
+                        `#${randomColor}`,
                     ],
                     pointStyle: 'circle',
                     pointRadius: 7,

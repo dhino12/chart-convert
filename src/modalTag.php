@@ -57,7 +57,7 @@ if (isset($_POST['submit'])) {
                 <label for="recipient-name" class="col-form-label">Table Name:</label>
                 <select class="form-select" name="table-name" onchange="inputTag(event)">
                     <option>Pilih nama table</option>
-                    <?php foreach($tables as $table) : ?>
+                    <?php foreach($tables['datas'] as $table) : ?>
                         <option value="<?= $table ?>"><?= $table?></option>
                     <?php endforeach ?>
                 </select>

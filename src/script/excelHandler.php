@@ -57,7 +57,9 @@ function getDataCurrentSheet($sheetNames, $spreadsheet)
     $dataSheet = [];
     foreach($sheetNames as $name) {
         if($name === NULL) continue;
+        
         $spreadsheet->getSheetByName($name);
+
         if (count($spreadsheet->getSheetByName($name)->getMergeCells()) !== 0) {
             return $name;
         }

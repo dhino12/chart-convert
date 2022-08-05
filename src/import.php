@@ -20,9 +20,14 @@ if (isset($_SESSION['identity'])) {
 
         $chartType = $_POST['chart_type']; 
         $spreadsheet = getExcelFile($_FILES);
-        $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);        
+        $excelDatas = getDataCurrentSheet($spreadsheet->getSheetNames(), $spreadsheet);  
         if (is_string($excelDatas)) {
-            $msg = "untuk sementara aplikasi tidak dapat menghandle mergeCell pada sheet <b> $excelDatas </b>";
+            $field = '';
+            $getMerge = $spreadsheet->getSheetByName($excelDatas)->getMergeCells();
+            foreach ($getMerge as $fieldData) {
+                $field .= "<span style='border: 1px solid red; padding-left: 5px; padding-right: 5px; border-radius: 5px;'>$fieldData</span> \t";
+            }
+            $msg = "untuk sementara aplikasi tidak dapat menghandle mergeCell pada sheet <b> $excelDatas </b> di Field $field";
             $_SESSION['msg'] = $msg;
             header("Location: index.php");
 

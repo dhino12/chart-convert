@@ -52,19 +52,7 @@ if (!isset($_SESSION['identity'])) {
                             </span>
                         </div>
                     </a>
-
-                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                Default
-                            </div>
-                        </a>
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                E-Comernce
-                            </div>
-                        </a>
-                    </div>
+                    
                 </div>
                 <a href="list.php" class="text-decoration-none">
                     <div class="my-2 py-2 px-2" id="item-side">

@@ -3,23 +3,34 @@ include 'script/functions.php';
 session_start();
 
 if (!isset($_SESSION['identity'])) {
-    // ROLL USED
-    $tables = query("SHOW TABLES WHERE NOT Tables_in_chart_generator = 'users' 
-    AND NOT Tables_in_chart_generator = 'tag' 
-    AND NOT Tables_in_chart_generator = 'admins';", false);
+    // GUEST
+    $tables = mysqli_query($conn, "SHOW TABLES;");
+    $tablesData = mysqli_query($conn, "SELECT FOUND_ROWS();");
+    $tablesData = mysqli_fetch_assoc($tablesData);
+
+    $tables = pagination($_GET, (int)$tablesData['FOUND_ROWS()'] - 3 );
+    $halaman = $tables['halaman'];
+    $next = $tables['next'];
+    $prev = $tables['previous'];
+
     $totalRows;
-    foreach ($tables as $key => $value) {
+    foreach ($tables['datas'] as $key => $value) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
     } 
 } else {
-    // GUEST
+    // ROLL USED
     $id = $_SESSION['identity'];
     $level = $_SESSION['level'];
     $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
     $tables = explode(",", $data['table_name']);
 
+    $tables = pagination($_GET, count($tables));
+    $halaman = $tables['halaman'];
+    $next = $tables['next'];
+    $prev = $tables['previous'];
+
     $totalRows;
-    foreach ($tables as $key => $value) {
+    foreach ($tables['datas'] as $key => $value) {
         $totalRows[] = query("SELECT COUNT(*) FROM `$value`", false);
     }
 }
@@ -60,19 +71,7 @@ if (!isset($_SESSION['identity'])) {
                                 <span id="expand">></span>
                             </span>
                         </div>
-                    </a>
-                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                Default
-                            </div>
-                        </a>
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                E-Comernce
-                            </div>
-                        </a>
-                    </div>
+                    </a> 
                 </div>
                 <a href="list.php">
                     <div class="my-2 py-2 px-2 active-menu" id="item-side">
@@ -128,18 +127,12 @@ if (!isset($_SESSION['identity'])) {
                                 <h1 class="fs-5 text-dark my-3">List Data</h1> 
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
+                                <!-- <form action="" class="mx-3">
                                     <span class="position-absolute ms-2 mt-1">
                                         <img src="./media/icon/search.svg" alt="" srcset="">
                                     </span>
                                     <input type="text" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
-                                </form>
-                                
-                                <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-header">
-                                    <a href="">
-                                        <img src="./media/icon/square.svg" alt="" srcset="">
-                                    </a>
-                                </div>
+                                </form> --> 
                                 <?php if (!isset($_SESSION['level'])) : ?>
                                     <a href="../login.php">
                                         <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
@@ -160,7 +153,7 @@ if (!isset($_SESSION['identity'])) {
                 </div>
             </div>
 
-            <?php if (strlen($tables[0]) !== 0): ?> 
+            <?php if (count($tables["datas"]) !== 0): ?> 
                 <div class="container-fluid content mt-5">
                     <div class="statisk">
                     </div>                
@@ -178,15 +171,7 @@ if (!isset($_SESSION['identity'])) {
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
                                 <li><a class="dropdown-item" id="most-tags-asc">Tag terbanyak ASC</a></li>    
-                                <li><a class="dropdown-item" id="most-tags-desc">Tag terbanyak DESC</a></li>    
-                                <li>
-                                    <select class="form-select" aria-label="Default select example">
-                                        <option selected>All</option>
-                                        <option value="1">One</option>
-                                        <option value="2">Two</option>
-                                        <option value="3">Three</option>
-                                    </select>
-                                </li>
+                                <li><a class="dropdown-item" id="most-tags-desc">Tag terbanyak DESC</a></li>   
                             </ul>
                         </div>
                     </div>
@@ -201,7 +186,7 @@ if (!isset($_SESSION['identity'])) {
                             </tr>
                         </thead>
                         <tbody>
-                            <?php foreach ($tables as $index => $value) : ?>
+                            <?php foreach ($tables['datas'] as $index => $value) : ?>
                                 <tr>
                                     <td><?= $index + 1?></td>
                                     <td>
@@ -234,15 +219,14 @@ if (!isset($_SESSION['identity'])) {
 
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-end">
-                            <li class="page-item disabled">
-                            <a class="page-link">Previous</a>
+                            <li class="page-item"> 
+                                <a class="page-link" <?php if($halaman > 1){ echo "href='?halaman=$prev'"; } ?>>Previous</a>
                             </li>
-                            <li class="page-item"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item">
-                            <a class="page-link" href="#">Next</a>
-                            </li>
+                            <?php for($x = 1; $x <= $tables['totalHalaman']; $x++) : ?>
+                                <li class="page-item"><a class="page-link" href="?halaman=<?= $x ?>"><?= $x ?></a></li>
+                                <li class="page-item">
+                            <?php endfor; ?>
+                            <a  class="page-link" <?php if($halaman < $tables['totalHalaman']) { echo "href='?halaman=$next'"; } ?>>Next</a>
                         </ul>
                     </nav>
                 </div>

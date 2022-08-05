@@ -44,19 +44,6 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                             <span id="expand">></span>
                         </span>
                     </div>
-
-                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                Default
-                            </div>
-                        </a>
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                E-Comernce
-                            </div>
-                        </a>
-                    </div>
                 </div>
                 <a href="list.php">
                     <div class="my-2 py-2 px-2" id="item-side">
@@ -109,20 +96,17 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                             <div class="page-title d-flex flex-column me-5">
                                 <h1 class="fs-5 mb-0 text-dark my-3">Dashboard</h1>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Dashboard</a></li>
+                                    <li class="breadcrumb-item"><a href="index.php" style="text-decoration: none;">Dashboard</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
+                                <form action="" method="get">
                                     <span class="position-absolute ms-2 mt-1">
-                                        <img src="./media/icon/search.svg" alt="" srcset="">
+                                        <img src="./media/icon/search.svg" alt="">
                                     </span>
-                                    <form action="" method="get">
-                                        <input type="text" class="form-control ps-5 d-inline" name="search" style="border-radius: 8px;" placeholder="search">
-                                    </form>
+                                    <input type="text" class="form-control ps-5 d-inline" name="search" style="border-radius: 8px;" placeholder="search">
                                 </form>
-                                
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2" id="btn-stracting">
                                     <img src="./media/icon/square.svg" alt="" srcset="">
                                 </div> 
@@ -141,9 +125,9 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 
             <div class="container-fluid content mt-5">
                 <?php if($_SESSION['msg'] !== '') : ?>
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-danger" role="alert" id="msg">
                         <?= $_SESSION['msg'] ?>
-                        <button type="button" id="close" class="float-end btn-close btn-close-black" aria-label="Close"></button>
+                        <button type="button" id="close" class="float-end btn-close btn-close-black" aria-label="Close" onclick="removeMsg()"></button>
                     </div>
                 <?php endif ?>
                 <?php if ($data['level'] === 'user' || $data['level'] === 'admin') : ?>
@@ -183,6 +167,10 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
 	<?php include './script/chartHandler.php' ?>
     <script src="./modules/index.js"></script>
     <script>
+        function removeMsg() {
+            const msg = document.querySelector("#msg");
+            msg.parentNode.removeChild(msg);
+        }
         const grafik = document.querySelector("#canvas-grafik");
         const chartAll = document.querySelectorAll('#wrapper-canvas');
         const loading = document.createElement('div');

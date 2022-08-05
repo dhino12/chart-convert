@@ -280,15 +280,23 @@ function register($data) {
     return mysqli_affected_rows($conn);
 }
 
-function pagination ($halaman) {
+function pagination ($halamanGet, $jmlh_data) {
     global $conn;
 
-    $batas = 10;
-    $halamanAwal = ($halaman > 1) ? ( ($halaman * $batas) - $batas ) : 0;
+    $batas = 99;
+    $datas['halaman'] = isset($halamanGet['halaman'])? (int) $halamanGet['halaman'] : 1;
+    $halamanAwal = ($datas['halaman'] > 1) ? ($datas['halaman'] * $batas) - $batas : 0;
 
-    $previous = $halaman - 1;
-    $next = $halaman + 1;
+    $datas['previous'] = $datas['halaman'] - 1;
+    $datas['next'] = $datas['halaman'] + 1;
+    $datas['totalHalaman'] = ceil($jmlh_data / $batas);
 
-    
-    return $dataTables;
+    $datas['datas'] = query("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES 
+        WHERE TABLE_SCHEMA = 'chart_generator'
+        AND NOT TABLE_NAME = 'admins' 
+        AND NOT TABLE_NAME = 'users' 
+        AND NOT TABLE_NAME = 'tag' 
+            LIMIT $halamanAwal, $batas;", false);
+
+    return $datas;  
 }

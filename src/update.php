@@ -71,19 +71,6 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                             <span id="expand">></span>
                         </span>
                     </div>
-
-                    <div class="ms-4 collapse" id="navbarToggleExternalContent">
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                Default
-                            </div>
-                        </a>
-                        <a href="default.html" class="text-decoration-none">
-                            <div class="menu-item">
-                                E-Comernce
-                            </div>
-                        </a>
-                    </div>
                 </div>
                 <a href="list.php">
                     <div class="my-2 py-2 px-2" id="item-side">
