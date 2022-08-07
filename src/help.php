@@ -128,9 +128,11 @@ if (!isset($_SESSION['identity'])) {
                                 
                                 
                                 <?php if (!isset($_SESSION['level'])) : ?>
-                                    <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
-                                        <h6>Login</h6>
-                                    </div>
+                                    <a href="../login.php" style="text-decoration: none;">
+                                        <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 text-primary" id="btn-header">
+                                            <h6>Login</h6>
+                                        </div>
+                                    </a>
                                 <?php endif ?>
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
                                     <a href="" class="text-decoration-none light fw-bold" style="color: white;">
@@ -156,8 +158,10 @@ if (!isset($_SESSION['identity'])) {
                     </p>
                     <div class="collapse" id="collapse1">
                         <div class="card card-body">
-                            Chart Generator adalah sebuah aplikasi yang dapat mengubah tabel document excel kedalam sebuah chart pada website, 
-                            dengan beberapa opsi chart yang tersedia pada web ini adalah pie, line, doughnut, dan bar.
+                            <p>
+                                <i>Chart Generator</i>adalah sebuah aplikasi yang dapat mengubah tabel document excel kedalam sebuah <i>chart</i> pada website, 
+                                dengan beberapa opsi <i>chart</i> yang tersedia pada web ini adalah <i>pie</i>, <i>line</i>,<i>doughnut</i>, dan <i>bar</i>.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -183,8 +187,10 @@ if (!isset($_SESSION['identity'])) {
                     </p>
                     <div class="collapse" id="collapse3">
                         <div class="card card-body">
-                            untuk sementara chart generator tidak support untuk import dengan `merge cell`, untuk penulisan bisa dilihat pada dokumen
-                            <a href="./media/Raw Data 2203 new without mergeCell.xlsx">contoh_ini.xlsx</a>
+                            <p>
+                                untuk sementara chart generator tidak support untuk import dengan <i>`merge cell`</i>, untuk penulisan bisa dilihat pada dokumen
+                                <a href="./media/Raw Data 2203 new without mergeCell.xlsx">contoh_ini.xlsx</a>
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -197,7 +203,7 @@ if (!isset($_SESSION['identity'])) {
                     </p>
                     <div class="collapse" id="collapse4">
                         <div class="card card-body">
-                            untuk mengisi judul secara otomatis, cukup ketikan judul diatas table pada dokumen excel anda. seperti gambar dibawah : <br><br>
+                            untuk mengisi judul secara otomatis, cukup ketikan judul diatas tabel pada dokumen excel anda. seperti gambar dibawah : <br><br>
                             <img src="./media/faq/faq1.png" alt="penulisan judul" width="500">
                         </div>
                     </div>
@@ -211,7 +217,9 @@ if (!isset($_SESSION['identity'])) {
                     </p>
                     <div class="collapse" id="collapse5">
                         <div class="card card-body">
-                            untuk mengubah chart bisa masuk ke halaman dashboard lalu menekan tombol edit (icon pencil), lalu ubah pada kolom "chart_type" pada baris pertama
+                            <p>
+                                untuk mengubah <i>chart</i> bisa masuk ke halaman dashboard lalu menekan tombol <i>edit</i> (icon pensil), lalu ubah pada kolom "chart_type" pada baris pertama
+                            </p>
                         </div>
                     </div>
                 </div>

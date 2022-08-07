@@ -283,7 +283,7 @@ function register($data) {
 function pagination ($halamanGet, $jmlh_data) {
     global $conn;
 
-    $batas = 99;
+    $batas = 10;
     $datas['halaman'] = isset($halamanGet['halaman'])? (int) $halamanGet['halaman'] : 1;
     $halamanAwal = ($datas['halaman'] > 1) ? ($datas['halaman'] * $batas) - $batas : 0;
 

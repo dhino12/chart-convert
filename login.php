@@ -13,19 +13,21 @@ if (isset($_POST['login'])) {
     $username = strtolower($_POST['email']);
     $password = strtolower($_POST['password']);
     $level = $_POST['level'];
+    $result = null;
 
     if ($_POST['level'] === 'Login Sebagai ?') {
         echo "<script>alert('mohon diisi login sebagai apa')</script>"; 
         header("Refresh:0");
+    } else {
+        $query = "SELECT * FROM $level WHERE username='$username' OR email='$username' AND password='$password'";
+        $result = query($query, true);
     }
 
-    $query = "SELECT * FROM $level WHERE username='$username' OR email='$username' AND password='$password'";
-    $queryUpdateStatus = "UPDATE $level SET status='active' WHERE username='$username' OR email='$username'";
-    query($queryUpdateStatus, '');
+    if (!is_null($result) && count($result) !== 0) {
+        $result = $result[0];
+        $queryUpdateStatus = "UPDATE $level SET status='active' WHERE username='$username' OR email='$username'";
+        query($queryUpdateStatus, '');
 
-    $result = query($query, true)[0];
-
-    if (!is_null($result)) {
         if ($password === $result['password']) {
             $_SESSION['identity'] = $result['id'];
             $_SESSION['username'] = $result['username'];
@@ -54,16 +56,22 @@ if (isset($_POST['login'])) {
     <link rel="stylesheet" href="./src/style/login.css">
     <link rel="stylesheet" href="./src/style/background/colors.css">
     <link rel="stylesheet" href="./src/style/responsive/side-responsive.css">
+    <link rel="stylesheet" href="./src/style/responsive/login-responsive.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 </head>
 <body>
     <div class="container">
-        <div class="login-container">
-            <div class="sd-background m-0">
+        <div class="login-container position-relative">
+            <div class="white-background"></div>
+            <div class="sd-background m-0"></div>
+            <div class="content-logo">
+                <img src="src/media/img/g20.png" alt="" srcset=""> 
+                <img src="src/media/img/Logo_BerAKHLAK.png" alt="" srcset="">
             </div>
             <div class="sd-login">
-                <div class="content-login my-5 mx-5">
+                <div class="content-login my-4 mx-5">
+                    <img src="src/media/logo/logo-kemendagri.png" style="margin-right: auto; margin-left: auto; display:block;" width="50px">
                     <h2 class="text-center text-purple">Login Form</h2>
                     <p class="text-center text-secondary">Silahkan login untuk menggunakan aplikasi ini</p>
 

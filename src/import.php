@@ -33,7 +33,7 @@ if (isset($_SESSION['identity'])) {
 
         } else {
             $_SESSION['msg'] = '';
-            $tableNames = crTableSheet($excelDatas, $chartType);    
+            $tableNames = crTableSheet($excelDatas, $chartType);
             $data = query("SELECT table_name FROM `$level` WHERE id='$id'", false)[0];
 
             if (strlen($data) !== 0) $tableNames .= ',' . $data;
