@@ -61,9 +61,8 @@ $data = query("SELECT * FROM $level WHERE id='$id';", true)[0];
                 <div class="img-user me-2 d-inline-block" id="img-user">
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
-                <div class="d-inline-block" id="user">
+                <div id="user">
                     <h5 class="m-0"><?= $data['name']?></h5>
-                    <p class="m-0 fs-6">Software Engineer</p>
                 </div>
                 <div class="logout d-inline-block">
                     <a href="logout.php">

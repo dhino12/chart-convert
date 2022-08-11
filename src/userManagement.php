@@ -26,6 +26,19 @@ if (isset($_POST['submit'])) {
     }
 }
 
+if (isset($_POST['editAdmin'])){
+    $name = $_POST['name'];
+    $username = $_POST['username'];
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    $id = $_POST['id'];
+
+    $result = query("UPDATE admins SET name='$name', username='$username', password='$password', email='$email' WHERE id='$id'", '');
+    
+    if ($result) header("Refresh: 0");
+    else  echo "<script>alert('Data gagal diubah')</script>";
+}
+
 if (isset($_GET['username'])) {
     $username = $_GET['username'];
     $query = "DELETE FROM users WHERE username = '$username';";
@@ -59,6 +72,21 @@ if (isset($_GET['username'])) {
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
     <script src="./modules/Chart-3.7.1.min.js"></script>
     <script src="./modules/chartjs-plugin-datalabels.min.js"></script>
+    <style>
+        span, a {
+            text-decoration: none;
+            color: white;
+        } 
+
+        .box-card {
+            border-bottom-right-radius: 20px;
+            border-bottom-left-radius: 20px;
+            padding: 5px 20px;
+            box-shadow: 2px 5px 5px 0px #0000002b;
+            margin-bottom: 6vh;
+
+        }
+    </style>
 </head>
 <body>
     <header></header>
@@ -70,7 +98,7 @@ if (isset($_GET['username'])) {
                         <div class="menu-link" data-bs-toggle="collapse" data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="bi bi-columns" id="icon-side"></i>
                             <span>
-                                <span class="t-sidebar">Dashboard</span>
+                                <span class="t-sidebar" style="color: white;">Dashboard</span>
                                 <span id="expand">></span>
                             </span>
                         </div>
@@ -106,8 +134,7 @@ if (isset($_GET['username'])) {
                     <img src="./media/userImg/<?= $data['foto']?>" alt="" width="40px" height="40px">
                 </div>
                 <div class="d-inline-block" id="user">  
-                    <h5 class="m-0"><?= $data['name']?></h5>
-                    <p class="m-0 fs-6">Software Engineer</p>
+                    <h5 class="m-0"><?= $data['name']?></h5> 
                 </div>
                 <div class="logout d-inline-block">
                     <a href="logout.php">
@@ -134,19 +161,13 @@ if (isset($_GET['username'])) {
                     </button>
                 </div>
 
-                <div style="width: 100%">
+                <div style="width: 100%; margin-top: 3vh;">
                     <div class="topbar">
                         <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
                             <div class="page-title d-flex flex-column me-5">
                                 <h1 class="fs-5 mb-0 text-dark my-3">User Manajemen</h1> 
                             </div>
-                            <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
-                                    <span class="position-absolute ms-2 mt-1">
-                                        <img src="./media/icon/search.svg" alt="" srcset="">
-                                    </span>
-                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
-                                </form>
+                            <div class="d-flex align-items-center overflow-auto me-5 "> 
                                 <div class="d-flex align-center btn btn-outline-light round-cs-6 me-2 bg-info">
                                     <a href="help.php" class="text-decoration-none light fw-bold" style="color: white;">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-question-lg" viewBox="0 0 16 16">
@@ -160,7 +181,59 @@ if (isset($_GET['username'])) {
                 </div>
             </div>
 
-            <div class="container-fluid content mt-5">    
+            <div class="container-fluid content mt-5">   
+                <div class="container box-card">
+                    <h5><?= $data['name'] ?></h5>
+                    <a data-bs-toggle="collapse" href="#collapse3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <button type="button" class="btn btn-outline-primary my-2">Ubah Profil</button>
+                    </a>
+                    <form action="" method="POST" class="collapse" id="collapse3">
+                        <table class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr class="py-2">
+                                    <th>No</th>
+                                    <th>Nama</th>
+                                    <th>Password</th>
+                                    <th>Email</th>
+                                    <th>Username</th>
+                                    <th>Action</th>
+                                    <th hidden>id</th>
+                                </tr>
+                            </thead>
+                            <tbody> 
+                                    <tr>
+                                        <td>1</td>
+                                        <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="name" autocomplete="off" value="<?= $data['name']?>"></td>
+                                        <td>
+                                            <input class="form-control border-0 bg-transparent w-75 d-inline" placeholder="Masukan Data" 
+                                                id="input-<?= $rowIndex ?>" type="password" name="password" autocomplete="off" 
+                                                value="<?= $data['password']?>">
+                                            <button type="button" class="btn btn-outline-primary" id="btn-show-<?= $rowIndex ?>" onclick="showPassword('<?= $rowIndex ?>')">
+                                                <i class="bi bi-eye"></i>
+                                            </button>
+                                        </td>
+                                        <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="email" autocomplete="off" value="<?= $data['email']?>"></td>
+                                        <td><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="text" name="username" autocomplete="off" value="<?= $data['username']?>"></td>
+
+                                        <td style="width: 18vh;">
+                                            <a href="userManagement.php?username=<?= $data['username'] ?>" onclick="return confirm('delete <?= $data['username']?> ?')">
+                                                <button type="button" class="btn btn-outline-danger me-2">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                    </svg>
+                                                </button>
+                                            </a>
+                                            <button type="submit" class="btn btn-outline-primary" name="editAdmin" title="edit semua data user" >Edit</button>
+                                        </td>
+                                        <th><input class="form-control border-0 bg-transparent" placeholder="Masukan Data" type="hidden" name="id" autocomplete="off" value="<?= $data['id']?>"></th>
+                                    </tr> 
+                                
+                            </tbody>
+                        </table>
+                    </form>
+                </div>
+            
                 <button type="button" class="btn btn-outline-primary" id="btnCreateTable" data-bs-toggle="modal" data-bs-target="#modalUser">Tambah User</button>
                 <?php include './modalTambahUser.php' ?>
                 

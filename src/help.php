@@ -81,7 +81,6 @@ if (!isset($_SESSION['identity'])) {
                 </div>
                 <div class="d-inline-block" id="user">
                     <h5 class="m-0"><?= $data['name']?></h5>
-                    <p class="m-0 fs-6">Software Engineer</p>
                 </div>
                 <div class="logout d-inline-block">
                     <a href="logout.php">
@@ -112,20 +111,13 @@ if (!isset($_SESSION['identity'])) {
                     <div class="topbar">
                         <div class="container-fluid content h- py-6 py-lg-0 d-flex flex-column flex-sm-row align-items-stretch justify-content-sm-between mt-2">
                             <div class="page-title d-flex flex-column me-5">
-                                <h1 class="fs-5 mb-0 text-dark my-3">Dashboard</h1>
+                                <h1 class="fs-5 mb-0 text-dark my-3">Help</h1>
                                 <ul class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Dashboard</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Halaman Utama</li>
+                                    <li class="breadcrumb-item"><a href="#" style="text-decoration: none;">Help</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Help</li>
                                 </ul>
                             </div>
                             <div class="d-flex align-items-center overflow-auto me-5">
-                                <form action="" class="mx-3">
-                                    <span class="position-absolute ms-2 mt-1">
-                                        <img src="./media/icon/search.svg" alt="" srcset="">
-                                    </span>
-                                    <input type="email" class="form-control ps-5" style="border-radius: 8px;" id="exampleFormControlInput1" placeholder="search">
-                                </form>
-                                
                                 
                                 <?php if (!isset($_SESSION['level'])) : ?>
                                     <a href="../login.php" style="text-decoration: none;">
@@ -202,6 +194,20 @@ if (!isset($_SESSION['identity'])) {
                         </a>
                     </p>
                     <div class="collapse" id="collapse4">
+                        <div class="card card-body">
+                            untuk mengisi judul secara otomatis, cukup ketikan judul diatas tabel pada dokumen excel anda. seperti gambar dibawah : <br><br>
+                            <img src="./media/faq/faq1.png" alt="penulisan judul" width="500">
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <p>
+                        <a class="btn btn-outline-dark d-flex justify-content-between text-start " data-bs-toggle="collapse" href="#collapse6" role="button" aria-expanded="false" aria-controls="collapseExample">
+                            test
+                            <i class="bi bi-caret-down"></i>
+                        </a>
+                    </p>
+                    <div class="collapse" id="collapse6">
                         <div class="card card-body">
                             untuk mengisi judul secara otomatis, cukup ketikan judul diatas tabel pada dokumen excel anda. seperti gambar dibawah : <br><br>
                             <img src="./media/faq/faq1.png" alt="penulisan judul" width="500">

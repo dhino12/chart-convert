@@ -1,6 +1,8 @@
 const btnCreateTable = document.querySelector("#btnCreateTable");
 const btnCreateRows = document.querySelector("#addRow");
 const btnCreateColumn = document.querySelector("#addColumn");
+const chart_type = document.querySelector("#chart_type");
+const typeGrafikCol = document.querySelector("#type_grafikID");
 
 const btnSubmitCrTable = document.querySelector("#submit");
 
@@ -108,12 +110,16 @@ function updateDataTable(createThead, createTbody, data, valTitle, chart) {
         createInput1.value = col;
         createInput1.readOnly = true;
 
-        if (data[0].length - 1 === key && chart === true) {
+        if (data[0].length - 1 === key && chart === true ) {
           createInput1.hidden = true; // id inputText
         } else if (data[0].length - 2 === key && chart === false) {
           createInput1.hidden = true; // id inputText
         } else if ((data[0].length - 1 === key || data[0].length - 2 === key) && chart === undefined){
           createInput1.hidden = true
+        } else if (data[0].length - 2 === key && chart === true ){
+          createInput1.hidden = true; // id inputText
+          createInput1.name = '';
+
         }
 
         createTh1.appendChild(createInput1);
@@ -123,7 +129,6 @@ function updateDataTable(createThead, createTbody, data, valTitle, chart) {
       data[1][row].forEach((rowData, key) => {
         // row
         const { createTh1, createInput1, selectChart } = crElement(valTitle);
-        selectChart.name = `${row + 1}-${key}`;
 
         if (data[0].length - 1 === key && chart === true) {
           createInput1.hidden = true; // id inputText
@@ -133,21 +138,26 @@ function updateDataTable(createThead, createTbody, data, valTitle, chart) {
             createInput1.hidden = true
         }
 
-        if (data[0].length - 2 == key && chart === true) {
+        if (data[0].length - 2 == key && chart === true ) {
           // chart handler
-          const chart = ["line", "pie", "bar", "doughnut"];
-          for (let totalChart = 0; totalChart < chart.length; totalChart++) {
-            const { optionChart } = crElement(valTitle);
-            optionChart.value = chart[totalChart];
-            optionChart.innerText = chart[totalChart];
+          if (false) {
+            selectChart.name = `${row + 1}-${key}`;
+            console.log(data[1]);
 
-            if (rowData === chart[totalChart]) {
-              optionChart.selected = true;
+            const chart = ["line", "pie", "bar", "doughnut"];
+            for (let totalChart = 0; totalChart < chart.length; totalChart++) {
+              const { optionChart } = crElement(valTitle);
+              optionChart.value = chart[totalChart];
+              optionChart.innerText = chart[totalChart];
+  
+              if (rowData === chart[totalChart]) {
+                optionChart.selected = true;
+              }
+              selectChart.appendChild(optionChart);
             }
-            selectChart.appendChild(optionChart);
+  
+            chart_type.appendChild(selectChart);
           }
-
-          createTh1.appendChild(selectChart);
         } else {
           createInput1.className = "form-control border-0 bg-transparent";
           createInput1.placeholder = "Masukan Data";

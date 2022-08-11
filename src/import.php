@@ -34,6 +34,15 @@ if (isset($_SESSION['identity'])) {
         } else {
             $_SESSION['msg'] = '';
             $tableNames = crTableSheet($excelDatas, $chartType);
+
+            var_dump($tableNames);
+            if (strpos($tableNames, 'Duplicate column name') !== false) {
+                // ========================== disini handle error duplicate column
+                $tableNames = substr($tableNames, 21);
+                $_SESSION['msg'] = "Maaf nama kolom duplikat $tableNames";
+                header("Location: index.php");
+                exit;
+            }
             $data = query("SELECT table_name FROM `$level` WHERE id='$id'", false)[0];
 
             if (strlen($data) !== 0) $tableNames .= ',' . $data;
@@ -43,7 +52,6 @@ if (isset($_SESSION['identity'])) {
         }
 
         exit;
-        
     } else {
         echo "<script>alert('Maaf format file tidak didukung, pastikan .xlsx')</script>";
     }

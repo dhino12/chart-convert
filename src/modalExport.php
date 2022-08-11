@@ -14,9 +14,9 @@
             <a href="exportPDF.php">
                 <button type="submit" class="btn btn-danger" name="clear">Export PDF</button>
             </a>
-            <!-- <a href="exportEXCEL.php">
+            <a href="exportExcel.php">
                 <button type="submit" class="btn btn-success" name="clear">Export Excel</button>
-            </a> -->
+            </a>
         </div> 
     </div>
   </div>

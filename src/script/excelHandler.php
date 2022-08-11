@@ -75,7 +75,7 @@ function crTableSheet(array $sheetDatas, $chartType)
     $strField = '';
     $counter = 0;
     $rowValue = [];
-    $colValue = [];
+    $colValue = []; 
 
     foreach($sheetDatas as $sheet) { // sheet
         foreach($sheet as $keyTable => $table){ // table
@@ -96,6 +96,7 @@ function crTableSheet(array $sheetDatas, $chartType)
                 $table[1][] = "id";
 
                 foreach($table[1] as $key => $data) { // column
+                    $data = trim(preg_replace('/\s\s+/', ' ', $data));
                     if((count($table[1]) - 1) == $key) {
                         $strField .= "`$data` VARCHAR(180)";
 
@@ -109,7 +110,11 @@ function crTableSheet(array $sheetDatas, $chartType)
                 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
                 var_dump($strField);
-                var_dump($result);
+                var_dump($result); 
+                
+                if (strpos($result, 'Duplicate column name') !== false) {
+                    return $result;
+                }
 
                 if (is_string($result)) {
                     // var_dump($result);
@@ -159,11 +164,15 @@ function crTableSheet(array $sheetDatas, $chartType)
                     }
 
                     $colValue[] = $data;
-                }
+                } 
 
                 $result = query("CREATE TABLE `$tableName` ($strField);", '');
-                var_dump($strField);
-                var_dump($result);
+                // var_dump($strField);
+                // var_dump($result);
+                
+                if (strpos($result, 'Duplicate column name') !== false) {
+                    return $result;
+                }
 
                 if (is_string($result)) { 
                     // var_dump($result);

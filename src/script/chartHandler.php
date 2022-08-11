@@ -100,9 +100,22 @@ $index = 0;
         dataLabels = [];
         dataValue = [];
         dataCharts = [];
+        chartBg = [];
 
         <?php foreach($valTable as $key => $value) : ?>
             randomColor = Math.floor(Math.random() * 16777215).toString(16);
+            
+            if ("<?= $valTable['chart_type'][0] ?>" === 'pie') {
+                chartBg = [
+                    'rgba(255, 99, 132, 0.5)',
+                    'rgba(54, 162, 235, 0.5)',
+                    'rgba(255, 206, 86, 0.5)',
+                    'rgba(75, 192, 192, 0.5)',
+                ]
+            } else {
+                chartBg = [`#${randomColor}82`];
+
+            }
 
             <?php if(
                 trim(strtolower("$key")) === "no." || 
@@ -128,12 +141,8 @@ $index = 0;
                     label: '<?= $key ?>',
                     borderRadius: [11,11,11,11],
                     data: dataValue,
-                    backgroundColor: [
-                        `#${randomColor}`,
-                    ],
-                    borderColor: [
-                        `#${randomColor}`,
-                    ],
+                    backgroundColor: chartBg,
+                    borderColor: chartBg,
                     pointStyle: 'circle',
                     pointRadius: 7,
                     pointHoverRadius: 5,

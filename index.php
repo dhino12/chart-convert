@@ -65,9 +65,8 @@ if (!isset($_SESSION['identity'])) {
                 <div class="img-user me-2 d-inline-block" id="img-user">
                     <img src="./src/media/userImg/person.svg" alt="" width="40px" height="40px">
                 </div>
-                <div class="d-inline-block" id="user">
-                    <h5 class="m-0">Guest</h5>
-                    <p class="m-0 fs-6">Software Engineer</p>
+                <div id="user">
+                    <h5 class="m-0">Guest</h5> 
                 </div> 
             </div>
         </div>
